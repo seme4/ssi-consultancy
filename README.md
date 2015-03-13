@@ -5,7 +5,7 @@ A collaboration between [The Software Sustainability Institute](http://www.softw
 
 The aims of the collaboration are to produce the following:
 
-* **Open source project review**: A report with recommendations on:
+* [Open source project review](./open-source/OpenSourceProjectReview.md): A report with recommendations on:
   - How openness and community engagement can be supported.
  - Licencing options e.g. MIT licence or GPL, Apache or BSD, dual licencing etc.
 * **Deployer and developer requirements**: A short summary of what resources are needed to review sameAs Lite from a deployer and a developer perspective (e.g. installation instructions)
