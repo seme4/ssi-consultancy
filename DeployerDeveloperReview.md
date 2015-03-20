@@ -196,7 +196,7 @@ There is no information on:
 
 It would help developers get up to speed more rapidly if there is a guide for developers were provided which documented all of these.
 
-A work-in-progress example, written as a side-effect of this report, is at [Developer's Guide](./DeveloperGuide.md).
+A work-in-progress example, written as a side-effect of this report, is at [Developer's Guide](./DevelopersGuide.md).
 
 [REST API examples](./RESTAPIexamples.md) contains examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can be useful for developers.
 
