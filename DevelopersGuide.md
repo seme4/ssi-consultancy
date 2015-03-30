@@ -36,19 +36,6 @@ This stores the token in ~/.composer.
 
 ---
 
-### Install curl
-
-* Command line tool and library for interacting over HTTP(S).
-* Useful for testing sameAs Lite.
-
-Install:
-
-    $ apt-get install curl
-    $ curl --version
-    curl 7.35.0 (x86_64-pc-linux-gnu) libcurl/7.35.0 OpenSSL/1.0.1f zlib/1.2.8 libidn/1.28 librtmp/2.3
-
----
-
 ### Install PHP development tools
 
 Run:
