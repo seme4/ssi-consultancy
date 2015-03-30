@@ -258,19 +258,19 @@ Visit http://127.0.0.1/sameas-lite/config.ttl:
 
 ---
 
-## Install SQLite
+## Install SQLite 3
 
 * http://www.sqlite.org/ 
 
 Install:
 
     $ apt-get install sqlite3
+    $ sqlite3 --version
+    3.8.2 2013-12-06 14:53:30 27392118af4c38c5203a04b8013e1afdb1cebd0d
 
 Install PHP SQLite module:
 
     $ apt-get install php5-sqlite
-
-TODO describe how to install/configure sameAs Lite to use SQLite.
 
 ---
 
@@ -313,27 +313,29 @@ Install PHP MySQL module:
 
 ---
 
-## Configure sameAs Lite to expose a sample linked data store in MySQL
+## Configure sameAs Lite to expose a sample linked data store
 
-index.php specifies datasets. For each dataset, there is both database information and user interface information.
+index.php specifies datasets. For each dataset, there is both database information and user interface information. 
 
-Database management system information, passed to \SameAsLite\Store_construct (in src/Store.php):
+Database management system information includes:
 
-* URL e.g. mysql:host=127.0.0.1;port=3306;charset=utf8
+* Connection URL e.g. 
+  - mysql:host=127.0.0.1;port=3306;charset=utf8
+  - sqlite:/var/www/sameasdb.sq3
 * Data store name - used for tables e.g. webdemo
-* User e.g. testuser
-* Password e.g. testpass
-* Database name e.g. testdb. This may be empty for database management systems that only support a single database.
+* User e.g. testuser. Optional for databases that don't support users e.g. SQLite.
+* Password e.g. testpass. Optional for databases that don't support users e.g. SQLite.
+* Database name e.g. testdb. This may be empty for database management systems that only support a single database e.g. SQLite.
 
-User interface information, passed as an array to to \SameAsLite\WebApp->addDataset (in src/WebApp.php):
+User interface information:
 
-* Slug e.g. VIAF
+* Slug, or nickname e.g. VIAF
 * ShortName e.g. => VIAF
 * FullName e.g. => Virtual International Authority File
 * Contact e.g. => Joe Bloggs
 * Email e.g. => Joe.Bloggs@acme.or
 
-TODO remove the PHP class information.
+### Expose a MySQL linked data store
 
 Create a file, create_mysql_testdb.sql, with SQL commands to create a test database and user:
 
@@ -360,15 +362,11 @@ Execute these SQL statements in MySQL:
 
     $ mysql -u root -p < create_mysql_testtable.sql 
 
-TODO come up with a better data set!
-
 Visit http://127.0.0.1/sameas-lite/datasets/test/status?_METHOD=GET&store=test and you should see:
 
     Statistics for sameAs store table1:
     3    symbols
     2    bundles
-
-TODO add what to look for in user interface to check deployment.
 
 **Troubleshooting - Can't connect to MySQL server on '127.0.0.1'**
 
@@ -390,10 +388,62 @@ If the user interface shows a message like:
 
 then you need to install php5-mysql.
 
----
+### Expose an SQLite linked data store
 
-## Configure sameAs Lite to expose a sample linked data store in SQLite
+Edit index.php and add a new entry for an SQLite database e.g.
 
-TODO describe how to install/configure sameAs Lite to use SQLite.
+    $app->addDataset(
+        new \SameAsLite\Store(
+            'sqlite:/var/www/sameasdb.sq3',
+            'table1'
+        ),
+        array(
+            'slug'      => 'testsqlite',
+            'shortName' => 'Test SQLite Store',
+            'fullName'  => 'Test SQLite store used for SameAs Lite development',
+            'contact' => 'Joe Bloggs',
+            'email'   => 'Joe.Bloggs@acme.org'
+        )
+    );
+
+Edit the path in:
+
+    'sqlite:/var/www/sameasdb.sq3',
+
+to be consistent with your file system. The path must be an absolute path to a directory. sameAs Lite will create the database file, sameasdb.sq3, if it does not exist.
+
+Ensure that the Apache user, www-data, is able to read and write files in the directory. One way of doing this is to make www-data the owner of this directory e.g.:
+
+    $ chown www-data:www-data /var/www/
+
+Create a file, create_sqlite_testtable.sql, with SQL commands to create a table of sample data:
+
+    create table if not exists table1 (canon TEXT, symbol TEXT PRIMARY KEY) WITHOUT ROWID;
+    create index if not exists table1_idx on table1 (canon);
+    insert into table1 values("canon1","symbol1");
+    insert into table1 values("canon1","symbol2");
+    insert into table1 values("canon2","symbol3");
+
+Execute these SQL statements in SQLite:
+
+    $ sqlite3 /var/www/sameasdb.sq3 < create_sqlite_testtable.sql 
+
+Visit http://127.0.0.1/sameas-lite/datasets/testsqlite/status?_METHOD=GET&store=test and you should see:
+
+    Statistics for sameAs store table1:
+    3    symbols
+    2    bundles
+
+**Troubleshooting - Unable to to connect to sqlite**
+
+If the user interface shows a message like:
+
+    SQLSTATE[HY000] [14] unable to open database file
+    /var/www/html/sameas-lite/src/Store.php   +143
+
+then check that:
+
+* Apache user, www-data, has read/write access to the directory holding the database file.
+* index.php specifies a valid directory and file path.
 
 ---
