@@ -397,8 +397,3 @@ then you need to install php5-mysql.
 TODO describe how to install/configure sameAs Lite to use SQLite.
 
 ---
-
-## Rebranding sameAs Lite webapp
-
-TODO - How to change the branding of sameAs Lite with institution-specific styles and logos. 
-TODO - Add requirement that deployments must include "Powered by sameAs Lite" and a link to Seme4 Ltd.

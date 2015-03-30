@@ -26,6 +26,7 @@ This is a review of sameAs Lite from the perspective of deployers and developers
 
 ## Specifications
 
+
 ### sameAs Lite
 
 sameAs Lite commit [e07bd50641bbe1cf3c4b140d682018d0ec6b15eb](https://github.com/seme4/sameas-lite/commit/e07bd50641bbe1cf3c4b140d682018d0ec6b15eb) cloned on Th19/03/15 was used. This was the most up-to-date version at the time of writing.
@@ -78,11 +79,17 @@ Provide a guide explaining how a deployer can:
 * Configure sameAs Lite to expose linked data stores, the schema expected by sameAs Lite etc.
 * Configure sameAs Lite for use with both SQLite and MySQL.
 * How to identify and solve common installation and deployment problems.
-* How to change the branding of sameAs Lite with institution-specific styles and logos, with the requirement that deployments must include "Powered by sameAs Lite" and a link to Seme4 Ltd.
+* How to change the branding of sameAs Lite with institution-specific styles, colours and logos.
 
 A work-in-progress example, written as a side-effect of this report, is at [Deployer's Guide](./DeployersGuide.md).
 
 [Deployer and Developer Reference](./Reference.md) contains a summary of useful information for both deployers and developers.
+
+---
+
+## Add a 'powered by sameAs Lite' usage requirement
+
+Add a requirement that, if institutions use their own branding and colour schemes, or decide to rename their sameAs lite service deployment, they must include, somewhere on their deployment's web site, "Powered by sameAs Lite", Seme4's logo (or a sameAs Lite logo) and a link to Seme4 Ltd or [sameAs Lite](http://github.com/seme4/sameas-lite).
 
 ---
 
