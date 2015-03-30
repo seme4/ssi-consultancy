@@ -370,8 +370,6 @@ Visit http://127.0.0.1/sameas-lite/datasets/test/status?_METHOD=GET&store=test a
 
 TODO add what to look for in user interface to check deployment.
 
-TODO consider whether to move curl requirement onto deployers so they can ping endpoints to test deployment.
-
 **Troubleshooting - Can't connect to MySQL server on '127.0.0.1'**
 
 If the user interface shows a message like:
