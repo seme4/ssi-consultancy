@@ -20,7 +20,7 @@ Install:
     Server version: Apache/2.4.7 (Ubuntu)
     Server built:   Mar 10 2015 13:05:59
 
-Visit http://127.0.0.1 and you should see:
+Visit http://127.0.0.1. You should see:
 
     Apache2 Ubuntu Default Page 
 
@@ -50,7 +50,7 @@ To check that PHP is installed, create /var/www/html/index.php:
      </body>
     </html>
 
-Visit http://127.0.0.1/index.php and you should see:
+Visit http://127.0.0.1/index.php. You should see:
 
     Hello World
 
@@ -58,7 +58,7 @@ Add, within `<body>`:
 
     <?php phpinfo(); ?>
 
-Refresh browser and you should see:
+Refresh browser. You should see:
 
     Hello World
     PHP Version 5.5.9-1ubuntu4.7
@@ -249,7 +249,7 @@ to:
 
     AuthUserFile /var/www/html/sameas-lite/auth.htpasswd
 
-Visit http://127.0.0.1/sameas-lite/ and you should see the sameAs Lite user interface.
+Visit http://127.0.0.1/sameas-lite/. You should see the sameAs Lite user interface.
 
 Visit http://127.0.0.1/sameas-lite/config.ttl:
 
@@ -313,9 +313,84 @@ Install PHP MySQL module:
 
 ---
 
-## Configure sameAs Lite to expose a sample linked data store
+## Create a sample data store
 
-index.php specifies datasets. For each dataset, there is both database information and user interface information. 
+Here we describe how to set up a small sample data store you can use to check your sameAs Lite deployment.
+
+### Populate MySQL with sample data
+
+Create a file, create_mysql_db.sql, with SQL commands to create a database, user and password:
+
+    create database testdb;
+    create user 'testuser'@'localhost' identified by 'testpass';
+    grant all privileges on *.* to 'testuser'@'localhost';
+    flush privileges;
+
+This corresponds to a test data store already specified in index.php.
+
+Execute these SQL statements in MySQL:
+
+    $ mysql -u root -p < create_mysql_db.sql
+
+Create a file, create_mysql_table.sql, with SQL commands to create a table of sample data:
+
+    use testdb;
+    create table if not exists table1 (canon VARCHAR(256), symbol VARCHAR(256), PRIMARY KEY (symbol), INDEX(canon)) ENGINE = MYISAM;
+    insert into table1 values("http://www.wikidata.org/entity/Q23436", "http://www.wikidata.org/entity/Q23436");
+    insert into table1 values("http://www.wikidata.org/entity/Q23436", "http://dbpedia.org/resource/Embra");
+    insert into table1 values("http://www.wikidata.org/entity/Q23436", "http://data.nytimes.com/edinburgh_scotland_geo");
+    insert into table1 values("http://www.wikidata.org/entity/Q23436", "http://sws.geonames.org/2650225/");
+    insert into table1 values("http://www.wikidata.org/entity/Q23436", "http://data.ordnancesurvey.co.uk/id/50kGazetteer/81482");
+
+    insert into table1 values("http://www.wikidata.org/entity/Q220966", "http://www.wikidata.org/entity/Q220966");
+    insert into table1 values("http://www.wikidata.org/entity/Q220966", "http://dbpedia.org/resource/Soton");
+    insert into table1 values("http://www.wikidata.org/entity/Q220966", "http://data.nytimes.com/southampton_england_geo");
+    insert into table1 values("http://www.wikidata.org/entity/Q220966", "http://data.ordnancesurvey.co.uk/id/50kGazetteer/218013");
+    insert into table1 values("http://www.wikidata.org/entity/Q220966", "http://sws.geonames.org/1831142/");
+
+    insert into table1 values("http://www.wikidata.org/entity/Q6940372", "http://www.wikidata.org/entity/Q6940372");
+    insert into table1 values("http://www.wikidata.org/entity/Q6940372", "http://dbpedia.org/resource/Manc");
+    insert into table1 values("http://www.wikidata.org/entity/Q6940372", "http://data.nytimes.com/manchester_england_geo");
+    insert into table1 values("http://www.wikidata.org/entity/Q6940372", "http://data.ordnancesurvey.co.uk/id/50kGazetteer/155254");
+    insert into table1 values("http://www.wikidata.org/entity/Q6940372", "http://sws.geonames.org/524894/");
+
+Execute these SQL statements in MySQL:
+
+    $ mysql -u root -p < create_mysql_table.sql 
+
+### Populate SQLite with sample data
+
+Create a file, create_sqlite_table.sql, with SQL commands to create a table of sample data:
+
+    create table if not exists table1 (canon TEXT, symbol TEXT PRIMARY KEY) WITHOUT ROWID;
+    create index if not exists table1_idx on table1 (canon);
+    insert into table1 values("http://www.wikidata.org/entity/Q23436", "http://www.wikidata.org/entity/Q23436");
+    insert into table1 values("http://www.wikidata.org/entity/Q23436", "http://dbpedia.org/resource/Embra");
+    insert into table1 values("http://www.wikidata.org/entity/Q23436", "http://data.nytimes.com/edinburgh_scotland_geo");
+    insert into table1 values("http://www.wikidata.org/entity/Q23436", "http://sws.geonames.org/2650225/");
+    insert into table1 values("http://www.wikidata.org/entity/Q23436", "http://data.ordnancesurvey.co.uk/id/50kGazetteer/81482");
+
+    insert into table1 values("http://www.wikidata.org/entity/Q220966", "http://www.wikidata.org/entity/Q220966");
+    insert into table1 values("http://www.wikidata.org/entity/Q220966", "http://dbpedia.org/resource/Soton");
+    insert into table1 values("http://www.wikidata.org/entity/Q220966", "http://data.nytimes.com/southampton_england_geo");
+    insert into table1 values("http://www.wikidata.org/entity/Q220966", "http://data.ordnancesurvey.co.uk/id/50kGazetteer/218013");
+    insert into table1 values("http://www.wikidata.org/entity/Q220966", "http://sws.geonames.org/1831142/");
+
+    insert into table1 values("http://www.wikidata.org/entity/Q6940372", "http://www.wikidata.org/entity/Q6940372");
+    insert into table1 values("http://www.wikidata.org/entity/Q6940372", "http://dbpedia.org/resource/Manc");
+    insert into table1 values("http://www.wikidata.org/entity/Q6940372", "http://data.nytimes.com/manchester_england_geo");
+    insert into table1 values("http://www.wikidata.org/entity/Q6940372", "http://data.ordnancesurvey.co.uk/id/50kGazetteer/155254");
+    insert into table1 values("http://www.wikidata.org/entity/Q6940372", "http://sws.geonames.org/524894/");
+
+Execute these SQL statements in SQLite. If necessary, replace /var/www/sameasdb.sq3 with a path and file name that is consistent with your file system.
+
+    $ sqlite3 /var/www/sameasdb.sq3 < create_sqlite_table.sql 
+
+---
+
+## Expose a data store
+
+index.php specifies data stores. For each data store, there is both database management system information and user interface information. 
 
 Database management system information includes:
 
@@ -329,44 +404,95 @@ Database management system information includes:
 
 User interface information:
 
-* Slug, or nickname e.g. VIAF
+* Slug, or nickname e.g. VIAF. This must be unique within your sameAs Lite deployment.
 * ShortName e.g. => VIAF
 * FullName e.g. => Virtual International Authority File
 * Contact e.g. => Joe Bloggs
 * Email e.g. => Joe.Bloggs@acme.or
 
-### Expose a MySQL linked data store
+### Expose a MySQL data store
 
-Create a file, create_mysql_testdb.sql, with SQL commands to create a test database and user:
+You can skip this step if using the sample MySQL data store.
 
-    create database testdb;
-    create user 'testuser'@'localhost' identified by 'testpass';
-    grant all privileges on *.* to 'testuser'@'localhost';
-    flush privileges;
+Edit index.php and add a new entry for your MySQL database e.g.:
 
-This corresponds to a data store specified in index.php.
+    $app->addDataset(
+        new \SameAsLite\Store(
+            'mysql:host=127.0.0.1;port=3306;charset=utf8',
+            'table1',
+            'testuser',
+            'testpass',
+            'testdb'
+        ),
+        array(
+            'slug'      => 'test',
+            'shortName' => 'Test Store',
+            'fullName'  => 'Test store used for SameAs Lite development',
+            'contact' => 'Joe Bloggs',
+            'email'   => 'Joe.Bloggs@acme.org'
+        )
+    );
 
-Execute these SQL statements in MySQL:
+Update all the values to be consistent with your MySQL deployment.
 
-    $ mysql -u root -p < create_mysql_testdb.sql
+Make sure the slug is unique. There should be no other data stores in index.php with the same slug.
 
-Create a file, create_mysql_testtable.sql, with SQL commands to create a table of sample data:
+### Expose an SQLite data store
 
-    use testdb;
-    create table if not exists table1 (canon VARCHAR(256), symbol VARCHAR(256), PRIMARY KEY (symbol), INDEX(canon)) ENGINE = MYISAM;
-    insert into table1 values("canon1","symbol1");
-    insert into table1 values("canon1","symbol2");
-    insert into table1 values("canon2","symbol3");
+Edit index.php and add a new entry for your SQLite database e.g.:
 
-Execute these SQL statements in MySQL:
+    $app->addDataset(
+        new \SameAsLite\Store(
+            'sqlite:/var/www/sameasdb.sq3',
+            'table1'
+        ),
+        array(
+            'slug'      => 'testsqlite',
+            'shortName' => 'Test SQLite Store',
+            'fullName'  => 'Test SQLite store used for SameAs Lite development',
+            'contact' => 'Joe Bloggs',
+            'email'   => 'Joe.Bloggs@acme.org'
+        )
+    );
 
-    $ mysql -u root -p < create_mysql_testtable.sql 
+Update all the values to be consistent with your SQLite deployment.
 
-Visit http://127.0.0.1/sameas-lite/datasets/test/status?_METHOD=GET&store=test and you should see:
+The path specified in:
+
+    'sqlite:/var/www/sameasdb.sq3',
+
+must be an absolute path to a directory. sameAs Lite will create the database file (e.g. sameasdb.sq3) if it does not already exist.
+
+Make sure the slug is unique. There should be no other data stores in index.php with the same slug.
+
+Ensure that the Apache user, www-data, is able to read and write files in the directory which holds the database file. One way of doing this is to make www-data the owner of this directory e.g.:
+
+    $ chown www-data:www-data /var/www/
+
+---
+
+## Check a data store has been deployed
+
+Visit http://127.0.0.1/sameas-lite/.
+
+Click DATASETS. You should see the short name of your data store listed.
+
+Visit http://127.0.0.1/sameas-lite/datasets/SLUG/status?_METHOD=GET&store=test, where SLUG is the slug associated with your data store. You should see a summary page like:
+
+    Statistics for sameAs store TABLE:
+    N    symbols
+    M    bundles
+
+For example, if using the MySQL or SQLite sample data stores then visit:
+
+* MySQL, http://127.0.0.1/sameas-lite/datasets/test/status?_METHOD=GET&store=test
+* SQLite, http://127.0.0.1/sameas-lite/datasets/testsqlite/status?_METHOD=GET&store=test 
+
+You should see:
 
     Statistics for sameAs store table1:
-    3    symbols
-    2    bundles
+    15   symbols
+    3    bundles
 
 **Troubleshooting - Can't connect to MySQL server on '127.0.0.1'**
 
@@ -388,52 +514,6 @@ If the user interface shows a message like:
 
 then you need to install php5-mysql.
 
-### Expose an SQLite linked data store
-
-Edit index.php and add a new entry for an SQLite database e.g.
-
-    $app->addDataset(
-        new \SameAsLite\Store(
-            'sqlite:/var/www/sameasdb.sq3',
-            'table1'
-        ),
-        array(
-            'slug'      => 'testsqlite',
-            'shortName' => 'Test SQLite Store',
-            'fullName'  => 'Test SQLite store used for SameAs Lite development',
-            'contact' => 'Joe Bloggs',
-            'email'   => 'Joe.Bloggs@acme.org'
-        )
-    );
-
-Edit the path in:
-
-    'sqlite:/var/www/sameasdb.sq3',
-
-to be consistent with your file system. The path must be an absolute path to a directory. sameAs Lite will create the database file, sameasdb.sq3, if it does not exist.
-
-Ensure that the Apache user, www-data, is able to read and write files in the directory. One way of doing this is to make www-data the owner of this directory e.g.:
-
-    $ chown www-data:www-data /var/www/
-
-Create a file, create_sqlite_testtable.sql, with SQL commands to create a table of sample data:
-
-    create table if not exists table1 (canon TEXT, symbol TEXT PRIMARY KEY) WITHOUT ROWID;
-    create index if not exists table1_idx on table1 (canon);
-    insert into table1 values("canon1","symbol1");
-    insert into table1 values("canon1","symbol2");
-    insert into table1 values("canon2","symbol3");
-
-Execute these SQL statements in SQLite:
-
-    $ sqlite3 /var/www/sameasdb.sq3 < create_sqlite_testtable.sql 
-
-Visit http://127.0.0.1/sameas-lite/datasets/testsqlite/status?_METHOD=GET&store=test and you should see:
-
-    Statistics for sameAs store table1:
-    3    symbols
-    2    bundles
-
 **Troubleshooting - Unable to to connect to sqlite**
 
 If the user interface shows a message like:
@@ -447,3 +527,61 @@ then check that:
 * index.php specifies a valid directory and file path.
 
 ---
+
+## Check the REST API
+
+### List the canons
+
+Run the following, where SLUG is the slug associated with your data store:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/SLUG/canons
+
+You should see a list of the canons in your data store. For example, for the MySQL and SQLite sample data stores:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/canons
+    ["http:\/\/www.wikidata.org\/entity\/Q220966","http:\/\/www.wikidata.org\/entity\/Q23436","http:\/\/www.wikidata.org\/entity\/Q6940372"]
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/testsqlite/canons
+    ...
+
+### List the URI pairs
+
+Run the following, where SLUG is the slug associated with your data store:
+
+    $ curl -H "Accept: text/csv" -X GET http://127.0.0.1/sameas-lite/datasets/SLUG/pairs
+
+You should see a list of all the URI pairs in your data store. For example, for the MySQL and SQLite sample data stores: 
+
+    $ curl -H "Accept: text/csv" -X GET http://127.0.0.1/sameas-lite/datasets/test/pairs
+    canon,symbol
+    http://www.wikidata.org/entity/Q220966,http://data.nytimes.com/southampton_england_geo
+    http://www.wikidata.org/entity/Q220966,http://data.ordnancesurvey.co.uk/id/50kGazetteer/218013
+    http://www.wikidata.org/entity/Q220966,http://dbpedia.org/resource/Soton
+    http://www.wikidata.org/entity/Q220966,http://sws.geonames.org/1831142/
+    http://www.wikidata.org/entity/Q220966,http://www.wikidata.org/entity/Q220966
+    http://www.wikidata.org/entity/Q23436,http://data.nytimes.com/edinburgh_scotland_geo
+    ...
+
+    $ curl -H "Accept: text/csv" -X GET http://127.0.0.1/sameas-lite/datasets/testsqlite/pairs
+    ...
+
+### Search for URI pairs
+
+Run the following, where SLUG is the slug associated with your data store, and PATTERN is a text fragment you know at least one of your URIs in your data store matches:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/SLUG/canons
+
+You should see an HTML page with a list of the matching URIs in your data store. For example, for the MySQL and SQLite sample data stores:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/search/embra
+
+    <ul>
+        <li><a href="http://data.nytimes.com/edinburgh_scotland_geo">http://data.nytimes.com/edinburgh_scotland_geo</a></li>
+        <li><a href="http://data.ordnancesurvey.co.uk/id/50kGazetteer/81482">http://data.ordnancesurvey.co.uk/id/50kGazetteer/81482</a></li>
+        <li><a href="http://dbpedia.org/resource/Embra">http://dbpedia.org/resource/Embra</a></li>
+        <li><a href="http://sws.geonames.org/2650225/">http://sws.geonames.org/2650225/</a></li>
+        <li><a href="http://www.wikidata.org/entity/Q23436">http://www.wikidata.org/entity/Q23436</a></li>
+    </ul>
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/testsqlite/search/embra
+    ...
