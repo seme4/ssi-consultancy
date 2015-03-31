@@ -177,6 +177,23 @@ TODO Description on http://127.0.0.1/sameas-lite/api has a typo: "Find symols"
     $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/symbol3
     symbol3
 
+TODO how to do this if symbol is a URL? These do not work:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/http%3A%2F%2Fdata.nytimes.com%2Fedinburgh_scotland_geo
+    <h1>Error 404</h1>
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/http\:\/\/data.nytimes.com\/edinburgh_scotland_geo
+    <h1>Error 404</h1>
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/http://data.nytimes.com/edinburgh_scotland_geo
+    <h1>Error 404</h1>
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/http%253A%252F%252Fdata.nytimes.com%252Fedinburgh_scotland_geo
+    <h1>[titleHeader]</h1>
+    ... but no matches...       
+
+TODO what to provide in relevant form inhttp://127.0.0.1/sameas-lite/datasets/test/api, likewise?
+
+* http://stackoverflow.com/questions/3235219/urlencoded-forward-slash-is-breaking-url suggests [AllowEncodedSlashes](http://httpd.apache.org/docs/2.2/mod/core.html#allowencodedslashes).
+* http://www.freeformatter.com/url-encoder.html#ad-output
+
 ## Delete symbol (???)
 
     $ curl -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/symbol1
