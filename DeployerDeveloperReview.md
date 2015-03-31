@@ -87,12 +87,6 @@ A work-in-progress example, written as a side-effect of this report, is at [Depl
 
 ---
 
-## Add a 'powered by sameAs Lite' usage requirement
-
-Add a requirement that, if institutions use their own branding and colour schemes, or decide to rename their sameAs lite service deployment, they must include, somewhere on their deployment's web site, "Powered by sameAs Lite", Seme4's logo (or a sameAs Lite logo) and a link to Seme4 Ltd or [sameAs Lite](http://github.com/seme4/sameas-lite).
-
----
-
 ## Provide stable releases for deployers
 
 In the longer term, deployers could either use:

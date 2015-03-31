@@ -83,9 +83,9 @@ A README.md should be added to the repository as this will often be the first do
 
 GitHub allows organisations, such as that for [Seme4](https://github.com/seme4), to have an associated logo. Add the Seme4 company logo here to reinforce the link with Seme4.
 
-### Create a sameAs Lite logo
+### Add a 'powered by sameAs Lite' usage requirement
 
-Likewise, it is common for software to have logos. Consider whether to adopt the sameAs.org service logo, `<sameAs>`, or a variant of it, for sameAs Lite, to help reinforce the identity of the software. This, in future, provides the opportunity to ask users and developers building services that are underpinned by sameAs Lite to add 'Powered by sameAs Lite' to their services.
+Add a requirement that, if institutions use their own branding and colour schemes, or decide to rename their sameAs lite service deployment, or are using services underpinned by sameAs Lite, then they must include, somewhere on their web site, "Powered by sameAs Lite", Seme4's logo (or a [sameAs logo](http://sameas.org/assets/img/logos/), or a variant of these for sameAs Lite) and a link to Seme4 Ltd or [sameAs Lite](http://github.com/seme4/sameas-lite).
 
 ### Choose where to host sameAs Lite user and developer documentation
 
