@@ -162,15 +162,7 @@ Install PHP runtime dependencies by running:
 * .htaccess is a simple text file-based authentication for directory and file access.
 * http://httpd.apache.org/docs/current/howto/htaccess.html
 
-To check that .htaccess authentication is set up correctly, set up some sample files, and use the sameAs Lite htaccess files:
-
-    $ cp .htaccess ..
-    $ cp auth.htpasswd ..
-    $ cd ..
-    $ mkdir data
-    $ cp index.html data/data.html
-
-Add a new user to auth.htpasswd:
+Add youself as a user to auth.htpasswd:
 
     $ htpasswd auth.htpasswd YOU
     New password: PASSWORD
@@ -182,7 +174,7 @@ Edit .htaccess and change:
 
 to:
 
-    AuthUserFile /var/www/html/auth.htpasswd
+    AuthUserFile /var/www/html/sameas-lite/auth.htpasswd
 
 Allow Apache to read these files:
 
@@ -207,11 +199,31 @@ Restart Apache:
 
     $ service apache2 restart
 
+Check .htaccess is configured correctly:
+
+    $ cd /var/www/html/sameas-lite/
+    $ cp .htaccess ..
+    $ cd ..
+    $ mkdir data
+
+Create data/data.html:
+
+    <html> 
+     <head> 
+      <title>.htaccess Test</title> 
+     </head> 
+     <body>This is a .htaccess test</body> 
+    </html> 
+
+</p>
+
+    $ cp data/data.html .
+
 Check expected behaviour of .htaccess by visiting these URLs:
 
 | URL | Expected page |
 | --- | ------------- |
-| http://127.0.0.1/index.html | index.html |
+| http://127.0.0.1/data.html | data.html |
 | http://127.0.0.1/index.php | index.php |
 | http://127.0.0.1/data/ | index.php |
 | http://127.0.0.1/data/data.html | data/data.html |
@@ -222,7 +234,7 @@ Check expected behaviour of .htaccess by visiting these URLs:
 Clean up:
 
     $ rm .htaccess
-    $ rm auth.htpasswd
+    $ rm data.html
     $ rm -rf data/
 
 **Troubleshooting - Could not open password file**
@@ -240,17 +252,7 @@ Then it may be that you did not:
 
 ---
 
-## Configure sameAs Lite for Apache
-
-    $ cd /var/www/html/sameas-lite
-
-Edit .htaccess and change:
-
-    AuthUserFile auth.htpasswd
-
-to:
-
-    AuthUserFile /var/www/html/sameas-lite/auth.htpasswd
+## Check sameAs Lite is available
 
 Visit http://127.0.0.1/sameas-lite/. You should see the sameAs Lite user interface.
 
