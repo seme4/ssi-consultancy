@@ -4,6 +4,10 @@ How to deploy sameAs Lite and configure it to expose linked data stores.
 
 **Note:** These instructions apply to a deployment of sameAs Lite on Ubuntu 14.10. Other operating systems may differ in how packages are installed, the versions of these packages. Consult the relevant documentation for your operating system.
 
+These assume you have sudo access to install and configure access and that you have created a root shell using:
+
+   $ sudo su -
+
 ---
 
 ## Install Apache 2
@@ -15,7 +19,7 @@ How to deploy sameAs Lite and configure it to expose linked data stores.
 
 Install:
 
-    $ sudo apt-get install apache2
+    $ apt-get install apache2
     $ apache2 -v
     Server version: Apache/2.4.7 (Ubuntu)
     Server built:   Mar 10 2015 13:05:59
@@ -26,7 +30,7 @@ Visit http://127.0.0.1. You should see:
 
 Install apache-utils, for htpasswd and other tools:
 
-    $ sudo apt-get install apache2-utils
+    $ apt-get install apache2-utils
 
 ---
 
@@ -37,7 +41,7 @@ Install apache-utils, for htpasswd and other tools:
 
 Install:
 
-    $ sudo apt-get install php5-common libapache2-mod-php5 php5-cli
+    $ apt-get install php5-common libapache2-mod-php5 php5-cli
 
 To check that PHP is installed, create /var/www/html/index.php:
 
@@ -117,7 +121,7 @@ Install:
 
 Install:
 
-    $ sudo apt-get install git
+    $ apt-get install git
     $ git --version
     git version 1.9.1
 
@@ -160,7 +164,6 @@ Install PHP runtime dependencies by running:
 
 To check that .htaccess authentication is set up correctly, set up some sample files, and use the sameAs Lite htaccess files:
 
-    $ sudo su -
     $ cp .htaccess ..
     $ cp auth.htpasswd ..
     $ cd ..
@@ -291,7 +294,7 @@ You will be prompted for a root password for the MySQL server.
 Complete installation:
 
      $ mysql_install_db
-     $ sudo /usr/bin/mysql_secure_installation
+     $ /usr/bin/mysql_secure_installation
 
 When prompted, provide the following responses:
 
