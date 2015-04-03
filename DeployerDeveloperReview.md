@@ -26,21 +26,24 @@ This is a review of sameAs Lite from the perspective of deployers and developers
 
 ## Specifications
 
-
 ### sameAs Lite
 
 sameAs Lite commit [e07bd50641bbe1cf3c4b140d682018d0ec6b15eb](https://github.com/seme4/sameas-lite/commit/e07bd50641bbe1cf3c4b140d682018d0ec6b15eb) cloned on Th19/03/15 was used. This was the most up-to-date version at the time of writing.
 
-### Ubuntu 14.10
+### Platforms used
 
-The platform used was:
+The platforms used were:
 
-* Ubuntu 14.10 64-bit
-* 1GB RAM
-* 20GB hard disk
-* Running under VMWare Player 6.0.3, see below.
+* [Ubuntu](http://www.ubuntu.com/) 14.04.1.
+* [Scientific Linux](https://www.scientificlinux.org/) 7.0 (Nitrogen).
+* [Fedora](https://getfedora.org/) workstation 21. 
 
-Running on:
+Each were 64-bit operating systems running under VMWare Player 6.0.3, see below, and configured with:
+
+* 1 GB RAM
+* 20 GB hard disk
+
+VMWare player was, in turn, running on:
 
 * Dell Latitude E7440.
 * 64-bit Intel Core i5-4310U CPU 2GHz, 2.60GHz 2 core.
@@ -81,7 +84,7 @@ Provide a guide explaining how a deployer can:
 * How to identify and solve common installation and deployment problems.
 * How to change the branding of sameAs Lite with institution-specific styles, colours and logos.
 
-A work-in-progress example, written as a side-effect of this report, is at [Deployer's Guide](./DeployersGuide.md).
+An example, written as a side-effect of this report, is at [Deployer's Guide](./DeployersGuide.md).
 
 [Deployer and Developer Reference](./Reference.md) contains a summary of useful information for both deployers and developers.
 
@@ -148,7 +151,9 @@ The deployers guide should state what web servers are supported, and also what o
     mariadb-server-5.5 - MariaDB database server binaries
     mariadb-server-core-5.5 - MariaDB database core server files
 
-The deployers guide should state what versions of MySQL are supported, and also what others sameAs Lite is known to run on (e.g. from existing deployers).
+The deployers guide should state what versions of MySQL are supported, and also what others sameAs Lite is known to run on.
+
+sameAs Lite was compatible with MariaDB under Scientific Linux 7 and Fedora 21.
 
 ---
 
@@ -173,6 +178,12 @@ Provide a sample data set that a deployer can use to check their deployment.
 ## Provide a deployment checklist
 
 Provide a checklist of what a deployer should look for in the user interface to validate that sameAs Lite has been deployed correctly and a data store is ready for use.
+
+---
+
+## Crowd source known deployment configurations
+
+Due to the myriad flavours of Linux and versions of Apache, SQLite, MySQL, and PHP and the different ways in which these can be configured, it can be impractical to write complete instructions for every combination. Such information can be crowd-sourced from existing, and future, deployers, by encouraging them to contribute any deviations from the deployers guide they needed to adopt when deploying sameAs Lite upon their own server. These can be published on a web site or other project resource.
 
 ---
 
@@ -352,9 +363,5 @@ As a developer:
 * How to do performance tests?
 * Sample performance data, especially, Hugh's data set for which performance is known.
 * How to understand and update style checks.
-
-I also have access to a Scientific Linux 6 virtual machine, and write deployment info for that if that would be useful?
-
-I could try an installation using Apache 2.2, on the SL6 VM mentioned above, and write deployment info for that this would be useful?
 
 Comments on the foregoing and problems in [REST API examples](./RESTAPIexamples.md) would also be useful.
