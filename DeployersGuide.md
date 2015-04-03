@@ -23,7 +23,7 @@ These assume you have sudo access to install and configure access and that you h
 
 **Note:** These instructions assume the use of Apache 2.4 web server. Other versions of Apache 2, particularly Apache 2.2, differ in how they are installed, configured and managed. Consult the relevant documentation for your version of Apache 2.
 
-### Ubuntu
+### Ubuntu 14.04
 
 Install:
 
@@ -127,7 +127,7 @@ Refresh browser. You should see:
 
 ## Install PHP modules
 
-### Ubuntu
+### Ubuntu 14.04
 
 Install:
 
@@ -280,7 +280,7 @@ Allow Apache to read these files:
     $ chmod 0644 .htaccess
     $ chmod 0644 auth.htpasswd
 
-### Ubuntu 21
+### Ubuntu 14.04
 
 Edit /etc/apache2/sites-enabled/000-default.conf and add under:
 
