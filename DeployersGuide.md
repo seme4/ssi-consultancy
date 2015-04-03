@@ -263,7 +263,7 @@ Visit http://127.0.0.1/sameas-lite/config.ttl:
 
 ---
 
-## Install SQLite 3
+## Install SQLite 3.8.2+
 
 * http://www.sqlite.org/ 
 
@@ -327,8 +327,8 @@ Here we describe how to set up a small sample data store you can use to check yo
 Create a file, create_mysql_db.sql, with SQL commands to create a database, user and password:
 
     create database testdb;
-    create user 'testuser'@'localhost' identified by 'testpass';
-    grant all privileges on *.* to 'testuser'@'localhost';
+    create user 'testuser'@'127.0.0.1' identified by 'testpass';
+    grant all privileges on *.* to 'testuser'@'127.0.0.1';
     flush privileges;
 
 This corresponds to a test data store already specified in index.php.
