@@ -671,9 +671,17 @@ must be an absolute path to a directory. sameAs Lite will create the database fi
 
 Make sure the slug is unique. There should be no other data stores in index.php with the same slug.
 
+**Ubuntu 14.04**
+
 Ensure that the Apache user, www-data, is able to read and write files in the directory which holds the database file. One way of doing this is to make www-data the owner of this directory e.g.:
 
     $ chown www-data:www-data /var/www/
+
+**Scientific Linux 7 / Fedora 21**
+
+Ensure that the Apache user, apache, is able to read and write files in the directory which holds the database file. One way of doing this is to make apache the owner of this directory e.g.:
+
+    $ chown apache:apache /var/www/
 
 ---
 
