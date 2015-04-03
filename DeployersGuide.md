@@ -80,6 +80,8 @@ Start Apache and configure it to start automatically when the system is rebooted
 Install:
 
     $ apt-get install php5-common libapache2-mod-php5 php5-cli
+    $ php --version
+    PHP 5.5.9-1ubuntu4.7 (cli) (built: Mar 16 2015 20:47:39) 
 
 ### Scientific Linux 7
 
@@ -117,11 +119,11 @@ Add, within `<body>`:
 
     <?php phpinfo(); ?>
 
-Refresh browser. You should see:
+Refresh browser. You should see
 
     Hello World
-    PHP Version 5.5.9-1ubuntu4.7
-    ...
+
+followed by lots of configuration information.
 
 ---
 
@@ -137,7 +139,7 @@ Install:
 
 Install:
 
-    $ yum install php-xsl php-mbstring php-pdo
+    $ yum install php-xml php-mbstring php-pdo
 
 Restart Apache:
 
@@ -410,10 +412,6 @@ Restart Apache:
 
     $ sqlite3 --version
     3.7.17 2013-05-20 00:56:22 118a3b35693b134d56ebd780123b7fd6f1497668
-    $ repoquery --requires php-pdo
-    ... 
-    libsqlite3.so.0()(64bit)
-    ... 
 
 ### Fedora 21
 
@@ -421,10 +419,6 @@ SQLite 3.8.2 and its PHP module are already provided:
 
     $ sqlite3 --version
     3.8.7 2014-10-17 11:24:17 e4ab094f8afce0817f4074e823fabe59fc29ebb4
-    $ repoquery --requires php-pdo
-    ... 
-    libsqlite3.so.0()(64bit)
-    ... 
 
 ---
 
