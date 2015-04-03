@@ -1,8 +1,14 @@
 # sameAs Lite Deployer's Guide
 
-How to deploy sameAs Lite and configure it to expose linked data stores.
+This page describes how to deploy sameAs Lite and configure it to expose linked data stores.
 
-**Note:** These instructions apply to a deployment of sameAs Lite on Ubuntu 14.10. Other operating systems may differ in how packages are installed, the versions of these packages. Consult the relevant documentation for your operating system.
+The instructions have been written with reference to three 64-bit operating systems:
+
+* [Ubuntu](http://www.ubuntu.com/) 14.04.1.
+* [Scientific Linux](https://www.scientificlinux.org/) 7.0 (Nitrogen).
+* [Fedora](https://getfedora.org/) workstation 21. 
+
+Other operating systems, or versions of these, may differ in how packages are installed, the versions of these packages available from package managers etc. Consult the relevant documentation for your operating system and the products concerned.
 
 These assume you have sudo access to install and configure access and that you have created a root shell using:
 
@@ -16,6 +22,8 @@ These assume you have sudo access to install and configure access and that you h
 * http://httpd.apache.org/
 
 **Note:** These instructions assume the use of Apache 2.4 web server. Other versions of Apache 2, particularly Apache 2.2, differ in how they are installed, configured and managed. Consult the relevant documentation for your version of Apache 2.
+
+### Ubuntu
 
 Install:
 
@@ -32,6 +40,34 @@ Install apache-utils, for htpasswd and other tools:
 
     $ apt-get install apache2-utils
 
+### Scientific Linux 7
+
+Apache is already provided:
+
+    $ /usr/sbin/httpd -v
+    Server version: Apache/2.4.6 (Scientific Linux)
+    Server built:   Jul 23 2014 05:03:32
+
+Start Apache and configure it to start automatically when the system is rebooted:
+
+    $ systemctl restart httpd.service
+    $ systemctl status httpd.service
+    $ systemctl enable httpd.service
+
+### Fedora 21
+
+Apache is already provided:
+
+    $ /usr/sbin/httpd -v
+    Server version: Apache/2.4.10 (Fedora)
+    Server built:   Sep  3 2014 14:49:30
+
+Start Apache and configure it to start automatically when the system is rebooted:
+
+    $ systemctl restart httpd.service
+    $ systemctl status httpd.service
+    $ systemctl enable httpd.service
+
 ---
 
 ## Install PHP
@@ -39,11 +75,30 @@ Install apache-utils, for htpasswd and other tools:
 * PHP Hypertext Preprocessor executes code on a web server which generates HTML which is then sent to the client.
 * http://php.net/ 
 
+### Ubuntu 14.04
+
 Install:
 
     $ apt-get install php5-common libapache2-mod-php5 php5-cli
 
-To check that PHP is installed, create /var/www/html/index.php:
+### Scientific Linux 7
+
+PHP is already provided:
+
+    $ php --version
+    PHP 5.4.16 (cli) (built: Sep 30 2014 05:06:36) 
+
+### Fedora 21
+
+Install:
+
+    $ yum install php
+    $ php --version
+    PHP 5.6.7 (cli) (built: Mar 20 2015 06:12:07) 
+
+### Check that PHP has installed correctly
+
+Create /var/www/html/index.php:
 
     <html>
      <head>
@@ -72,9 +127,21 @@ Refresh browser. You should see:
 
 ## Install PHP modules
 
-Install XSL module:
+### Ubuntu
+
+Install:
 
     $ apt-get install php5-xsl
+
+### Scientific Linux 7 / Fedora 21
+
+Install:
+
+    $ yum install php-xsl php-mbstring php-pdo
+
+Restart Apache:
+
+    $ systemctl restart httpd.service
 
 ---
 
@@ -105,11 +172,27 @@ Check it has installed:
 * Command line tool and library for interacting over HTTP(S).
 * Useful for testing sameAs Lite deployments.
 
+### Ubuntu 14.04
+
 Install:
 
     $ apt-get install curl
     $ curl --version
     curl 7.35.0 (x86_64-pc-linux-gnu) libcurl/7.35.0 OpenSSL/1.0.1f zlib/1.2.8 libidn/1.28 librtmp/2.3
+
+### Scientific Linux 7
+
+curl is already provided:
+
+    $ curl --version
+    curl 7.29.0 (x86_64-redhat-linux-gnu) libcurl/7.29.0 NSS/3.15.4 zlib/1.2.7 libidn/1.28 libssh2/1.4.3
+
+### Fedora 21
+
+curl is already provided:
+
+    $ curl --version
+    curl 7.37.0 (x86_64-redhat-linux-gnu) libcurl/7.37.0 NSS/3.17.2 Basic ECC zlib/1.2.8 libidn/1.28 libssh2/1.4.3
 
 ---
 
@@ -119,11 +202,27 @@ Install:
 * It is needed to get the sameAs Lite source code and install sameAs Lite PHP depencies.
 * http://git-scm.com/
 
+### Ubuntu 14.04
+
 Install:
 
     $ apt-get install git
     $ git --version
     git version 1.9.1
+
+### Scientific Linux 7
+
+Git is already provided:
+
+    $ git --version
+    git version 1.8.3.1
+
+### Fedora 21
+
+Git is already provided:
+
+    $ git --version
+    git version 2.1.0
 
 ---
 
@@ -181,6 +280,8 @@ Allow Apache to read these files:
     $ chmod 0644 .htaccess
     $ chmod 0644 auth.htpasswd
 
+### Ubuntu 21
+
 Edit /etc/apache2/sites-enabled/000-default.conf and add under:
 
     DocumentRoot /var/www/html
@@ -199,7 +300,27 @@ Restart Apache:
 
     $ service apache2 restart
 
-Check .htaccess is configured correctly:
+### Scientific Linux 7 / Fedora 21
+
+Edit /etc/httpd/conf/httpd.conf and, within:
+
+    <Directory "/var/www/html">
+      AllowOverride All
+    </Directory>
+
+Change:
+
+      AllowOverride None
+
+to:
+
+      AllowOverride All
+
+Restart Apache:
+
+    $ systemctl restart httpd.service
+
+### Check .htaccess is configured correctly
 
     $ cd /var/www/html/sameas-lite/
     $ cp .htaccess ..
@@ -267,6 +388,8 @@ Visit http://127.0.0.1/sameas-lite/config.ttl:
 
 * http://www.sqlite.org/ 
 
+### Ubuntu 14.04
+
 Install:
 
     $ apt-get install sqlite3
@@ -277,12 +400,42 @@ Install PHP SQLite module:
 
     $ apt-get install php5-sqlite
 
+Restart Apache:
+
+    $ service apache2 restart
+
+### Scientific Linux 7
+
+**Note:** the default version of SQLite 3, 3.7.17, cannot be used with sameAs Lite. sameAs Lite uses a 'WITHOUT ROWID' optimisation which is only available in SQLite 3.8.2 and beyond/
+
+    $ sqlite3 --version
+    3.7.17 2013-05-20 00:56:22 118a3b35693b134d56ebd780123b7fd6f1497668
+    $ repoquery --requires php-pdo
+    ... 
+    libsqlite3.so.0()(64bit)
+    ... 
+
+### Fedora 21
+
+SQLite 3.8.2 and its PHP module are already provided: 
+
+    $ sqlite3 --version
+    3.8.7 2014-10-17 11:24:17 e4ab094f8afce0817f4074e823fabe59fc29ebb4
+    $ repoquery --requires php-pdo
+    ... 
+    libsqlite3.so.0()(64bit)
+    ... 
+
 ---
 
 ## Install MySQL
 
 * MySQL is a popular database management system.
 * http://www.mysql.com 
+* MariaDB is a fork of MySQL.
+* https://mariadb.org/
+
+## Ubuntu 14.04
 
 Install:
 
@@ -315,6 +468,54 @@ Check status:
 Install PHP MySQL module:
 
     $ apt-get install php5-mysql
+
+Restart Apache:
+
+    $ service apache2 restart
+
+## Scientific Linux 7 / Fedora 21
+
+Install:
+
+    $ yum install mariadb-server mariadb
+
+You will be prompted for a root password for the MySQL server.
+
+    $ mysql --version
+    mysql  Ver 15.1 Distrib 5.5.41-MariaDB, for Linux (x86_64) using readline 5.1
+
+Complete installation:
+
+    $ mysql_install_db
+    $ systemctl start mariadb
+    $ systemctl status mariadb
+    $ /usr/bin/mysql_secure_installation
+    $ /usr/bin/mysql_secure_installation
+
+When prompted, provide the following responses:
+
+     Enter current password for root (enter for none): PASSWORD
+     Change the root password? [Y/n] n
+     Remove anonymous users? [Y/n] y
+     Disallow root login remotely? [Y/n] y
+     Remove test database and access to it? [Y/n] y
+     Reload privilege tables now? [Y/n] y
+
+Check status:
+
+    $ systemctl status mariadb
+
+Install PHP MySQL module:
+
+    $ yum install php-mysql
+
+Restart Apache:
+
+    $ systemctl restart httpd.service
+
+Allow Apache services to connect to database:
+
+    $ setsebool -P httpd_can_network_connect_db=1
 
 ---
 
@@ -509,6 +710,7 @@ then check:
 
 * Database management system is running.
 * index.php specifies a valid connection URL, database, username and password.
+* For Scientific Linux 7 / Fedora 21 Apache services are allowed to connect to networked databases (you have run `setsebool`). See StackOverflow, [php can't connect to mysql with error 13 (but command line can](http://stackoverflow.com/questions/4078205/php-cant-connect-to-mysql-with-error-13-but-command-line-can).
 
 **Troubleshooting - Unable to to connect to mysql could not find driver**
 
@@ -517,7 +719,7 @@ If the user interface shows a message like:
     Unable to to connect to mysql
      could not find driver
 
-then you need to install php5-mysql.
+then you need to install php5-mysql or php-mysql and also restart Apache. 
 
 **Troubleshooting - Unable to to connect to sqlite**
 
