@@ -737,7 +737,7 @@ If the user interface shows a message like:
 
 then check that:
 
-* Apache user, www-data, has read/write access to the directory holding the database file.
+* Apache user, www-data or apache, has read/write access to the directory holding the database file.
 * index.php specifies a valid directory and file path.
 
 ---
