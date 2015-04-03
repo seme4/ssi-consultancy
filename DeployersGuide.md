@@ -12,7 +12,7 @@ Other operating systems, or versions of these, may differ in how packages are in
 
 These assume you have sudo access to install and configure access and that you have created a root shell using:
 
-   $ sudo su -
+    $ sudo su -
 
 ---
 
@@ -157,8 +157,8 @@ Install:
 
 The installation directory specified above is that assumed by sameAs Lite's Makefile:
 
-* If you wish to use a different directory then provide a different value to `--install-dir`. 
-* If you wish to use the current directory then leave out `-- --install-dir=/usr/bin` entirely.
+* If you wish to use a different directory then provide a different value to --install-dir. 
+* If you wish to use the current directory then leave out -- --install-dir=/usr/bin entirely.
 
 Check it has installed:
 
@@ -236,7 +236,7 @@ Get source code:
     $ git clone https://github.com/seme4/sameas-lite
     $ cd sameas-lite
 
-sameAs Lite assumes Composer is installed in `/usr/bin/composer.phar`. If you have installed Composer in another directory, then edit Makefile and update the value of C:
+sameAs Lite assumes Composer is installed in /usr/bin/composer.phar. If you have installed Composer in another directory, then edit Makefile and update the value of C:
 
     C=/usr/bin/composer.phar
 
@@ -406,7 +406,7 @@ Restart Apache:
 
 ### Scientific Linux 7
 
-**Note:** the default version of SQLite 3, 3.7.17, cannot be used with sameAs Lite. sameAs Lite uses a 'WITHOUT ROWID' optimisation which is only available in SQLite 3.8.2 and beyond/
+**Note:** the default version of SQLite 3, 3.7.17, cannot be used with sameAs Lite. sameAs Lite uses a [WITHOUT ROWID](https://www.sqlite.org/withoutrowid.html) optimisation which is only available in SQLite 3.8.2 and beyond/
 
     $ sqlite3 --version
     3.7.17 2013-05-20 00:56:22 118a3b35693b134d56ebd780123b7fd6f1497668
@@ -513,7 +513,7 @@ Restart Apache:
 
     $ systemctl restart httpd.service
 
-Allow Apache services to connect to database:
+Allow Apache services to connect to the database management system:
 
     $ setsebool -P httpd_can_network_connect_db=1
 
@@ -614,7 +614,7 @@ User interface information:
 * ShortName e.g. => VIAF
 * FullName e.g. => Virtual International Authority File
 * Contact e.g. => Joe Bloggs
-* Email e.g. => Joe.Bloggs@acme.or
+* Email e.g. => Joe.Bloggs@acme.org
 
 ### Expose a MySQL data store
 
@@ -710,7 +710,7 @@ then check:
 
 * Database management system is running.
 * index.php specifies a valid connection URL, database, username and password.
-* For Scientific Linux 7 / Fedora 21 Apache services are allowed to connect to networked databases (you have run `setsebool`). See StackOverflow, [php can't connect to mysql with error 13 (but command line can](http://stackoverflow.com/questions/4078205/php-cant-connect-to-mysql-with-error-13-but-command-line-can).
+* For Scientific Linux 7 / Fedora 21 Apache services are allowed to connect to networked databases (you have run setsebool). See StackOverflow, [php can't connect to mysql with error 13 (but command line can](http://stackoverflow.com/questions/4078205/php-cant-connect-to-mysql-with-error-13-but-command-line-can).
 
 **Troubleshooting - Unable to to connect to mysql could not find driver**
 
@@ -726,7 +726,6 @@ then you need to install php5-mysql or php-mysql and also restart Apache.
 If the user interface shows a message like:
 
     SQLSTATE[HY000] [14] unable to open database file
-    /var/www/html/sameas-lite/src/Store.php   +143
 
 then check that:
 
