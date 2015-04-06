@@ -127,6 +127,46 @@ followed by lots of configuration information.
 
 ---
 
+## Set PHP timezone
+
+Run the following command to find the location of your PHP initialisation file:
+
+   $ php -i | grep php.ini
+
+Open the file that this command returns in an editor:
+
+* For Ubuntu 14.01, this may be /etc/php5/cli/php.ini 
+* For Scientific Linux 7 / Fedora 21, this may be /etc/php.ini
+
+To set UTC (coordinated universal time), look for
+
+    [Date]
+
+    ;date.timezone = 
+
+Remove the semi-colon and UTC:
+
+    date.timezone = "UTC"
+
+See the PHP documentation for a [List of Supported Timezones](http://php.net/manual/en/timezones.php)
+
+**Troubleshooting - It is not safe to rely on the system's timezone settings**
+
+If you see a message like:
+
+    PHP Warning:  date_default_timezone_get(): It is not safe to rely
+    on the system's timezone settings. You are *required* to use the
+    date.timezone setting or the date_default_timezone_set() function. In
+    case you used any of those methods and you are still getting this
+    warning, you most likely misspelled the timezone identifier.
+
+Then:
+
+* Set the timezone as described above.
+* Check the timezonke is a valid timezone.
+
+---
+
 ## Install PHP modules
 
 ### Ubuntu 14.04
