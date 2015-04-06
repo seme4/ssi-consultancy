@@ -26,53 +26,28 @@ This is a review of sameAs Lite from the perspective of deployers and developers
 
 ## Specifications
 
-### sameAs Lite
-
 sameAs Lite commit [e07bd50641bbe1cf3c4b140d682018d0ec6b15eb](https://github.com/seme4/sameas-lite/commit/e07bd50641bbe1cf3c4b140d682018d0ec6b15eb) cloned on Th19/03/15 was used. This was the most up-to-date version at the time of writing.
 
-### Platforms used
-
-The platforms used were:
+The platforms used were virtual machine images of:
 
 * [Ubuntu](http://www.ubuntu.com/) 14.04.1.
 * [Scientific Linux](https://www.scientificlinux.org/) 7.0 (Nitrogen).
 * [Fedora](https://getfedora.org/) workstation 21. 
 
-Each were 64-bit operating systems running under VMWare Player 6.0.3, see below, and configured with:
+Each were 64-bit operating systems configured with 1 GB RAM and 20 GB hard disk. The images were run on a Dell Latitude E7440:
 
-* 1 GB RAM
-* 20 GB hard disk
-
-VMWare player was, in turn, running on:
-
-* Dell Latitude E7440.
 * 64-bit Intel Core i5-4310U CPU 2GHz, 2.60GHz 2 core.
 * 8GB RAM.
 * 185GB hard disk.
 * Windows 7 Enterprise Service Pack 1.
 
-### VMWare Player 6.0.3
-
-* [VMware Player](http://www.vmware.com/uk/products/player)
-* This page comments that "Player Pro is licensed for commercial use and is enabled to run restricted virtual machines. If you simply want to learn about virtual machines or run virtual machines at home you can always use VMware Player for free" which includes a link to free VMWare Player versions.
-
-To Download:
-
-* Go to [Download VMWare Player](http://www.vmware.com/go/downloadplayer/).
-
-Or:
-
-* Go to [Downloads](https://my.vmware.com/web/vmware/downloads)
-* Scroll down to VMWare Player 
-* Click Download Product
-
-Current version is now [VMWare Player 7.1.0](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/7_0) 
-
-My version is 6.0.3 which seems not to be available. The nearest version is [6.0.5](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/6_0).
+The virtual machine images ran under [VMware Player](http://www.vmware.com/uk/products/player) 6.0.3. This is no longer available. The nearest version is [6.0.5](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/6_0). The current version is now [VMWare Player 7.1.0](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/7_0) 
 
 ---
 
-## Provide a deployer's guide
+## Recommendations to help deployers
+
+### Provide a deployer's guide
 
 At present, there is no information as to how anyone can deploy sameAs Lite for use. This can be found by looking at the sameAs Lite source code and hitting Google but this would be a deterrent to all but the most dedicated of deployers.
 
@@ -88,9 +63,7 @@ An example, written as a side-effect of this report, is at [Deployer's Guide](./
 
 [Deployer and Developer Reference](./Reference.md) contains a summary of useful information for both deployers and developers.
 
----
-
-## Provide stable releases for deployers
+### Provide stable releases for deployers
 
 In the longer term, deployers could either use:
 
@@ -105,15 +78,11 @@ In the longer term, deployers could either use:
   - [Creating Releases](https://help.github.com/articles/creating-releases/)
   - [Release Your Software](https://github.com/blog/1547-release-your-software)
 
----
+### Decide which operating systems are to be supported
 
-## Decide which operating systems are to be supported
+The deployers guide should state what operating systems are supported, and also what others sameAs Lite is known to run on.
 
-The deployers guide should state what operating systems are supported, and also what others sameAs Lite is known to run on (e.g. from existing deployers).
-
----
-
-## Decide which Apache versions, and other web servers, are to be supported
+### Decide which Apache versions, and other web servers, are to be supported
 
 .htaccess uses:
 
@@ -123,6 +92,7 @@ The deployers guide should state what operating systems are supported, and also 
     </Files>
 
 Apache's [Upgrading to 2.4 from 2.2](http://httpd.apache.org/docs/2.4/upgrading.html) comments that:
+
     Order deny,allow
     Deny from all
 
@@ -132,11 +102,9 @@ has been replaced by:
 
 using a new module mod_authz_host. It then comments that "For compatibility with old configurations, the new module mod_access_compat is provided".
 
-The deployers guide should state what web servers are supported, and also what others sameAs Lite is known to run on (e.g. from existing deployers).
+The deployers guide should state what web servers are supported, and also what others sameAs Lite is known to run on.
 
----
-
-## Decide what MySQL versions are to be supported
+### Decide what MySQL versions are to be supported
 
 [MySQL](http://www.mysql.com) is now owned by Oracle. There is a GPL-licensed fork of MySQL, [MariaDB](https://mariadb.org) is GPL fork of MySQL also available:
 
@@ -153,11 +121,13 @@ The deployers guide should state what web servers are supported, and also what o
 
 The deployers guide should state what versions of MySQL are supported, and also what others sameAs Lite is known to run on.
 
-sameAs Lite was compatible with MariaDB under Scientific Linux 7 and Fedora 21.
+sameAs Lite is compatible with MariaDB under Scientific Linux 7 and Fedora 21.
 
----
+### Crowd source known deployment configurations
 
-## Clarify what config.ttl is for
+Due to the myriad flavours of Linux and versions of Apache, SQLite, MySQL, and PHP and the different ways in which these can be configured, it is impractical to write complete instructions for every combination. Such information can be crowd-sourced from existing, and future, deployers and developers, by encouraging them to contribute any deviations from the deployers guide they needed to adopt when deploying sameAs Lite upon their own server. These can be published on a web site or other project resource.
+
+### Clarify what config.ttl is for
 
 .htaccess refers to:
 
@@ -165,35 +135,25 @@ sameAs Lite was compatible with MariaDB under Scientific Linux 7 and Fedora 21.
 
 but there is no config.ttl in the repository.
 
-.ttl is [Turtle](http://en.wikipedia.org/wiki/Turtle_%28syntax%29)
+.ttl is a [Turtle](http://en.wikipedia.org/wiki/Turtle_%28syntax%29) file.
+
+### Provide a sample data set
+
+Provide a sample data set that a deployer can use to check their deployment. Alternatively, or in addition, provide links to online examples of suitable data sets (for example, a set of sample data downloaded via one of the REST endpoints of sameAs.org).
+
+### Provide a deployment checklist
+
+Provide a checklist of what a deployer should look for in the user interface to validate that sameAs Lite has been deployed correctly and that a data store is ready for use.
+
+### Provide a deployer test suite
+
+To complement the checklist and sample data set, provide a test suite, based on curl perhaps, that pings all the REST endpoints to validate a deployment.
 
 ---
 
-## Provide a sample data set
+## Recommendations to help developers
 
-Provide a sample data set that a deployer can use to check their deployment.
-
----
-
-## Provide a deployment checklist
-
-Provide a checklist of what a deployer should look for in the user interface to validate that sameAs Lite has been deployed correctly and a data store is ready for use.
-
----
-
-## Crowd source known deployment configurations
-
-Due to the myriad flavours of Linux and versions of Apache, SQLite, MySQL, and PHP and the different ways in which these can be configured, it can be impractical to write complete instructions for every combination. Such information can be crowd-sourced from existing, and future, deployers, by encouraging them to contribute any deviations from the deployers guide they needed to adopt when deploying sameAs Lite upon their own server. These can be published on a web site or other project resource.
-
----
-
-## Provide a deployer test suite
-
-Based on the sample data set provide a test suite, based on curl perhaps, that pings all the REST endpoints to validate a deployment.
-
----
-
-## Provide a developer's guide
+### Provide a developer's guide
 
 At present the following information can found via Google, and inspecting the sameAs Lite source code:
 
@@ -208,13 +168,11 @@ There is no information on:
 
 It would help developers get up to speed more rapidly if there is a guide for developers were provided which documented all of these.
 
-A work-in-progress example, written as a side-effect of this report, is at [Developer's Guide](./DevelopersGuide.md).
+An example, written as a side-effect of this report, is at [Developer's Guide](./DevelopersGuide.md).
 
 [REST API examples](./RESTAPIexamples.md) contains examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can be useful for developers.
 
----
-
-## Make the test database configurable
+### Make the test database configurable
 
 tests/phpUnit/StoreTest.php defines:
 
@@ -222,9 +180,7 @@ tests/phpUnit/StoreTest.php defines:
 
 The test database driver, URL, database, username and password should be configurable, via a configuration file, so developers don't need to edit PHP code.
 
----
-
-## Tests should use the database
+### Provide tests that use the database
 
 tests/phpUnit/StoreTest.php defines:
 
@@ -257,21 +213,15 @@ If the driver is present then all 4 tests pass, even if sqlite or sqlite3 are no
 
 The tests don't use the database. This relates to...
 
----
-
-## Provide more unit tests
+### Provide more unit tests
 
 There are only 4 at present.
 
----
-
-## Tests should set up and tear down database tables
+### Tests should set up and tear down database tables
 
 Ideally, tests should setup and teardown their own tables in the database, rather than assume they've been generated elsewhere. This both makes it easier to run the tests and makes the tests standalone.
 
----
-
-## Clarify dev target in Makefile
+### Clarify dev target in Makefile
 
 Makefile has:
 
@@ -279,21 +229,15 @@ Makefile has:
 
 But there is no dev target in Makefile. This implies that this reference should be deleted.
 
----
-
-## Comment all Makefile targets
+### Comment all Makefile targets
 
 Makefile's dev and tests targets are not commented in the Makefile's comment block. The tests target should be commented, as should dev, depending upon whether it should be there or should be deleted.
 
----
-
-## Provide human-readable coding standards
+### Provide human-readable coding standards
 
 These should cover both the requirements expected by PHP_CodeSniffer and phpDocumentor and be published.
 
----
-
-## Clarify if a developer has to act upon dependency suggestions
+### Clarify if a developer has to act upon dependency suggestions
 
 When running:
 
