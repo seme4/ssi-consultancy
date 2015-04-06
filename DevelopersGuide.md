@@ -2,15 +2,74 @@
 
 How to setup a development enviroment for sameAs Lite and guidelines on day-to-day development activities.
 
-**Note:** These instructions apply to a deployment of sameAs Lite on Ubuntu 14.10. Other operating systems may differ in how packages are installed, the versions of these packages. Consult the relevant documentation for your operating system.
-
 You should be familiar with the [Deployer's Guide](./DeployersGuide.md) and havve installed the software listed in it.
 
 ---
 
-## Set up development environment
+# Set up development environment
 
-### Create GitHub account and application token
+## Install GraphViz
+
+* GraphViz is open source graph visualisation software. It is used to create images for API documentation.
+* http://www.graphviz.org/
+
+### Ubuntu 14.04
+
+Install:
+
+    $ apt-get install graphviz
+    $ dot -V
+    dot - graphviz version 2.36.0 (20140111.2315)
+
+### Scientific Linux 7
+
+Install:
+
+    $ yum install graphviz
+    $ dot -V
+    dot - graphviz version 2.30.1 (20140505.1332)
+
+### Fedora 21
+
+Install:
+
+    $ yum install graphviz
+    $ dot -V
+    dot - graphviz version 2.38.0 (20140413.2041)
+
+---
+
+## Install Patch
+
+* Patch is a tool to update, or patch, files.
+* http://www.gnu.org/software/diffutils/manual/html_node/Overview.html
+
+### Ubuntu 14.04
+
+Patch is already provided:
+
+    $ patch -v
+    GNU patch 2.7.1
+
+### Scientific Linux 7
+
+Install:
+
+    $ yum install patch
+    $ patch -v
+    GNU patch 2.7.1
+
+### Fedora 21
+
+Install:
+
+    $ yum install patch
+    $ patch -v
+    GNU patch 2.7.5
+
+---
+
+## Create GitHub account and application token
 
 * GitHub is a popular project hosting infrastructure.
 * An account is needed to install development tools needed by sameAs Lite.
@@ -36,7 +95,7 @@ This stores the token in ~/.composer.
 
 ---
 
-### Install PHP development tools
+## Install PHP development tools
 
 Run:
 
@@ -175,9 +234,9 @@ Alternatively, set up an application token as suggested above.
 
 ---
 
-## Day-to-day development
+# Day-to-day development
 
-### Run tests
+## Run tests
 
 Run:
 
@@ -205,7 +264,7 @@ then you need to install php5-sqlite.
 
 ---
 
-### Create API documentation
+## Create API documentation
 
 Run:
 
@@ -213,9 +272,17 @@ Run:
 
 The documentation is placed in docs/ and can be browsed via docs/index.html.
 
+**Troubleshooting - Unable to find the `dot` command**
+
+If you see:
+
+    Unable to find the `dot` command of the GraphViz package. Is GraphViz correctly installed and present in your path? 
+
+Then you need to install GraphViz.
+
 ---
 
-### Run coding style check
+## Run coding style check
 
 Run:
 
@@ -223,9 +290,31 @@ Run:
 
 The results of the style check will be displayed.
 
+
+**Troubleshooting - Error 1(ignored)**
+
+If you see:
+
+    make: [checks] Error 1 (ignored)
+
+Or, for Fedora 21, you see:
+
+    Makefile:27: recipe for target 'checks' failed
+    make: [checks] Error 1 (ignored)
+
+then this means one or more style checks failed.
+
+**Troubleshooting - sh: patch: command not found**
+
+If you see:
+
+    sh: patch: command not found
+
+Then you need to install Patch.
+
 ---
 
-### Create source release
+## Create source release
 
 Run:
 
@@ -237,7 +326,7 @@ The source release is placed in sameAsLite-dev.tar.gz.
 
 ---
 
-### Clean up
+## Clean up
 
 To remove auto-generated documentation, run:
 
