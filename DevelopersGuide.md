@@ -282,14 +282,13 @@ Then you need to install GraphViz.
 
 ---
 
-## Run coding style check
+## Run coding standards check
 
 Run:
 
     $ make checks
 
-The results of the style check will be displayed.
-
+The results of the check will be displayed.
 
 **Troubleshooting - Error 1(ignored)**
 
@@ -302,7 +301,7 @@ Or, for Fedora 21, you see:
     Makefile:27: recipe for target 'checks' failed
     make: [checks] Error 1 (ignored)
 
-then this means one or more style checks failed.
+then this means one or more checks failed.
 
 **Troubleshooting - sh: patch: command not found**
 
@@ -338,21 +337,42 @@ To remove all auto-generated files, including dependencies, and revert back to c
 
 ---
 
-## Coding style checker
+## Coding standards
 
-PHP_CodeSniffer is used:
+sameAs Lite source code must comply to coding standards. These are based on the following guidelines:
+
+* PHP Framework Interop Group [Basic coding standard](http://www.php-fig.org/psr/psr-1/) (PSR1)
+* PHP Framework Interop Group [Coding style guide](http://www.php-fig.org/psr/psr-2/) (PSR2)
+* No unused function parameters.
+* No FIXME comments.
+* No TODO comments. 
+
+The easiest way to check whether the code is compliant is to run `make checks`. If any of the guidelines are violated then an error or warning will be displayed, depending upon the severity of the violation.
+
+### How style checking works
+
+PHP_CodeSniffer is used as a style checker:
 
 * https://www.squizlabs.com/php-codesniffer/
 * https://github.com/squizlabs/PHP_CodeSniffer
 
-This is installed automatically by Composer:
+PHP_CodeSniffer's tools are installed automatically by Composer:
 
     $ ./vendor/bin/phpcbf --version
     PHP_CodeSniffer version 2.3.0 (stable) by Squiz (http://www.squiz.net)
     $ ./vendor/bin/phpcs --version
     PHP_CodeSniffer version 2.3.0 (stable) by Squiz (http://www.squiz.net)
 
-TODO - provide information on coding style.
+When `make checks` is run, two passes are done:
+
+1. PHP Code Beautifier and Fixer (phpcbf) is run to identify deviations from the coding style, and to fix these if possible.
+2. PHP_CodeSniffer (phpcs) is run to identify and report on any remaining deviations from the coding style.
+
+PHP_CodeSniffer configuration files are in dev-tools/CodeStandard. For more information on these see PHP_CodeSniffer documentation and files:
+
+* [Coding Standard Tutorial](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Coding-Standard-Tutorial)
+* [Annotated ruleset.xml](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml)
+* [Built-in coding standards](https://github.com/squizlabs/PHP_CodeSniffer/tree/master/CodeSniffer/Standards)
 
 ---
 
