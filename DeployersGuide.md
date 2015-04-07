@@ -650,9 +650,13 @@ Create a file, create_sqlite_table.sql, with SQL commands to create a table of s
 
 If using a version of SQLite older than 3.8.2 then remove the `WITHOUT ROWID` from the first statement.
 
-Execute these SQL statements in SQLite. If necessary, replace /var/www/sameasdb.sq3 with a path and file name that is consistent with your file system.
+Create a new directory:
 
-    $ sqlite3 /var/www/sameasdb.sq3 < create_sqlite_table.sql 
+    $ mkdir /var/databases
+
+Execute these SQL statements in SQLite. If necessary, replace /var/databases/sameasdb.sq3 with a path and file name that is consistent with your file system.
+
+    $ sqlite3 /var/databases/sameasdb.sq3 < create_sqlite_table.sql 
 
 ---
 
@@ -664,7 +668,7 @@ Database management system information includes:
 
 * Connection URL e.g. 
   - mysql:host=127.0.0.1;port=3306;charset=utf8
-  - sqlite:/var/www/sameasdb.sq3
+  - sqlite:/var/databases/sameasdb.sq3
 * Data store name - used for tables e.g. webdemo
 * User e.g. testuser. Optional for databases that don't support users e.g. SQLite.
 * Password e.g. testpass. Optional for databases that don't support users e.g. SQLite.
@@ -711,7 +715,7 @@ Edit index.php and add a new entry for your SQLite database e.g.:
 
     $app->addDataset(
         new \SameAsLite\Store(
-            'sqlite:/var/www/sameasdb.sq3',
+            'sqlite:/var/databases/sameasdb.sq3',
             'table1'
         ),
         array(
@@ -727,7 +731,7 @@ Update all the values to be consistent with your SQLite deployment.
 
 The path specified in:
 
-    'sqlite:/var/www/sameasdb.sq3',
+    'sqlite:/var/databases/sameasdb.sq3',
 
 must be an absolute path to a directory. sameAs Lite will create the database file (e.g. sameasdb.sq3) if it does not already exist.
 
@@ -737,14 +741,23 @@ Make sure the slug is unique. There should be no other data stores in index.php 
 
 Ensure that the Apache user, www-data, is able to read and write files in the directory which holds the database file. One way of doing this is to make www-data the owner of this directory e.g.:
 
-    $ chown www-data:www-data /var/www/
+    $ chown www-data:www-data /var/databases/
 
 **Scientific Linux 7 / Fedora 21**
 
 Ensure that the Apache user, apache, is able to read and write files in the directory which holds the database file. One way of doing this is to make apache the owner of this directory e.g.:
 
-    $ chown apache:apache /var/www/
+    $ chown apache:apache /var/databases/
 
+You will then need to configure security settings to allow Apache services to read and write files in this directory:
+
+    $ chcon -R -t httpd_user_rw_content_t /var/databases/
+    $ chcon -R -t httpd_user_rw_content_t /var/databases/sameasdb.sq3
+
+You can check the configuration as follows:
+
+    $ ls -Z /var/databases
+    -rw-r--r--. apache apache unconfined_u:object_r:httpd_user_rw_content_t:s0 sameasdb.sq3
 ---
 
 ## Check a data store has been deployed
@@ -800,6 +813,7 @@ If the user interface shows a message like:
 then check that:
 
 * Apache user, www-data or apache, has read/write access to the directory holding the database file.
+* For Fedora 21 and Scientific Linux 7, you set the security configuration using setcon.
 * index.php specifies a valid directory and file path.
 
 ---
@@ -861,3 +875,50 @@ You should see an HTML page with a list of the matching URIs in your data store.
 
     $ curl -X GET http://127.0.0.1/sameas-lite/datasets/testsqlite/search/embra
     ...
+
+### Insert a URI pair
+
+Run the following, where SLUG is the slug associated with your data store:
+
+    $ curl -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/SLUG/pairs/a/b
+
+Then list the canons:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/SLUG/canons
+
+You should see 'a' listed in the canons. For example, for the MySQL and SQLite sample data stores:
+
+    $ curl -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/pairs/a/b
+    {"ok":"The pair (a, b) has been asserted"}
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/canons
+    ["a","http:\/\/www.wikidata.org\/entity\/Q23436","http:\/\/www.wikidata.org\/entity\/Q6940372","http:\/\/www.wikidata.org\/entity\/Q220966"]
+
+    $ curl -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/testsqlite/pairs/a/b
+    ...
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/testsqlite/canons
+    ...
+
+**Troubleshooting 
+
+**Troubleshooting - General error: 8 attempt to write a readonly database**
+
+If curl returns a document with a message like:
+
+    <p>SQLSTATE[HY000]: General error: 8 attempt to write a readonly
+    database</p><p><strong>/var/www/html/sameas-lite/src/Store.php</strong>
+    &nbsp; +994</p><p>Please try returning to <a
+    href="http://127.0.0.1/sameas-lite">the homepage</a>.</p> 
+
+Or the user interface shows a message like:
+
+    Failed to create Store with name table1
+    sqlite: CREATE TABLE IF NOT EXISTS table1 (canon TEXT, symbol TEXT
+    PRIMARY KEY); CREATE INDEX IF NOT EXISTS table1_idx ON table1
+    (canon);SQLSTATE[HY000]: General error: 8 attempt to write a readonly
+    database 
+
+then check that:
+
+* Apache user, www-data or apache, has read/write access to the directory holding the database file.
+* For Fedora 21 and Scientific Linux 7, you set the security configuration using setcon.
+* index.php specifies a valid directory and file path.
