@@ -339,7 +339,7 @@ To remove all auto-generated files, including dependencies, and revert back to c
 
 ## Coding standards
 
-sameAs Lite source code must comply to coding standards. These are based on the following guidelines:
+sameAs Lite source code must comply to the following coding standards:
 
 * PHP Framework Interop Group [Basic coding standard](http://www.php-fig.org/psr/psr-1/) (PSR1)
 * PHP Framework Interop Group [Coding style guide](http://www.php-fig.org/psr/psr-2/) (PSR2)
@@ -347,7 +347,7 @@ sameAs Lite source code must comply to coding standards. These are based on the 
 * No FIXME comments.
 * No TODO comments. 
 
-The easiest way to check whether the code is compliant is to run `make checks`. If any of the guidelines are violated then an error or warning will be displayed, depending upon the severity of the violation.
+The easiest way to check whether the code is compliant is to run `make checks`. If any of the coding standards are violated then an error or warning will be displayed, depending upon the severity of the violation.
 
 ### How style checking works
 
