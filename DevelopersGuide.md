@@ -339,7 +339,7 @@ To remove all auto-generated files, including dependencies, and revert back to c
 
 ## Coding standards
 
-sameAs Lite source code must comply to the following coding standards:
+sameAs Lite source code must comply with the following coding standards:
 
 * PHP Framework Interop Group [Basic coding standard](http://www.php-fig.org/psr/psr-1/) (PSR1)
 * PHP Framework Interop Group [Coding style guide](http://www.php-fig.org/psr/psr-2/) (PSR2)
@@ -347,7 +347,69 @@ sameAs Lite source code must comply to the following coding standards:
 * No FIXME comments.
 * No TODO comments. 
 
-The easiest way to check whether the code is compliant is to run `make checks`. If any of the coding standards are violated then an error or warning will be displayed, depending upon the severity of the violation.
+### Commenting code
+
+Every class, function, and member variable must be commented. [phpDocumentor](http://www.phpdoc.org/) comments and tags are used so that API documentation can be auto-generated from the source code.
+
+An example class comment is:
+
+    /**
+     * SameAs Lite
+     *
+     * This class provides a specialised storage capability for SameAs pairs.
+     *
+     * @package   SameAsLite
+     * @author    Seme4 Ltd <sameAs@seme4.com>
+     * @copyright 2009 - 2014 Seme4 Ltd
+     * @link      http://www.seme4.com
+     * @version   0.0.1
+     * @license   MIT Public License
+     * ...
+     */
+
+An example member variable comment is:
+
+    /** @var \PDO $dbHandle The PDO object for the DB, once opened */
+    protected $dbHandle;
+
+Example function comments are:
+
+    /**
+     * Establish connection to database, if not already made
+     *
+     * @throws \Exception Exception is thrown if connection fails or table cannot be accessed/created.
+     */
+    public function connect()
+    ...
+  
+    /**
+     * This is the simple method to query a store with a symbol
+     *
+     * Looks up the given symbol in a store, and returns the bundle with all
+     * the symbols in it (including the one given). The bundle is ordered with
+     * canon(s) first, then non-canons, in alpha order of symbols.
+     *
+     * @param string $symbol The symbol to be looked up
+     * @return string[] An array of the symbols, which is singleton of the given symbol of nothing was found
+     */
+    public function querySymbol($symbol)
+    ...
+
+For more on phpDocumentor comments and tags, see [Learn about phpDocumentor](http://www.phpdoc.org/docs/latest/index.html) especially the sections:
+
+* [Your First Set of Documentation](http://www.phpdoc.org/docs/latest/getting-started/your-first-set-of-documentation.html)
+* [Inside DocBlocks](http://www.phpdoc.org/docs/latest/guides/docblocks.html)
+
+### How API documentation is auto-generated
+
+phpDocumentor comments and tags are used to document PHP source code:
+
+* http://www.phpdoc.org/
+
+phpDocumentor is installed automatically by Composer:
+
+    $ ./vendor/bin/phpdoc --version
+    phpDocumentor version 2.8.2
 
 ### How style checking works
 
@@ -373,21 +435,6 @@ PHP_CodeSniffer configuration files are in dev-tools/CodeStandard. For more info
 * [Coding Standard Tutorial](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Coding-Standard-Tutorial)
 * [Annotated ruleset.xml](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml)
 * [Built-in coding standards](https://github.com/squizlabs/PHP_CodeSniffer/tree/master/CodeSniffer/Standards)
-
----
-
-## Auto-generated documentation
-
-phpDocumentor is used:
-
-* http://www.phpdoc.org/
-
-This is installed automatically by Composer:
-
-    $ ./vendor/bin/phpdoc --version
-    phpDocumentor version 2.8.2
-
-TODO - provide information on commenting style.
 
 ---
 
