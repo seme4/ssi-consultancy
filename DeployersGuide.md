@@ -18,8 +18,7 @@ These assume you have sudo access to install and configure access and that you h
 
 ## Install Apache 2
 
-* Apache 2 is a popular web server.
-* http://httpd.apache.org/
+[Apache 2](http://httpd.apache.org/) is a popular web server.
 
 **Note:** These instructions assume the use of Apache 2.4 web server. Other versions of Apache 2, particularly Apache 2.2, differ in how they are installed, configured and managed. Consult the relevant documentation for your version of Apache 2.
 
@@ -72,8 +71,7 @@ Start Apache and configure it to start automatically when the system is rebooted
 
 ## Install PHP
 
-* PHP Hypertext Preprocessor executes code on a web server which generates HTML which is then sent to the client.
-* http://php.net/ 
+[PHP Hypertext Preprocessor](http://php.net/) executes code on a web server which generates HTML which is then sent to the client. sameAs Lite is implemented in PHP.
 
 ### Ubuntu 14.04
 
@@ -189,9 +187,7 @@ Restart Apache:
 
 ## Install PHP Composer
 
-* PHP Composer is a dependency manager for PHP.
-* It is needed to install sameAs Lite PHP dependencies.
-* https://getcomposer.org/ 
+[PHP Composer](https://getcomposer.org/) is a dependency manager for PHP. It is used to install and manage sameAs Lite PHP dependencies.
 
 Install:
 
@@ -211,8 +207,7 @@ Check it has installed:
 
 ## Install curl
 
-* Command line tool and library for interacting over HTTP(S).
-* Useful for testing sameAs Lite deployments.
+curl is a command line tool and library for interacting over HTTP(S). It is used for testing sameAs Lite deployments.
 
 ### Ubuntu 14.04
 
@@ -240,9 +235,7 @@ curl is already provided:
 
 ## Install Git 
 
-* Git is a popular distributed version control system.
-* It is needed to get the sameAs Lite source code and install sameAs Lite PHP depencies.
-* http://git-scm.com/
+[Git](http://git-scm.com/) is a popular distributed version control system. It is needed to get the sameAs Lite source code and is used by PHP Composer to access sameAs Lite's PHP dependencies.
 
 ### Ubuntu 14.04
 
@@ -270,7 +263,7 @@ Git is already provided:
 
 ## Get sameAs Lite source code
 
-* https://github.com/seme4/sameas-lite
+sameAs Lite source code is hoted on [GitHub](https://github.com/seme4/sameas-lite).
 
 Get source code:
 
@@ -298,10 +291,9 @@ Install PHP runtime dependencies by running:
 
 ---
 
-## Configure .htaccess authentication
+## Configure htaccess authentication
 
-* .htaccess is a simple text file-based authentication for directory and file access.
-* http://httpd.apache.org/docs/current/howto/htaccess.html
+[htaccess](http://httpd.apache.org/docs/current/howto/htaccess.html) is an Apache component for text file-based authentication of directory and file access. It is used to restrict access to sameAs Lite files.
 
 Add youself as a user to auth.htpasswd:
 
@@ -428,7 +420,7 @@ Visit http://127.0.0.1/sameas-lite/config.ttl:
 
 ## Install SQLite 3.8.2+
 
-* http://www.sqlite.org/ 
+[http://www.sqlite.org/](SQLite) is a public domain, file-based relational database management system. It can be used to host linked data stores exposed by sameAs Lite.
 
 ### Ubuntu 14.04
 
@@ -464,10 +456,7 @@ SQLite 3.8.2 and its PHP module are already provided:
 
 ## Install MySQL
 
-* MySQL is a popular database management system.
-* http://www.mysql.com 
-* MariaDB is a fork of MySQL.
-* https://mariadb.org/
+[MySQL](http://www.mysql.com) is a popular open source relational database management system. [MariaDB](https://mariadb.org/) is an open source fork of MySQL. Either can be used to host linked data stores exposed by sameAs Lite.
 
 ## Ubuntu 14.04
 

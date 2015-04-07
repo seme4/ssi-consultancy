@@ -10,8 +10,7 @@ You should be familiar with the [Deployer's Guide](./DeployersGuide.md) and havv
 
 ## Install GraphViz
 
-* GraphViz is open source graph visualisation software. It is used to create images for API documentation.
-* http://www.graphviz.org/
+[GraphViz](http://www.graphviz.org/) is open source graph visualisation software. It is used to create images for API documentation.
 
 ### Ubuntu 14.04
 
@@ -41,8 +40,7 @@ Install:
 
 ## Install Patch
 
-* Patch is a tool to update, or patch, files.
-* http://www.gnu.org/software/diffutils/manual/html_node/Overview.html
+[Patch](http://www.gnu.org/software/diffutils/manual/html_node/Overview.html) is a tool to update, or patch, files. It is used by PHP_CodeSniffer to fix files that violate coding standards.
 
 ### Ubuntu 14.04
 
@@ -71,8 +69,7 @@ Install:
 
 ## Create GitHub account and application token
 
-* GitHub is a popular project hosting infrastructure.
-* An account is needed to install development tools needed by sameAs Lite.
+[GitHub](http://github.com) is a popular project hosting infrastructure. An account is needed use PHP Composer to install sameAs Lite's PHP dependencies.
 
 Create an account on [GitHub](http://github.com).
 
@@ -402,9 +399,7 @@ For more on phpDocumentor comments and tags, see [Learn about phpDocumentor](htt
 
 ### How API documentation is auto-generated
 
-phpDocumentor comments and tags are used to document PHP source code:
-
-* http://www.phpdoc.org/
+[phpDocumentor](http://www.phpdoc.org/) comments and tags are used to document PHP source code. 
 
 phpDocumentor is installed automatically by Composer:
 
@@ -413,10 +408,7 @@ phpDocumentor is installed automatically by Composer:
 
 ### How style checking works
 
-PHP_CodeSniffer is used as a style checker:
-
-* https://www.squizlabs.com/php-codesniffer/
-* https://github.com/squizlabs/PHP_CodeSniffer
+[PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) is used as a style checker. 
 
 PHP_CodeSniffer's tools are installed automatically by Composer:
 
@@ -440,11 +432,9 @@ PHP_CodeSniffer configuration files are in dev-tools/CodeStandard. For more info
 
 ## Tests
 
-PHPUnit is used:
+[PHPUnit](https://phpunit.de/) is used as an automated test framework.
 
-* https://phpunit.de/
-
-This is installed automatically by Composer:
+PHPUnit is installed automatically by Composer:
 
     $ ./vendor/bin/phpunit --version
     PHPUnit 4.5.0 by Sebastian Bergmann and contributors.
