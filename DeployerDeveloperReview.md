@@ -47,25 +47,25 @@ The virtual machine images ran under [VMware Player](http://www.vmware.com/uk/pr
 
 ## Recommendations to help deployers
 
-### Provide a deployer's guide
+### Provide a deployers guide
 
-At present, there is no information as to how anyone can deploy sameAs Lite for use. This can be found by looking at the sameAs Lite source code and hitting Google but this would be a deterrent to all but the most dedicated of deployers.
+At present, there is no information as to how anyone can deploy sameAs Lite for use. This can be found by looking at the sameAs Lite source code and searching Google but this would be a deterrent to all but the most dedicated of deployers.
 
-Provide a guide explaining how a deployer can:
+Provide a deployers guide explaining how a deployer can:
 
 * Install sameAs Lite and its prerequisites and dependencies.
-* Configure sameAs Lite to expose linked data stores, the schema expected by sameAs Lite etc.
+* Configure sameAs Lite to expose linked data stores and the database schema these must conform to.
 * Configure sameAs Lite for use with both SQLite and MySQL.
-* How to identify and solve common installation and deployment problems.
-* How to change the branding of sameAs Lite with institution-specific styles, colours and logos.
+* Identify and solve common installation and deployment problems.
+* Change the branding of sameAs Lite with institution-specific styles, colours and logos.
 
-An example, written as a side-effect of this report, is at [Deployer's Guide](./DeployersGuide.md).
+An example, written concurrently with this report, is at [Deployer's Guide](./DeployersGuide.md).
 
 [Deployer and Developer Reference](./Reference.md) contains a summary of useful information for both deployers and developers.
 
 ### Provide stable releases for deployers
 
-In the longer term, deployers could either use:
+At present, deployers can only take a version from the master branch from the Git repository. In the longer term, deployers could either use:
 
 * A tag of the repository, known to be stable and bug-free. In which case the deployer can then do, after the above:
 
@@ -102,7 +102,7 @@ has been replaced by:
 
 using a new module mod_authz_host. It then comments that "For compatibility with old configurations, the new module mod_access_compat is provided".
 
-The deployers guide should state what web servers are supported, and also what others sameAs Lite is known to run on.
+The deployers guide should state what web servers are supported, and also what others sameAs Lite is known to run under.
 
 ### Decide what MySQL versions are to be supported
 
@@ -119,7 +119,7 @@ The deployers guide should state what web servers are supported, and also what o
     mariadb-server-5.5 - MariaDB database server binaries
     mariadb-server-core-5.5 - MariaDB database core server files
 
-The deployers guide should state what versions of MySQL are supported, and also what others sameAs Lite is known to run on.
+The deployers guide should state what versions of MySQL are supported, and also what others sameAs Lite is known to run with.
 
 sameAs Lite is compatible with MariaDB under Scientific Linux 7 and Fedora 21.
 
@@ -139,7 +139,7 @@ but there is no config.ttl in the repository.
 
 ### Provide a sample data set
 
-Provide a sample data set that a deployer can use to check their deployment. Alternatively, or in addition, provide links to online examples of suitable data sets (for example, a set of sample data downloaded via one of the REST endpoints of sameAs.org).
+Provide a sample data set that a deployer can use to check their deployment. Alternatively, or in addition, provide links to online examples of suitable data sets, for example, a set of sample data downloaded via one of the REST endpoints of sameAs.org.
 
 ### Provide a deployment checklist
 
@@ -148,6 +148,14 @@ Provide a checklist of what a deployer should look for in the user interface to 
 ### Provide a deployer test suite
 
 To complement the checklist and sample data set, provide a test suite, based on curl perhaps, that pings all the REST endpoints to validate a deployment.
+
+### Describe how to rebrand sameAs Lite
+
+Provide documentation on what files deployers need to edit or replace, and the changes they need to make, to brand sameAs Lite with institution-specific styles, colours and logos.
+
+### Provide a command-line and/or web-based admin interface
+
+At present, deployers configure sameAs Lite to expose data stores by editing the index.php file. This requires no knowledge of PHP - deployers can just copy-and-paste a code fragment, then edit the connection URL, database name, username and password. However, it could improve usability, and remove the need for deployers to edit raw PHP by providing either a simple command-line admin tool for configuring sameAs Lite to expose data stores and/or providing a web-based admin interface.
 
 ---
 
@@ -162,7 +170,7 @@ At present the following information can found via Google, and inspecting the sa
 
 There is no information on:
 
-* Coding standards, beyond those embedded within the style checker-related source code.
+* Coding standards, beyond those embedded within the style checker-related files.
 * Guidelines for writing tests.
 * How a developer can run performance tests and check that their changes have not degraded performance.
 
@@ -235,7 +243,7 @@ Makefile's dev and tests targets are not commented in the Makefile's comment blo
 
 ### Provide human-readable coding standards
 
-These should cover both the requirements expected by PHP_CodeSniffer and phpDocumentor and be published.
+These should cover both the requirements expected by PHP_CodeSniffer and phpDocumentor.
 
 ### Clarify if a developer has to act upon dependency suggestions
 
@@ -292,6 +300,38 @@ After the dependencies have installed, a number of messages are printed:
     Generating autoload files
 
 Whether these need to be acted upon, or can be ignored, should be documented.
+
+### Add a .gitignore file
+
+There are a number of auto-generated files that can appear in the sameAs Lite source directory. These are flagged as untracked by Git when running `git status`:
+
+    $ git status
+    On branch master
+    Your branch is up-to-date with 'origin/master'.
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	composer.lock
+	dev-tools/phpdoc-tmp/
+	docs/
+	test.sqlite
+	vendor/
+
+    no changes added to commit (use "git add" and/or "git commit -a")
+
+Create a `.gitignore` file so that these auto-generated files are ignored. The contents can initially be:
+	
+    # Auto-generated directories
+    dev-tools/phpdoc-tmp/
+    docs/
+    vendor/
+
+    # Auto-generated files
+    composer.lock
+    test.sqlite
+
+This has been submitted as a [pull request](https://github.com/seme4/sameas-lite/pull/1).
 
 ---
 
