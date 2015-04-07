@@ -648,6 +648,8 @@ Create a file, create_sqlite_table.sql, with SQL commands to create a table of s
     insert into table1 values("http://www.wikidata.org/entity/Q6940372", "http://data.ordnancesurvey.co.uk/id/50kGazetteer/155254");
     insert into table1 values("http://www.wikidata.org/entity/Q6940372", "http://sws.geonames.org/524894/");
 
+If using a version of SQLite older than 3.8.2 then remove the `WITHOUT ROWID` from the first statement.
+
 Execute these SQL statements in SQLite. If necessary, replace /var/www/sameasdb.sq3 with a path and file name that is consistent with your file system.
 
     $ sqlite3 /var/www/sameasdb.sq3 < create_sqlite_table.sql 
