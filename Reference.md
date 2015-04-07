@@ -30,6 +30,29 @@ Package management
 | Show information about a package | apt-cache show PACKAGE | yum info PACKAGE |
 | Show dependencies | apt-cache depends | rpm -qR PACKAGE |
 
+### Security-enhanced Linux
+
+Applies to Scientific Linux 7 and Fedora 21.
+
+View security configuration:
+
+    $ ls -Z /var/databases
+    -rw-r--r--. apache apache unconfined_u:object_r:httpd_sys_content_t:s0 sameasdb.sq3
+
+Security configuration is of the form: `user:role:type:level`.
+
+To change type:
+
+    $ chcon -R -t httpd_user_rw_content_t /var/databases
+    $ chcon -R -t httpd_user_rw_content_t /var/databases/sameasdb.sq3
+    $ ls -Z www/
+    -rw-r--r--. apache apache unconfined_u:object_r:httpd_user_rw_content_t:s0 sameasdb.sq3
+
+To restore defaults:
+ 
+    $ restorecon -R -v /var/databases/
+    $ restorecon -R -v /var/databases/sameasdb.sq3 
+
 ---
 
 ## Apache 2.4
