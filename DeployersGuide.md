@@ -440,10 +440,47 @@ Restart Apache:
 
 ### Scientific Linux 7
 
-**Note:** the default version of SQLite 3, 3.7.17, cannot be used with sameAs Lite. sameAs Lite uses a [WITHOUT ROWID](https://www.sqlite.org/withoutrowid.html) optimisation which is only available in SQLite 3.8.2 and beyond/
+**Note:** the default version of SQLite 3, 3.7.17, cannot be used with sameAs Lite. sameAs Lite uses a [WITHOUT ROWID](https://www.sqlite.org/withoutrowid.html) optimisation which is only available in SQLite 3.8.2 and beyond.
 
     $ sqlite3 --version
     3.7.17 2013-05-20 00:56:22 118a3b35693b134d56ebd780123b7fd6f1497668
+
+However, if you wish to use an older version of SQLite 3, you can disable this optimisation:
+
+* Edit src/Store.php and look for the connect function:
+
+<p/>
+
+    /**
+     * Establish connection to database, if not already made
+     * @throws \Exception Exception is thrown if connection fails or table cann
+ot be accessed/created.
+     */
+    public function connect()
+
+* Within this function, look for the code that handles SQLite:
+
+<p/>
+
+    // try to create tables for this store, if they don't exist
+    if ($this->dbType == 'sqlite') {
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $this->storeName .
+            ' (canon TEXT, symbol TEXT PRIMARY KEY)' . 
+            ' WITHOUT ROWID;' .
+           ' CREATE INDEX IF NOT EXISTS ' . $this->storeName . '_idx' .
+            ' ON ' . $this->storeName . ' (canon);';
+
+* Replace the line:
+
+<p/>
+
+            ' WITHOUT ROWID;' .
+
+* with:
+
+<p/>
+
+            ';' .
 
 ### Fedora 21
 
