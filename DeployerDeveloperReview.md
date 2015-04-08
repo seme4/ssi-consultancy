@@ -180,55 +180,6 @@ An example, written as a side-effect of this report, is at [Developer's Guide](.
 
 [REST API examples](./RESTAPIexamples.md) contains examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can be useful for developers.
 
-### Make the test database configurable
-
-tests/phpUnit/StoreTest.php defines:
-
-    const DSN = 'sqlite:test.sqlite';
-
-The test database driver, URL, database, username and password should be configurable, via a configuration file, so developers don't need to edit PHP code.
-
-### Provide tests that use the database
-
-tests/phpUnit/StoreTest.php defines:
-
-    const DSN = 'sqlite:test.sqlite';
-
-and calls:
-
-    $s = new Store(self::DSN, self::STORE_NAME);
-
-If the driver is not present then `make tests` fails:
-
-    Exception: Unable to to connect to sqlite // could not find driver
-
-    /var/www/html/sameas-lite/src/Store.php:143
-    /var/www/html/sameas-lite/src/Store.php:622
-    /var/www/html/sameas-lite/tests/phpUnit/StoreTest.php:91
-
-The failure line is:
-
-    $this->dbHandle = new \PDO($this->dsn, $this->dbUser, $this->dbPass);
-
-If the driver is present then all 4 tests pass, even if sqlite or sqlite3 are not installed.
-
-    $ sqlite
-    The program 'sqlite' is currently not installed. You can install it by typing:
-    apt-get install sqlite
-    $ sqlite3
-    The program 'sqlite3' is currently not installed. You can install it by typing:
-    apt-get install sqlite3
-
-The tests don't use the database. This relates to...
-
-### Provide more unit tests
-
-There are only 4 at present.
-
-### Tests should set up and tear down database tables
-
-Ideally, tests should setup and teardown their own tables in the database, rather than assume they've been generated elsewhere. This both makes it easier to run the tests and makes the tests standalone.
-
 ### Clarify dev target in Makefile
 
 Makefile has:
