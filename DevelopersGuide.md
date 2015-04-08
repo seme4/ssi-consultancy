@@ -259,6 +259,54 @@ If you see:
 
 then you need to install php5-sqlite.
 
+### Run specific tests
+
+Run a specific test function, for example:
+
+    $ vendor/bin/phpunit --bootstrap vendor/autoload.php --filter testExceptionIsRaisedForInvalidDSN tests/phpUnit/ 
+
+Run all the tests in a specific class, for example:
+
+    $ vendor/bin/phpunit --bootstrap vendor/autoload.php --filter StoreTest tests/phpUnit/ 
+
+### Create an agile test report file
+
+Run:
+
+    $ vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox-text tests.txt tests/phpUnit/ 
+    $ cat tests.txt
+    SameAsLite\Store
+     [x] Exception is raised for invalid d s n
+     [x] Exception is raised for invalid dbase table name
+     [x] Store can be constructed for valid constructor arguments
+     [x] An empty store can be dumped
+
+### Create an JUnit XML test report
+
+[JUnit](http://junit.org) is a popular unit test framework for Java. Its XML report format has been adopted by unit test frameworks for a number of languages and there are a number of scripts and and applications that can also be used with PHP and which can process JUnit XML test reports. 
+
+Run:
+
+    $ vendor/bin/phpunit --bootstrap vendor/autoload.php --log-junit tests.xml tests/phpUnit/ 
+    $ cat tests.xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <testsuites>
+      <testsuite name="tests/phpUnit/" tests="4" assertions="4" failures="0" errors="0" time="0.021694">
+        <testsuite name="SameAsLite\StoreTest" file="/var/www/html/sameas-lite/tests/phpUnit/StoreTest.php" tests="4" assertions="4" failures="0" errors="0" time="0.021694">
+          <testcase name="testExceptionIsRaisedForInvalidDSN" class="SameAsLite\StoreTest" file="/var/www/html/sameas-lite/tests/phpUnit/StoreTest.php" line="55" assertions="1" time="0.017870"/>
+          <testcase name="testExceptionIsRaisedForInvalidDbaseTableName" class="SameAsLite\StoreTest" file="/var/www/html/sameas-lite/tests/phpUnit/StoreTest.php" line="66" assertions="1" time="0.000317"/>
+          <testcase name="testStoreCanBeConstructedForValidConstructorArguments" class="SameAsLite\StoreTest" file="/var/www/html/sameas-lite/tests/phpUnit/StoreTest.php" line="76" assertions="1" time="0.002105"/>
+          <testcase name="testAnEmptyStoreCanBeDumped" class="SameAsLite\StoreTest" file="/var/www/html/sameas-lite/tests/phpUnit/StoreTest.php" line="87" assertions="1" time="0.001402"/>
+        </testsuite>
+      </testsuite>
+    </testsuites>
+
+### Create test reports in other formats
+
+Test reports can also be generated in JSON, [TAP](https://testanything.org/) (Test Anything Protocol) format and HTML-based agile documentation. For details see:
+
+    $ vendor/bin/phpunit --bootstrap vendor/autoload.php --help
+
 ---
 
 ## Create API documentation
@@ -307,6 +355,67 @@ If you see:
     sh: patch: command not found
 
 Then you need to install Patch.
+
+### Create an XML coding standards report
+
+Run:
+
+    $ ./vendor/bin/phpcs --standard=dev-tools/CodeStandard --report=xml --report-file=style.xml ./
+    $ cat style.xml 
+    <?xml version="1.0" encoding="UTF-8"?>
+    <phpcs version="2.3.0">
+    <file name="/var/www/html/sameas-lite/index.php" errors="4" warnings="1" fixable="0">
+     <error line="9" column="4" source="Squiz.Commenting.FileComment.SubpackageTagOrder" severity="5" fixable="0">The tag in position 2 should be the @subpackage tag</error>
+     <error line="10" column="4" source="Squiz.Commenting.FileComment.AuthorTagOrder" severity="5" fixable="0">The tag in position 3 should be the @author tag</error>
+     <error line="11" column="4" source="Squiz.Commenting.FileComment.CopyrightTagOrder" severity="5" fixable="0">The tag in position 4 should be the @copyright tag
+    </error>
+     <error line="34" column="2" source="Squiz.Commenting.FileComment.MissingSubpackageTag" severity="5" fixable="0">Missing @subpackage tag in file comment</error>
+     <warning line="43" column="1" source="Generic.Commenting.Todo.TaskFound" severity="5" fixable="0">Comment refers to a TODO task &quot;think about abstraction of dbase connection, store and dataset. it&quot;</warning>
+    </file>
+    ...
+    </phpcs>
+
+### Create an comma-separated values coding standards report
+
+Run:
+    
+    $ ./vendor/bin/phpcs --standard=dev-tools/CodeStandard --report=csv --report-file=style.csv ./
+    Time: 1.02 secs; Memory: 18.75Mb
+    $ cat style.csv 
+    File,Line,Column,Type,Message,Source,Severity,Fixable
+    "/var/www/html/sameas-lite/index.php",9,4,error,"The tag in position 2 should be the @subpackage tag",Squiz.Commenting.FileComment.SubpackageTagOrder,5,0
+    "/var/www/html/sameas-lite/index.php",10,4,error,"The tag in position 3 should be the @author tag",Squiz.Commenting.FileComment.AuthorTagOrder,5,0
+    "/var/www/html/sameas-lite/index.php",11,4,error,"The tag in position 4 should be the @copyright tag",Squiz.Commenting.FileComment.CopyrightTagOrder,5,0
+    "/var/www/html/sameas-lite/index.php",34,2,error,"Missing @subpackage tag in file comment",Squiz.Commenting.FileComment.MissingSubpackageTag,5,0
+    "/var/www/html/sameas-lite/index.php",43,1,warning,"Comment refers to a TODO task \"think about abstraction of dbase connection, store and dataset. it\"",Generic.Commenting.Todo.TaskFound,5,0
+    ...
+
+### Create a Checkstyle-compliant XML coding standards report.
+
+[Checkstyle](http://checkstyle.sourceforge.net/) is a popular style checking tool for Java and there are a number of scripts and applications that can also be used with PHP and which can process Checkstyle documents. 
+
+Run:
+
+    $ ./vendor/bin/phpcs --standard=dev-tools/CodeStandard --report=checkstyle --report-file=checkstyle.xml ./
+    Time: 998ms; Memory: 18.75Mb
+    $ cat checkstyle.xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <checkstyle version="2.3.0">
+    <file name="/var/www/html/sameas-lite/index.php">
+     <error line="9" column="4" severity="error" message="The tag in position 2 should be the @
+    subpackage tag" source="Squiz.Commenting.FileComment.SubpackageTagOrder"/>
+     <error line="10" column="4" severity="error" message="The tag in position 3 should be the 
+    @author tag" source="Squiz.Commenting.FileComment.AuthorTagOrder"/>
+     <error line="11" column="4" severity="error" message="The tag in position 4 should be the 
+    @copyright tag" source="Squiz.Commenting.FileComment.CopyrightTagOrder"/>
+     <error line="34" column="2" severity="error" message="Missing @subpackage tag in file comm
+    ent" source="Squiz.Commenting.FileComment.MissingSubpackageTag"/>
+     <error line="43" column="1" severity="warning" message="Comment refers to a TODO task &quo
+    t;think about abstraction of dbase connection, store and dataset. it&quot;" source="Generic
+    .Commenting.Todo.TaskFound"/>
+    </file>
+    ...
+    </checkstyle>
 
 ---
 
