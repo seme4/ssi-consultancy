@@ -548,8 +548,6 @@ PHPUnit is installed automatically by Composer:
     $ ./vendor/bin/phpunit --version
     PHPUnit 4.5.0 by Sebastian Bergmann and contributors.
 
-TODO - provide information on configuring and writing tests, and any manual tests (e.g. of deployment).
-
 ---
 
 ## Concepts and database schema
