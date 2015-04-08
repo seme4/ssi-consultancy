@@ -333,70 +333,25 @@ Create a `.gitignore` file so that these auto-generated files are ignored. The c
 
 This has been submitted as a [pull request](https://github.com/seme4/sameas-lite/pull/1).
 
+### Use a continuous integration server
+
+A [continuous integration](http://en.wikipedia.org/wiki/Continuous_integration) server provides an automated build-and-test environment that can be linked to a source code repository. An automated build-and-test run can be scheduled at regular intervals (e.g. nightly) and/or every time code is commited to the repository. Different build-and-test jobs can be set up for different branches in a repository, allowing each developer to have their own set of build-and-test jobs, for example. They help to ensure that the software can build and that tests are run, and regularly. They can also help to provide an indication as to when developer-specific modifications, extensions or fixes are ready to be merged into the software. For more information, see the Institute guide on [How continuous integration can help you regularly test and release your software](http://software.ac.uk/how-continuous-integration-can-help-you-regularly-test-and-release-your-software).
+
+[Jenkins](https://jenkins-ci.org/) is a popular, open source, continuous integration server. See our guide on [Getting started with Jenkins](https://github.com/softwaresaved/build_and_test_examples/blob/master/jenkins/README.md).
+
+ There are numerous examples of developers using Jenkins for PHP-based applications. See, for example, [PHP Quality Assurance with Jenkins](http://www.sitepoint.com/series/php-quality-assurance-with-jenkins/) and [Template for Jenkins Jobs for PHP Projects](http://jenkins-php.org/).
+
 ### Output style checking reports into files
 
 If there are a large number of style violations then these will scroll off the top of the terminal window when `make checks` is run. Outputting these reports into files would allow a developer to review them at their leisure.
 
-PHP_CodeSniffer can output its reports to files in a variety of formats. For example, XML:
+PHP_CodeSniffer can output its reports to files in a variety of formats. For example: XML, comma-separated values, or [Checkstyle](http://checkstyle.sourceforge.net/)-compliant XML. Checkstyle is of interest. It is a popular style checking tool for Java and there are a number of scripts and applications that can also be used with PHP and which can process Checkstyle documents. For example, Jenkins supports a [Checkstyle plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin) which parses Checkstyle documents and reports the results from within Jenkins. This would allow style checking to be integrated into any automated build-and-test environment for sameAs Lite.
 
-    $ ./vendor/bin/phpcs --standard=dev-tools/CodeStandard --report=xml --report-file=style.xml ./
-    $ cat style.xml 
-    <?xml version="1.0" encoding="UTF-8"?>
-    <phpcs version="2.3.0">
-    <file name="/var/www/html/sameas-lite/index.php" errors="4" warnings="1" fixable="0">
-     <error line="9" column="4" source="Squiz.Commenting.FileComment.SubpackageTagOrder" severity="5" fixable="0">The tag in position 2 should be the @subpackage tag</error>
-     <error line="10" column="4" source="Squiz.Commenting.FileComment.AuthorTagOrder" severity="5" fixable="0">The tag in position 3 should be the @author tag</error>
-     <error line="11" column="4" source="Squiz.Commenting.FileComment.CopyrightTagOrder" severity="5" fixable="0">The tag in position 4 should be the @copyright tag
-    </error>
-     <error line="34" column="2" source="Squiz.Commenting.FileComment.MissingSubpackageTag" severity="5" fixable="0">Missing @subpackage tag in file comment</error>
-     <warning line="43" column="1" source="Generic.Commenting.Todo.TaskFound" severity="5" fixable="0">Comment refers to a TODO task &quot;think about abstraction of dbase connection, store and dataset. it&quot;</warning>
-    </file>
-    ...
-    </phpcs>
+### Output test reports into files
 
-Comma-separated values:
-    
-    $ ./vendor/bin/phpcs --standard=dev-tools/CodeStandard --report=csv --report-file=style.csv ./
-    Time: 1.02 secs; Memory: 18.75Mb
-    $ cat style.csv 
-    File,Line,Column,Type,Message,Source,Severity,Fixable
-    "/var/www/html/sameas-lite/index.php",9,4,error,"The tag in position 2 should be the @subpackage tag",Squiz.Commenting.FileComment.SubpackageTagOrder,5,0
-    "/var/www/html/sameas-lite/index.php",10,4,error,"The tag in position 3 should be the @author tag",Squiz.Commenting.FileComment.AuthorTagOrder,5,0
-    "/var/www/html/sameas-lite/index.php",11,4,error,"The tag in position 4 should be the @copyright tag",Squiz.Commenting.FileComment.CopyrightTagOrder,5,0
-    "/var/www/html/sameas-lite/index.php",34,2,error,"Missing @subpackage tag in file comment",Squiz.Commenting.FileComment.MissingSubpackageTag,5,0
-    "/var/www/html/sameas-lite/index.php",43,1,warning,"Comment refers to a TODO task \"think about abstraction of dbase connection, store and dataset. it\"",Generic.Commenting.Todo.TaskFound,5,0
-    ...
+If there are a large number of tests then these will scroll off the top of the terminal window when `make tests` is run. Outputting these reports into files would allow a developer to review them at their leisure.
 
-[Checkstyle](http://checkstyle.sourceforge.net/)-compliant XML:
-    
-    $ ./vendor/bin/phpcs --standard=dev-tools/CodeStandard --report=checkstyle --report-file=checkstyle.xml ./
-    Time: 998ms; Memory: 18.75Mb
-    $ cat checkstyle.xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <checkstyle version="2.3.0">
-    <file name="/var/www/html/sameas-lite/index.php">
-     <error line="9" column="4" severity="error" message="The tag in position 2 should be the @
-    subpackage tag" source="Squiz.Commenting.FileComment.SubpackageTagOrder"/>
-     <error line="10" column="4" severity="error" message="The tag in position 3 should be the 
-    @author tag" source="Squiz.Commenting.FileComment.AuthorTagOrder"/>
-     <error line="11" column="4" severity="error" message="The tag in position 4 should be the 
-    @copyright tag" source="Squiz.Commenting.FileComment.CopyrightTagOrder"/>
-     <error line="34" column="2" severity="error" message="Missing @subpackage tag in file comm
-    ent" source="Squiz.Commenting.FileComment.MissingSubpackageTag"/>
-     <error line="43" column="1" severity="warning" message="Comment refers to a TODO task &quo
-    t;think about abstraction of dbase connection, store and dataset. it&quot;" source="Generic
-    .Commenting.Todo.TaskFound"/>
-    </file>
-    ...
-    </checkstyle>
-
-The latter is of note since there are a number of scripts and applications that can process Checkstyle documents. For example, the [Jenkins](https://jenkins-ci.org/) continuous integration server supports a [Checkstyle plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin) which parses Checkstyle documents and reports the results from within Jenkins. This would allow style checking to be integrated into any automated build-and-test environment for sameAs Lite.
-
-### Use a continuous integration server
-
-A [continuous integration](http://en.wikipedia.org/wiki/Continuous_integration) server provides an automated build-and-test environment that can be linked to a source code repository. An automated build-and-test run can be scheduled at regular intervals (e.g. nightly) and/or every time code is commited to the repository. Different build-and-test jobs can be set up for different branches in a repository, allowing each developer to have their own set of build-and-test jobs, for example. They help to ensure that the software can build and that tests are run, and regularly. They can also help to provide an indication as to when developer-specific modifications, extensions or fixes are ready to be merged into the software. For more information, see the Institute guide on [How continuous integration can help you regularly test and release your software](http://software.ac.uk/how-continuous-integration-can-help-you-regularly-test-and-release-your-software) and our guide on [Getting started with Jenkins](https://github.com/softwaresaved/build_and_test_examples/blob/master/jenkins/README.md), a popular, open source, continuous integration server.
-
-There are numerous examples of developers using Jenkins for PHP-based applications. See, for example, [PHP Quality Assurance with Jenkins](http://www.sitepoint.com/series/php-quality-assurance-with-jenkins/) and [Template for Jenkins Jobs for PHP Projects](http://jenkins-php.org/).
+phpUnit can output its reports in a variety of formats. For example: agile text, agile HTML, JSON, [TAP](https://testanything.org/) (Test Anything Protocol), and [JUnit](http://junit.org). JUnit is of interest. It is a popular unit test framework for Java. Its XML report format has been adopted by unit test frameworks for a number of languages and there are a number of scripts and and applications that can also be used with PHP and which can process JUnit XML test reports. Jenkina supports a [JUnit plugin](https://wiki.jenkins-ci.org/display/JENKINS/JUnit+Plugin) which parses JUnit documents and reports the results from within Jenkins. This would allow testing to be integrated into any automated build-and-test environment for sameAs Lite.
 
 ---
 
