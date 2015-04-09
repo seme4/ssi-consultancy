@@ -26,9 +26,9 @@ The aims of the collaboration are as follows.
 Outputs to date are:
 
 * [Open source project review](./open-source/OpenSourceProjectReview.md)
-* [Deployer and Developer Review](./DeployerDeveloperReview.md) - work-in-progress
+* [Deployer and Developer Review](./DeployerDeveloperReview.md)
 * [Deployer's Guide](./DeployersGuide.md)
-* [Developer's Guide](./DevelopersGuide.md) - work-in-progress
+* [Developer's Guide](./DevelopersGuide.md)
 * [REST API examples](./RESTAPIexamples.md) - work-in-progress - examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can be useful for developers.
 * [Deployer and Developer Reference](./Reference.md) - work-in-progress - summary of useful information for both deployers and developers.
 
