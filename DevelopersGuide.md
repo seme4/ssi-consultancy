@@ -92,6 +92,90 @@ This stores the token in ~/.composer.
 
 ---
 
+## Install Xdebug (optional)
+
+[Xdebug](http://xdebug.org/) is a profiler and code analyser for PHP. It can be used with PHPUnit to create test coverage reports.
+
+### Ubuntu 14.04
+
+Install:
+
+    $ apt-get install php5-dev php-pear
+    $ pecl install xdebug
+
+Find library:
+
+    $ find / -name 'xdebug.so' 2> /dev/null
+    /usr/lib/php5/20121212/xdebug.so
+
+Edit /etc/php/apache2/php.ini and add in the following lines, replacing the path to the library if necessary:
+
+    [xdebug]
+    zend_extension="/usr/lib/php5/20121212/xdebug.so"
+
+Edit /etc/php/cli/php.ini and, again, add in the above lines, replacing the path to the library if necessary.
+
+Restart Apache:
+
+    $ service apache restart
+
+### Scientific Linux 7
+
+Install:
+
+    $ yum install php-devel php-pear
+    $ pecl install xdebug
+
+Find library:
+
+    $ find / -name 'xdebug.so' 2> /dev/null
+    /usr/lib/php5/20121212/xdebug.so
+
+Find library:
+
+    $ find / -name 'xdebug.so' 2> /dev/null
+    /usr/lib64/php/modules/xdebug.so
+
+Restart Apache:
+
+### Fedora 21
+
+Install:
+
+    $ yum install gcc gcc-c++ autoconf automake
+    $ yum install php-devel php-pear
+    $ pecl install xdebug
+
+Find library:
+
+    $ find / -name 'xdebug.so' 2> /dev/null
+    /usr/lib64/php/modules/xdebug.so
+
+Edit /etc/php.ini and add in the following lines, replacing the path to the library if necessary:
+
+    [xdebug]
+    zend_extension="/usr/lib64/php/modules/xdebug.so"
+
+Restart Apache:
+
+    $ apachectl restart
+
+### Check Xdebug has been installed
+
+Visit http://127.0.0.1/index.php, and scroll down and you should see:
+
+    with Xdebug v2.3.2, Copyright (c) 2002-2015, by Derick Rethans
+
+Scroll down and there should be an xdebug section and configuration tables.
+
+Run:
+
+    $ php /var/www/html/index.php | grep -in xdebug | more
+
+and you should see xdebug-related configuration.
+
+---
+
 ## Install PHP development tools
 
 Run:
@@ -269,19 +353,7 @@ Run all the tests in a specific class, for example:
 
     $ vendor/bin/phpunit --bootstrap vendor/autoload.php --filter StoreTest tests/phpUnit/ 
 
-### Create an agile test report file
-
-Run:
-
-    $ vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox-text tests.txt tests/phpUnit/ 
-    $ cat tests.txt
-    SameAsLite\Store
-     [x] Exception is raised for invalid d s n
-     [x] Exception is raised for invalid dbase table name
-     [x] Store can be constructed for valid constructor arguments
-     [x] An empty store can be dumped
-
-### Create an JUnit XML test report
+### Create a JUnit XML test report
 
 [JUnit](http://junit.org) is a popular unit test framework for Java. Its XML report format has been adopted by unit test frameworks for a number of languages and there are a number of scripts and and applications that can also be used with PHP and which can process JUnit XML test reports. 
 
@@ -303,9 +375,55 @@ Run:
 
 ### Create test reports in other formats
 
-Test reports can also be generated in JSON, [TAP](https://testanything.org/) (Test Anything Protocol) format and HTML-based agile documentation. For details see:
+Test reports can also be generated in JSON, [TAP](https://testanything.org/) (Test Anything Protocol) format and text- and HTML-based agile documentation. For details see PHPUnit [Logging](https://phpunit.de/manual/current/en/logging.html) or run:
 
     $ vendor/bin/phpunit --bootstrap vendor/autoload.php --help
+
+### Create a code coverage report
+
+If you have installed Xdebug, then PHPUnit can create code coverage reports which summarises which lines of the sameAs Lite code have been executed as a side-effect of running the tests.
+
+Run:
+
+    $ vendor/bin/phpunit --bootstrap vendor/autoload.php --coverage-text tests/phpUnit/
+
+### Create a Clover code coverage report
+
+[Clover](https://www.atlassian.com/software/clover) is a popular code coverage framework for Java. Its XML report format has been adopted by unit test frameworks for a number of languages and there are a number of scripts and and applications that can also be used with PHP and which can process Clover XML test reports. 
+
+Run:
+
+    $ vendor/bin/phpunit --bootstrap vendor/autoload.php --coverage-clover clover.xml tests/phpUnit/
+    $ cat clover.xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <coverage generated="1428578447">
+      <project timestamp="1428578447">
+        <package name="SameAsLite">
+          <file name="/var/www/html/sameas-lite/src/Store.php">
+            <class name="Store" namespace="SameAsLite">
+              <metrics methods="23" coveredmethods="1" conditionals="0" coveredconditionals="0"
+                       statements="449" coveredstatements="47" elements="472" coveredelements="48"/>
+            </class>
+            <line num="81" type="method" name="__construct" crap="10.10" count="4"/>
+            <line num="85" type="stmt" count="4"/>
+            <line num="86" type="stmt" count="4"/>
+            ...
+
+### Create code coverage reports in other formats
+
+Code coverage reports can also be generated in
+
+[Crap4J](http://www.crap4j.org/) (Change Risk Analysis and Predictions), HTML, PHPUnit XML and as a PHP_CodeCoverage object. For details see PHPUnit [Code Coverage Analysis](https://phpunit.de/manual/current/en/code-coverage-analysis.html) or run:
+
+    $ vendor/bin/phpunit --bootstrap vendor/autoload.php --help
+
+**Troubleshooting - The Xdebug extension is not loaded. **
+
+If you see:
+
+    The Xdebug extension is not loaded. No code coverage will be generated.
+
+Then you need to install Xdebug.
 
 ---
 
