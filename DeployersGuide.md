@@ -455,8 +455,7 @@ However, if you wish to use an older version of SQLite 3, you can disable this o
 
     /**
      * Establish connection to database, if not already made
-     * @throws \Exception Exception is thrown if connection fails or table cann
-ot be accessed/created.
+     * @throws \Exception Exception is thrown if connection fails or table cannot be accessed/created.
      */
     public function connect()
 
@@ -751,12 +750,13 @@ Ensure that the Apache user, apache, is able to read and write files in the dire
 
     $ chown apache:apache /var/databases/
 
-You will then need to configure security settings to allow Apache services to read and write files in this directory:
+Configure security settings to allow Apache services to read and write 
+files in this directory:
 
     $ chcon -R -t httpd_user_rw_content_t /var/databases/
     $ chcon -R -t httpd_user_rw_content_t /var/databases/sameasdb.sq3
 
-You can check the configuration as follows:
+Check the configuration as follows:
 
     $ ls -Z /var/databases
     -rw-r--r--. apache apache unconfined_u:object_r:httpd_user_rw_content_t:s0 sameasdb.sq3
