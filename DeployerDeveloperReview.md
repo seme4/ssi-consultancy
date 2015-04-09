@@ -8,11 +8,7 @@ Mike Jackson, The Software Sustainability Institute / EPCC, The University of Ed
 
 sameAs Lite is implemented as two [PHP](http://php.net/) libraries, one which implements the core storage management functionality, and one which implements a [REST](http://en.wikipedia.org/wiki/Representational_state_transfer) web application. These depend upon a number of other libraries and [PHP Composer](https://getcomposer.org/) is used for dependency management. 
 
-It is intended that the core library can be used within other applications, outwith the REST web application. Originally the core library could be used as-is with [SQLite](http://www.sqlite.org/) but the core library currently only supports [MySQL](http://www.mysql.com). There is a desire to make it database agnostic, but without degrading performance.
-
-A key non-functional requirement of the core library is that performance must be very good. As a result, a significant amount of performance analysis has been done with the core library on a variety of machines. Sample data for which the performance of the core library is known are available.
-
-There are a small set of PHP unit tests. A goal is for the core library to be supported by a comprehensive suite of tests, though it has proved time consuming to write effective tests.
+It is intended that the core library can be used within other applications, outwith the REST web application. Originally the core library could be used as-is with [SQLite](http://www.sqlite.org/) but the core library currently only supports [MySQL](http://www.mysql.com). There is a desire to make sameAs Lite database agnostic, but without degrading performance.
 
 ### About this document
 
@@ -20,7 +16,8 @@ This is a review of sameAs Lite from the perspective of deployers and developers
 
 * Foregoing information, provided by Hugh Glaser and Ian Millard (the developers of sameAs.org and sameAs Lite).
 * Contents of the sameAs Lite GitHub repository.
-* Online resources found using Google.
+* Documentation for third-party software packages.
+* Online resources found via Google.
 
 ---
 
@@ -47,25 +44,21 @@ The virtual machine images ran under [VMware Player](http://www.vmware.com/uk/pr
 
 ## Recommendations to help deployers
 
-### Provide a deployers guide
+### Write a deployers guide
 
-At present, there is no information as to how anyone can deploy sameAs Lite for use. This can be found by looking at the sameAs Lite source code and searching Google but this would be a deterrent to all but the most dedicated of deployers.
+There is no information on how to deploy sameAs Lite. This can be uncovered by looking at the sameAs Lite source code, third-party software documentation, and searching Google but this would be a deterrent to all but the most dedicated of deployers. Write a deployers guide which covers:
 
-Provide a deployers guide explaining how a deployer can:
+* Installing sameAs Lite and its prerequisites.
+* Configuring sameAs Lite to expose linked data stores held within SQLite and MySQL.
+* Database schema these linked data stores must conform to.
+* Identifying and solving common installation and deployment problems.
+* Rebranding sameAs Lite with institution-specific styles, colours and logos.
 
-* Install sameAs Lite and its prerequisites and dependencies.
-* Configure sameAs Lite to expose linked data stores and the database schema these must conform to.
-* Configure sameAs Lite for use with both SQLite and MySQL.
-* Identify and solve common installation and deployment problems.
-* Change the branding of sameAs Lite with institution-specific styles, colours and logos.
-
-An example, written concurrently with this report, is at [Deployer's Guide](./DeployersGuide.md).
-
-[Deployer and Developer Reference](./Reference.md) contains a summary of useful information for both deployers and developers.
+An example, written concurrently with this report, is at [Deployer's Guide](./DeployersGuide.md). [Deployer and Developer Reference](./Reference.md) contains a summary of useful information for both deployers and developers.
 
 ### Provide stable releases for deployers
 
-At present, deployers can only take a version from the master branch from the Git repository. In the longer term, deployers could either use:
+Deployers can only take a version of sameAs Lite from the master branch from the Git repository. In the longer term, deployers could either use:
 
 * A tag of the repository, known to be stable and bug-free. In which case the deployer can then do, after the above:
 
@@ -73,16 +66,16 @@ At present, deployers can only take a version from the master branch from the Gi
 
     $ git checkout TAG_NAME
 
-* A pre-bundled TAR.GZ file prepared using `make tarball`.
-* A pre-bundled ZIP or TAR.GZ file prepared using GitHub's release feature:
+* A pre-bundled tar.gz file, prepared using `make tarball`.
+* A pre-bundled zip or tar.gz file prepared using GitHub's release feature:
   - [Creating Releases](https://help.github.com/articles/creating-releases/)
   - [Release Your Software](https://github.com/blog/1547-release-your-software)
 
-### Decide which operating systems are to be supported
+### Decide which operating systems are supported
 
 The deployers guide should state what operating systems are supported, and also what others sameAs Lite is known to run on.
 
-### Decide which Apache versions, and other web servers, are to be supported
+### Decide which Apache versions, and other web servers, are supported
 
 .htaccess uses:
 
@@ -100,13 +93,13 @@ has been replaced by:
 
     Require all denied
 
-using a new module mod_authz_host. It then comments that "For compatibility with old configurations, the new module mod_access_compat is provided".
+using a new module, mod_authz_host. It then comments that "For compatibility with old configurations, the new module mod_access_compat is provided".
 
 The deployers guide should state what web servers are supported, and also what others sameAs Lite is known to run under.
 
-### Decide what MySQL versions are to be supported
+### Decide which MySQL versions are supported
 
-[MySQL](http://www.mysql.com) is now owned by Oracle. There is a GPL-licensed fork of MySQL, [MariaDB](https://mariadb.org) is GPL fork of MySQL also available:
+[MySQL](http://www.mysql.com) is now owned by Oracle. There is also a GPL-licensed fork of MySQL, [MariaDB](https://mariadb.org), now available. For example, within the Ubuntu package manager:
 
     $ sudo apt-cache search mysql | grep mysql-server
     mysql-server - MySQL database server (metapackage depending on the latest version)
@@ -121,64 +114,59 @@ The deployers guide should state what web servers are supported, and also what o
 
 The deployers guide should state what versions of MySQL are supported, and also what others sameAs Lite is known to run with.
 
-sameAs Lite is compatible with MariaDB under Scientific Linux 7 and Fedora 21.
+sameAs Lite is compatible with MariaDB on Scientific Linux 7 and Fedora 21.
 
-### Crowd source known deployment configurations
+### Crowd-source known deployment configurations
 
-Due to the myriad flavours of Linux and versions of Apache, SQLite, MySQL, and PHP and the different ways in which these can be configured, it is impractical to write complete instructions for every combination. Such information can be crowd-sourced from existing, and future, deployers and developers, by encouraging them to contribute any deviations from the deployers guide they needed to adopt when deploying sameAs Lite upon their own server. These can be published on a web site or other project resource.
+Due to the myriad flavours of Linux, versions of Apache, other web servers, SQLite, MySQL, PHP and the different ways in which these can be configured, it is impractical to write deployment instructions for every combination. This information can be crowd-sourced from existing, and future, deployers and developers, by encouraging them to contribute any deviations from the deployers guide they needed to adopt when deploying sameAs Lite. These can be published on a web site or other project resource.
 
 ### Clarify what config.ttl is for
 
-.htaccess refers to:
+.htaccess refers to a [Turtle](http://en.wikipedia.org/wiki/Turtle_%28syntax%29) file:
 
     <Files config.ttl>
 
-but there is no config.ttl in the repository.
+There is no config.ttl in the repository.
 
-.ttl is a [Turtle](http://en.wikipedia.org/wiki/Turtle_%28syntax%29) file.
+### Provide sample data
 
-### Provide a sample data set
+Provide sample data that a deployer can use to check their deployment. Alternatively, or in addition, provide links to online examples of suitable data, for example, linked data downloaded via one of the REST endpoints of sameAs.org.
 
-Provide a sample data set that a deployer can use to check their deployment. Alternatively, or in addition, provide links to online examples of suitable data sets, for example, a set of sample data downloaded via one of the REST endpoints of sameAs.org.
+### Write a deployment validation checklist
 
-### Provide a deployment checklist
+Write a checklist of what a deployer should look for in the user interface to validate that sameAs Lite has been deployed correctly and that a data store is ready for use.
 
-Provide a checklist of what a deployer should look for in the user interface to validate that sameAs Lite has been deployed correctly and that a data store is ready for use.
+### Implement a deployer test suite
 
-### Provide a deployer test suite
+To complement the checklist and sample data, implement a test suite that pings all the REST endpoints to validate a deployment.
 
-To complement the checklist and sample data set, provide a test suite, based on curl perhaps, that pings all the REST endpoints to validate a deployment.
+### Document how to rebrand sameAs Lite
 
-### Describe how to rebrand sameAs Lite
+Document what files deployers need to edit or replace, and the changes they need to make, to brand sameAs Lite with institution-specific styles, colours and logos.
 
-Provide documentation on what files deployers need to edit or replace, and the changes they need to make, to brand sameAs Lite with institution-specific styles, colours and logos.
+### Implement a command-line and/or web-based admin interface
 
-### Provide a command-line and/or web-based admin interface
-
-At present, deployers configure sameAs Lite to expose data stores by editing the index.php file. This requires no knowledge of PHP - deployers can just copy-and-paste a code fragment, then edit the connection URL, database name, username and password. However, it could improve usability, and remove the need for deployers to edit raw PHP by providing either a simple command-line admin tool for configuring sameAs Lite to expose data stores and/or providing a web-based admin interface.
+Deployers configure sameAs Lite to expose data stores by editing the index.php file. This requires no knowledge of PHP - deployers can just copy-and-paste a code fragment, then edit the connection URL, database name, username and password. However, it could improve usability, and remove the need for deployers to edit raw PHP, by providing either a simple command-line admin tool for configuring sameAs Lite to expose data stores and/or providing a web-based admin interface.
 
 ---
 
 ## Recommendations to help developers
 
-### Provide a developer's guide
+### Write a developer's guide
 
-At present the following information can found via Google, and inspecting the sameAs Lite source code:
+The following information can found via Google, third-party software documentation, and inspecting the sameAs Lite source code:
 
-* How a developer can install sameAs Lite and the prerequisites and dependencies required to develop and test sameAs Lite.
-* How a developer can run the style checker, auto-generate documentation, create releases and configure and run unit tests.
+* Installing sameAs Lite and the prerequisites required to develop and test sameAs Lite.
+* Running the style checker.
+* Auto-generating API documentation.
+* Creating releases.
+* Configuring and running unit tests.
 
-There is no information on:
+Write a deployers guide which covers the above and other information needed by developers (the following sections elaborate on this).
 
-* Coding standards, beyond those embedded within the style checker-related files.
-* Guidelines for writing tests.
-* How a developer can run performance tests and check that their changes have not degraded performance.
+An example, written concurrently with this report, is at [Developer's Guide](./DeveloperGuide.md). [Deployer and Developer Reference](./Reference.md) contains a summary of useful information for both deployers and developers. 
 
-It would help developers get up to speed more rapidly if there is a guide for developers were provided which documented all of these.
-
-An example, written as a side-effect of this report, is at [Developer's Guide](./DevelopersGuide.md).
-
-[REST API examples](./RESTAPIexamples.md) contains examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can be useful for developers.
+[REST API examples](./RESTAPIexamples.md) contains examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can also be useful for developers.
 
 ### Clarify dev target in Makefile
 
@@ -192,9 +180,9 @@ But there is no dev target in Makefile. This implies that this reference should 
 
 Makefile's dev and tests targets are not commented in the Makefile's comment block. The tests target should be commented, as should dev, depending upon whether it should be there or should be deleted.
 
-### Provide human-readable coding standards
+### Write human-readable coding standards
 
-These should cover both the requirements expected by PHP_CodeSniffer and phpDocumentor.
+Coding standards are implict as [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) configuration files within dev-tools/CodeStandard/. A human-readable version should be provided.
 
 ### Clarify if a developer has to act upon dependency suggestions
 
@@ -250,7 +238,7 @@ After the dependencies have installed, a number of messages are printed:
     Writing lock file
     Generating autoload files
 
-Whether these need to be acted upon, or can be ignored, should be documented.
+Document whether these need to be acted upon, or can be safely ignored.
 
 ### Add a .gitignore file
 
@@ -286,37 +274,64 @@ This has been submitted as a [pull request](https://github.com/seme4/sameas-lite
 
 ### Use a continuous integration server
 
-A [continuous integration](http://en.wikipedia.org/wiki/Continuous_integration) server provides an automated build-and-test environment that can be linked to a source code repository. An automated build-and-test run can be scheduled at regular intervals (e.g. nightly) and/or every time code is commited to the repository. Different build-and-test jobs can be set up for different branches in a repository, allowing each developer to have their own set of build-and-test jobs, for example. They help to ensure that the software can build and that tests are run, and regularly. They can also help to provide an indication as to when developer-specific modifications, extensions or fixes are ready to be merged into the software. For more information, see the Institute guide on [How continuous integration can help you regularly test and release your software](http://software.ac.uk/how-continuous-integration-can-help-you-regularly-test-and-release-your-software).
+A [continuous integration](http://en.wikipedia.org/wiki/Continuous_integration) server provides an automated build-and-test environment that can be linked to a source code repository. A build-and-test run can be scheduled at regular intervals (e.g. nightly) and/or every time code is commited to the repository. Different build-and-test jobs can be set up for different branches in a repository, allowing each developer to have their own set of build-and-test jobs, for example. Continuous integration servers can help to ensure that software can build and that tests are run regularly. They also help to provide an indication as to when developer-specific modifications, extensions or fixes are ready to be merged. For more information, see the Institute guide on [How continuous integration can help you regularly test and release your software](http://software.ac.uk/how-continuous-integration-can-help-you-regularly-test-and-release-your-software).
 
-[Jenkins](https://jenkins-ci.org/) is a popular, open source, continuous integration server. See our guide on [Getting started with Jenkins](https://github.com/softwaresaved/build_and_test_examples/blob/master/jenkins/README.md).
-
- There are numerous examples of developers using Jenkins for PHP-based applications. See, for example, [PHP Quality Assurance with Jenkins](http://www.sitepoint.com/series/php-quality-assurance-with-jenkins/) and [Template for Jenkins Jobs for PHP Projects](http://jenkins-php.org/).
+[Jenkins](https://jenkins-ci.org/) is a popular, open source, continuous integration server. See our guide on [Getting started with Jenkins](https://github.com/softwaresaved/build_and_test_examples/blob/master/jenkins/README.md). There are numerous examples of developers using Jenkins for PHP-based applications. See, for example, [PHP Quality Assurance with Jenkins](http://www.sitepoint.com/series/php-quality-assurance-with-jenkins/) and [Template for Jenkins Jobs for PHP Projects](http://jenkins-php.org/).
 
 ### Output style checking reports into files
 
-If there are a large number of style violations then these will scroll off the top of the terminal window when `make checks` is run. Outputting these reports into files would allow a developer to review them at their leisure.
+If there are a large number of style violations then reports on these will scroll off the top of the terminal window when `make checks` is run. Output these reports into files to allow a developer to review them at their leisure.
 
-PHP_CodeSniffer can output its reports to files in a variety of formats. For example: XML, comma-separated values, or [Checkstyle](http://checkstyle.sourceforge.net/)-compliant XML. Checkstyle is of interest. It is a popular style checking tool for Java and there are a number of scripts and applications that can also be used with PHP and which can process Checkstyle documents. For example, Jenkins supports a [Checkstyle plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin) which parses Checkstyle documents and reports the results from within Jenkins. This would allow style checking to be integrated into any automated build-and-test environment for sameAs Lite.
+PHP_CodeSniffer can output its reports in a variety of formats: XML, comma-separated values, or [Checkstyle](http://checkstyle.sourceforge.net/)-compliant XML. Checkstyle is a popular style checking tool for Java and there are a number of applications that can be used with PHP and which can process Checkstyle reports. For example, Jenkins supports a [Checkstyle plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin) which parses Checkstyle reports and presents these from within Jenkins.
 
 ### Output test reports into files
 
-If there are a large number of tests then these will scroll off the top of the terminal window when `make tests` is run. Outputting these reports into files would allow a developer to review them at their leisure.
+If there are a large number of tests then reports on these will scroll off the top of the terminal window when `make tests` is run. Output these reports into files to allow a developer to review them at their leisure.
 
-phpUnit can output its reports in a variety of formats. For example: agile text, agile HTML, JSON, [TAP](https://testanything.org/) (Test Anything Protocol), and [JUnit](http://junit.org). JUnit is of interest. It is a popular unit test framework for Java. Its XML report format has been adopted by unit test frameworks for a number of languages and there are a number of scripts and and applications that can also be used with PHP and which can process JUnit XML test reports. Jenkina supports a [JUnit plugin](https://wiki.jenkins-ci.org/display/JENKINS/JUnit+Plugin) which parses JUnit documents and reports the results from within Jenkins. This would allow testing to be integrated into any automated build-and-test environment for sameAs Lite.
+[PHPUnit](https://phpunit.de/) can output its reports in a variety of formats: agile text, agile HTML, JSON, [TAP](https://testanything.org/) (Test Anything Protocol), and [JUnit](http://junit.org)-compliant XML. JUnit is a popular test framework for Java and there are a number of applications that can be used with PHP and which can process JUnit test reports. Jenkins supports a [JUnit plugin](https://wiki.jenkins-ci.org/display/JENKINS/JUnit+Plugin) which parses JUnit test reports and presents these from within Jenkins.
 
----
+### Use PHPUnit code coverage
 
-## What I need to continue to review from a deployer and developer perspective
+[Code coverage](http://en.wikipedia.org/wiki/Code_coverage) can provide one metric as to how effective a set of tests are in testing code. It summarises the lines of code that are executed as a side-effect of running the tests. PHPUnit supports code coverage, via [Xdebug](http://xdebug.org). It should be borne in mind:
 
-As a deployer:
+> Even if 100 percent test coverage were possible, that is not a sufficient criterion for testing. Roughly 35 percent of software defects emerge from missing logic paths, and another 40 percent from the execution of a unique combination of logic paths. They will not be caught by 100 percent coverage. 
 
-* Sample linked data sets.
-* A list of the checks you do to ensure that sameAs Lite has been deployed and is working correctly.
+Fact 33. from Glass, R. (2002) Facts and Fallacies of Software Engineering, Addison-Wesley, 2002. ([PDF](http://ff.tu-sofia.bg/~bogi/France/SoftEng/books/Addison%20Wesley%20-%20Robert%20L%20Glass%20-%20Facts%20and%20Fallacies%20of%20Software%20Engineering.pdf)).
 
-As a developer:
+### Output code coverage reports into files
 
-* How to do performance tests?
-* Sample performance data, especially, Hugh's data set for which performance is known.
-* How to understand and update style checks.
+PHPUnit can output its reports in a variety of formats: XML, [Crap4J](http://www.crap4j.org/) (Change Risk Analysis and Predictions), HTML, PHPUnit XML, a PHP_CodeCoverage object and [Clover](https://www.atlassian.com/software/clover)-compliant XML. Clover is a popular code coverage framework for Java and there are a number of applications that can be used with PHP and which can process Clover code coverage reports. Jenkins supports a [Clover PHP Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Clover+PHP+Plugin) which parses Clover code coverage reports and presents these from within Jenkins.
 
-Comments on the foregoing and problems in [REST API examples](./RESTAPIexamples.md) would also be useful.
+### Promote, and mandate, test development
+
+There are a small set of PHP unit tests. A goal is for the core sameAs Lite library to be supported by a comprehensive suite of tests, though it has proved time consuming to write effective tests.
+
+Testing can be promoted as an important aspect of preserving, and promoting, the image of both sameAs Lite and its developers. If sameAs Lite is buggy and brittle then deployers may abandon it and potential deployers may be deterred from using it (and, in the worst case, other software from the same developers).
+
+The process for using the source code repository can mandate that any new functions or components must be complemented by tests, that these tests are reviewed by another developer, and that the tests must pass, before these functions or components are merged into any release branch. Likewise, a contributions policy can mandate that any new functions or components, provided by third-party developers, are complemented by tests.
+
+For example, the [MAUS](http://micewww.pp.rl.ac.uk/projects/maus/wiki) (MICE Analysis User Software) project impose the following conditions before [Merging code to the trunk](http://micewww.pp.rl.ac.uk/projects/maus/wiki/Merging_code_to_the_trunk):
+
+* Developers must have their own personal branch tested on the MAUS Jenkins server.
+* The developer's personal branch must pass all the MAUS style, unit, integration, and application tests.
+* Every function must have a unit test.
+* Application tests should be written to test an overall area of functionality.
+* Code coverage should be 80% or above.
+* Code should not generate any compiler warnings.
+* Code should not cause any memory leaks.
+
+The MAUS project have regularly e-mailed their developers with the names of classes and functions that fell below the 80% level, or violated the MAUS style checker.
+
+## Define performance requirements
+
+A key non-functional requirement of the sameAs Lite core library is that performance must be very good. As a result, a significant amount of performance analysis has been done with the core library on a variety of machines. Sample data for which the performance of the core library is known are available.
+
+There are a number of ways to reduce the risk that developers do not degrade the performance of the core library:
+
+* Highlight, in the developers guide, that performance is a key non-functional requirement.
+* If any code has been written in a non-intuitive or cryptic way to improve performance, then provide comments that explain why the code is this way. This can prevent developers inadvertently cleaning up or refactoring this code but, as a result, degrading performance.
+* Document how performance testing can be done.
+* Distribute data sets for which performance is known, their performance data, and details of the conditions under which this data was gathered,
+* Implement a suite of automated performance tests based on these data sets.
+* Make performance a part of the conditions for merging code into a release
+* Extend any process for using the source code repository to mandate that code must satisfy performance criteria before being merged into a release branch.
