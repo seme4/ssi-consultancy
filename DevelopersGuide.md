@@ -319,6 +319,13 @@ Alternatively, set up an application token as suggested above.
 
 ## Run tests
 
+[PHPUnit](https://phpunit.de/) is used as an automated test framework.
+
+PHPUnit is installed automatically by Composer:
+
+    $ ./vendor/bin/phpunit --version
+    PHPUnit 4.5.0 by Sebastian Bergmann and contributors.
+
 Run:
 
     $ make tests
@@ -429,6 +436,13 @@ Then you need to install Xdebug.
 
 ## Create API documentation
 
+[phpDocumentor](http://www.phpdoc.org/) comments and tags are used to document PHP source code. 
+
+phpDocumentor is installed automatically by Composer:
+
+    $ ./vendor/bin/phpdoc --version
+    phpDocumentor version 2.8.2
+
 Run:
 
     $ make docs
@@ -447,13 +461,22 @@ Then you need to install GraphViz.
 
 ## Run coding standards check
 
+[PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) is used as a style checker. 
+
+PHP_CodeSniffer's tools are installed automatically by Composer:
+
+    $ ./vendor/bin/phpcbf --version
+    PHP_CodeSniffer version 2.3.0 (stable) by Squiz (http://www.squiz.net)
+    $ ./vendor/bin/phpcs --version
+    PHP_CodeSniffer version 2.3.0 (stable) by Squiz (http://www.squiz.net)
+
 Run:
 
     $ make checks
 
 The results of the check will be displayed.
 
-**Troubleshooting - Error 1(ignored)**
+**Troubleshooting - Error 1 (ignored)**
 
 If you see:
 
@@ -624,25 +647,7 @@ For more on phpDocumentor comments and tags, see [Learn about phpDocumentor](htt
 * [Your First Set of Documentation](http://www.phpdoc.org/docs/latest/getting-started/your-first-set-of-documentation.html)
 * [Inside DocBlocks](http://www.phpdoc.org/docs/latest/guides/docblocks.html)
 
-### How API documentation is auto-generated
-
-[phpDocumentor](http://www.phpdoc.org/) comments and tags are used to document PHP source code. 
-
-phpDocumentor is installed automatically by Composer:
-
-    $ ./vendor/bin/phpdoc --version
-    phpDocumentor version 2.8.2
-
 ### How style checking works
-
-[PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) is used as a style checker. 
-
-PHP_CodeSniffer's tools are installed automatically by Composer:
-
-    $ ./vendor/bin/phpcbf --version
-    PHP_CodeSniffer version 2.3.0 (stable) by Squiz (http://www.squiz.net)
-    $ ./vendor/bin/phpcs --version
-    PHP_CodeSniffer version 2.3.0 (stable) by Squiz (http://www.squiz.net)
 
 When `make checks` is run, two passes are done:
 
