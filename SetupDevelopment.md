@@ -4,6 +4,8 @@ How to setup a development enviroment for sameAs Lite.
 
 You should be familiar with the [Deployer's Guide](./DeployersGuide.md) and havve installed the software listed in it.
 
+---
+
 ## Install GraphViz
 
 [GraphViz](http://www.graphviz.org/) is open source graph visualisation software. It is used to create images for API documentation.

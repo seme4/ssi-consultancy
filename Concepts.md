@@ -8,6 +8,8 @@ An application that wishes to use data from multiple sources as if they were a s
 
 For more information about the concepts underpinning sameAs Lite, see Glaser, H., Jaffri, A. and Millard, I. C. (2009) [Managing Co-reference on the Semantic Web](http://eprints.soton.ac.uk/267587/). In: Linked Data on the Web (LDOW2009), April 2009, Madrid, Spain.
 
+---
+
 ## Database schema
 
 sameAs Lite stores equivalent URIs within a single database table which associates an URI with its canon. The schema of this table is as follows:

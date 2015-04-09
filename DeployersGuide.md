@@ -2,6 +2,10 @@
 
 This page describes how to deploy sameAs Lite and configure it to expose linked data stores. You should be familiar with sameAs Lite [concepts](./Concepts.md).
 
+---
+
+## Operating systems
+
 The instructions have been written with reference to three 64-bit operating systems:
 
 * [Ubuntu](http://www.ubuntu.com/) 14.04.1.
