@@ -298,8 +298,6 @@ PHPUnit can output its reports in a variety of formats: XML, [Crap4J](http://www
 
 ### Promote, and mandate, test development
 
-There are a small set of PHP unit tests. A goal is for the core sameAs Lite library to be supported by a comprehensive suite of tests, though it has proved time consuming to write effective tests.
-
 Testing can be promoted as an important aspect of preserving, and promoting, the image of both sameAs Lite and its developers. If sameAs Lite is buggy and brittle then deployers may abandon it and potential deployers may be deterred from using it (and, in the worst case, other software from the same developers).
 
 The process for using the source code repository can mandate that any new functions or components must be complemented by tests, that these tests are reviewed by another developer, and that the tests must pass, before these functions or components are merged into any release branch. Likewise, a contributions policy can mandate that any new functions or components, provided by third-party developers, are complemented by tests.
@@ -318,7 +316,7 @@ The MAUS project have regularly e-mailed their developers with the names of clas
 
 ## Define performance requirements
 
-A key non-functional requirement of the sameAs Lite core library is that performance must be very good. As a result, a significant amount of performance analysis has been done with the core library on a variety of machines. Sample data for which the performance of the core library is known are available.
+A key non-functional requirement of the sameAs Lite core library is good performance. A significant amount of performance analysis has been done with the core library on a variety of machines. Sample data for which the performance of the core library is known are available from Hugh and Ian.
 
 There are a number of ways to reduce the risk that developers do not degrade the performance of the core library:
 
