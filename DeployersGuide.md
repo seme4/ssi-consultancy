@@ -795,7 +795,7 @@ then check:
 
 * Database management system is running.
 * index.php specifies a valid connection URL, database, username and password.
-* For Scientific Linux 7 / Fedora 21 Apache services are allowed to connect to networked databases (you have run setsebool). See StackOverflow, [php can't connect to mysql with error 13 (but command line can)](http://stackoverflow.com/questions/4078205/php-cant-connect-to-mysql-with-error-13-but-command-line-can).
+* For Scientific Linux 7 / Fedora 21 Apache services are allowed to connect to networked databases - you have run setsebool. See StackOverflow, [php can't connect to mysql with error 13 (but command line can)](http://stackoverflow.com/questions/4078205/php-cant-connect-to-mysql-with-error-13-but-command-line-can).
 
 **Troubleshooting - Unable to to connect to mysql could not find driver**
 
