@@ -421,7 +421,8 @@ Visit http://127.0.0.1/sameas-lite/config.ttl:
 
 ## Install SQLite 3.8.2+
 
-[http://www.sqlite.org/](SQLite) is a public domain, file-based relational database management system. It can be used to host linked data stores exposed by sameAs Lite.
+[SQLite](http://www.sqlite.org/) is a public domain, file-based 
+relational database management system. It can be used to host linked data stores exposed by sameAs Lite.
 
 ### Ubuntu 14.04
 
