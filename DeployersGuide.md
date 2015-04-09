@@ -1,6 +1,6 @@
 # sameAs Lite Deployer's Guide
 
-This page describes how to deploy sameAs Lite and configure it to expose linked data stores.
+This page describes how to deploy sameAs Lite and configure it to expose linked data stores. You should be familiar with sameAs Lite [concepts](./Concepts.md).
 
 The instructions have been written with reference to three 64-bit operating systems:
 

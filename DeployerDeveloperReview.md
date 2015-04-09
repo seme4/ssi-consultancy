@@ -54,8 +54,6 @@ There is no information on how to deploy sameAs Lite. This can be uncovered by l
 * Identifying and solving common installation and deployment problems.
 * Rebranding sameAs Lite with institution-specific styles, colours and logos.
 
-An example, written concurrently with this report, is at [Deployer's Guide](./DeployersGuide.md). [Deployer and Developer Reference](./Reference.md) contains a summary of useful information for both deployers and developers.
-
 ### Provide stable releases for deployers
 
 Deployers can only take a version of sameAs Lite from the master branch from the Git repository. In the longer term, deployers could either use:
@@ -163,10 +161,6 @@ The following information can found via Google, third-party software documentati
 * Configuring and running unit tests.
 
 Write a deployers guide which covers the above and other information needed by developers (the following sections elaborate on this).
-
-An example, written concurrently with this report, is at [Developer's Guide](./DeveloperGuide.md). [Deployer and Developer Reference](./Reference.md) contains a summary of useful information for both deployers and developers. 
-
-[REST API examples](./RESTAPIexamples.md) contains examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can also be useful for developers.
 
 ### Clarify dev target in Makefile
 
@@ -335,3 +329,16 @@ There are a number of ways to reduce the risk that developers do not degrade the
 * Implement a suite of automated performance tests based on these data sets.
 * Make performance a part of the conditions for merging code into a release
 * Extend any process for using the source code repository to mandate that code must satisfy performance criteria before being merged into a release branch.
+
+---
+
+## Example documents
+
+A number of example documents have been written as a side-effect of this report:
+
+* [sameAs Lite concepts](./Concepts.md) - sameAs Lite concepts and database schema.
+* [Deployer's Guide](./DeployersGuide.md)
+* [Set up development environment](SetupDevelopment.md)
+* [Day-to-day development](./DayToDayDevelopment.md)
+* [Deployer and Developer Reference](./Reference.md) - useful operating system-specific information for both deployers and developers.
+* [REST API examples](./RESTAPIexamples.md) - examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can be useful for deployers and developers.

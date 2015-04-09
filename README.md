@@ -23,13 +23,18 @@ The aims of the collaboration are as follows.
 
 **Database-agnostic core library design**: A report on how the sameAs Lite core library could be refactored to be database agnostic, supporting both MySQL and SQLite, without degrading performance.
 
-Outputs to date are:
+For more information, please see the Institute's "[who do we work with - Seme4](http://www.software.ac.uk/who-do-we-work/seme4)" page.
+
+Reports:
 
 * [Open source project review](./open-source/OpenSourceProjectReview.md)
 * [Deployer and Developer Review](./DeployerDeveloperReview.md)
-* [Deployer's Guide](./DeployersGuide.md)
-* [Developer's Guide](./DevelopersGuide.md)
-* [REST API examples](./RESTAPIexamples.md) - work-in-progress - examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can be useful for developers.
-* [Deployer and Developer Reference](./Reference.md) - work-in-progress - summary of useful information for both deployers and developers.
 
-For more information, please see the Institute's "[who do we work with - Seme4](http://www.software.ac.uk/who-do-we-work/seme4)" page.
+Sample documentation:
+
+* [sameAs Lite concepts](./Concepts.md) - sameAs Lite concepts and database schema.
+* [Deployer's Guide](./DeployersGuide.md)
+* [Set up development environment](SetupDevelopment.md)
+* [Day-to-day development](./DayToDayDevelopment.md)
+* [Deployer and Developer Reference](./Reference.md) - useful operating system-specific information for both deployers and developers.
+* [REST API examples](./RESTAPIexamples.md) - examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can be useful for deployers and developers.
