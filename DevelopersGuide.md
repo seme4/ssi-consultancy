@@ -362,7 +362,7 @@ Run all the tests in a specific class, for example:
 
 ### Create a JUnit XML test report
 
-[JUnit](http://junit.org) is a popular unit test framework for Java. Its XML report format has been adopted by unit test frameworks for a number of languages and there are a number of scripts and and applications that can also be used with PHP and which can process JUnit XML test reports. 
+[JUnit](http://junit.org) is a popular unit test framework for Java. There are a number of applications that can be used with PHP and which can process JUnit test reports. 
 
 Run:
 
@@ -396,7 +396,7 @@ Run:
 
 ### Create a Clover code coverage report
 
-[Clover](https://www.atlassian.com/software/clover) is a popular code coverage framework for Java. Its XML report format has been adopted by unit test frameworks for a number of languages and there are a number of scripts and and applications that can also be used with PHP and which can process Clover XML test reports. 
+[Clover](https://www.atlassian.com/software/clover) is a popular code coverage framework for Java and there are a number of applications that can be used with PHP and which can process Clover code coverage reports.
 
 Run:
 
@@ -418,9 +418,7 @@ Run:
 
 ### Create code coverage reports in other formats
 
-Code coverage reports can also be generated in
-
-[Crap4J](http://www.crap4j.org/) (Change Risk Analysis and Predictions), HTML, PHPUnit XML and as a PHP_CodeCoverage object. For details see PHPUnit [Code Coverage Analysis](https://phpunit.de/manual/current/en/code-coverage-analysis.html) or run:
+Code coverage reports can also be generated in [Crap4J](http://www.crap4j.org/) (Change Risk Analysis and Predictions), HTML, PHPUnit XML and as a PHP_CodeCoverage object. For details see PHPUnit [Code Coverage Analysis](https://phpunit.de/manual/current/en/code-coverage-analysis.html) or run:
 
     $ vendor/bin/phpunit --bootstrap vendor/autoload.php --help
 
@@ -533,7 +531,7 @@ Run:
 
 ### Create a Checkstyle-compliant XML coding standards report.
 
-[Checkstyle](http://checkstyle.sourceforge.net/) is a popular style checking tool for Java and there are a number of scripts and applications that can also be used with PHP and which can process Checkstyle documents. 
+[Checkstyle](http://checkstyle.sourceforge.net/) is a popular style checking tool for Java and there are a number of applications that can be used with PHP and which can process Checkstyle reports.
 
 Run:
 
