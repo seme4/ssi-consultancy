@@ -900,8 +900,6 @@ You should see 'a' listed in the canons. For example, for the MySQL and SQLite s
     $ curl -X GET http://127.0.0.1/sameas-lite/datasets/testsqlite/canons
     ...
 
-**Troubleshooting 
-
 **Troubleshooting - General error: 8 attempt to write a readonly database**
 
 If curl returns a document with a message like:
