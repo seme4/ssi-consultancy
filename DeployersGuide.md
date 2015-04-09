@@ -129,11 +129,12 @@ followed by lots of configuration information.
 
 Run the following command to find the location of your PHP initialisation file:
 
-   $ php -i | grep php.ini
+    $ php -i | grep php.ini
 
-Open the file that this command returns in an editor:
+Open the file(s) that this command returns in an editor:
 
-* For Ubuntu 14.01, this may be /etc/php5/cli/php.ini 
+* For Ubuntu 14.01, this may be both /etc/php5/cli/php.ini and 
+/etc/php5/apache2/php.ini
 * For Scientific Linux 7 / Fedora 21, this may be /etc/php.ini
 
 To set UTC (coordinated universal time), look for
