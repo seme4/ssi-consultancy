@@ -6,7 +6,7 @@ Mike Jackson, The Software Sustainability Institute / EPCC, The University of Ed
 
 [sameAs.org](http://sameas.org) is a search engine for linked data that, if given a URI, returns URIs that are co-referent, should any be known to it. The engine searches information harvested from a number of sources. sameAs.org is maintained by [Seme4 Limited](http://www.seme4.com). [sameAs Lite](http://github.com/seme4/sameas-lite) is a refactored, free open source, version of the software that powers sameAs.org.
 
-[REST API examples](./RESTAPIExamples.md) gives examples of invocations of sameAs Lite's REST API, using curl. The API can also be viewed, and invoked, via a web-based interface at http://127.0.0.1/sameas-lite/datasets/api.
+[REST API examples](./RESTAPIexamples.md) gives examples of invocations of sameAs Lite's REST API, using curl. The API can also be viewed, and invoked, via a web-based interface at http://127.0.0.1/sameas-lite/datasets/api.
 
 This document summarises issues with the REST API were identified when documenting the examples.
 
