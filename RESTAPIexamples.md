@@ -1,244 +1,436 @@
 # REST API examples
 
-After deploying sameAs Lite, visit http://127.0.0.1/sameas-lite/datasets/api. This page shows REST endpoints, descriptions, example curl commands, output formats, and also allows them to be invoked.
+This page gives examples of invocations of sameAs Lite's REST API, using curl. The API can also be viewed, and invoked, via a web-based interface at http://127.0.0.1/sameas-lite/datasets/api.
 
-They take a {store} argument which corresponds to the slug used to identify data stores in index.php e.g. "VIAF" or "test"
+Examples are given for every content-type supported by each REST endpoint. For HTML or JSON documents, only fragments relating specifically to the endpoint are shown.
 
-Below are examples of invoking the REST endpoints. The names correspond to the API descriptions on the page above. The default content-type of each endpoint is shown in brackets.
+---
 
-TODO update when a better sample dataset is found
+## REST URLs
 
-TODO For most it would be useful to serve as text/plain and application/json too
+REST URLs are of the form:
 
-TODO username:password are not, or do not seem to be, used, but ommiting them gives, for example:
+    http://<host>[:<port>]/<path>/datasets/[<store>/<values>]
 
-    $ curl -X DELETE http://127.0.0.1/sameas-lite/datasets/test/symbols/symbol1
-    Access Denied
-    You have failed to supply valid credentials, access to this resource is denied. 
-    Please try returning to the homepage
+where:
 
-## Lists available datasets (text/html)
+* `<host>` is the domain name or IP address on which the web server hosting sameAs Lite is running e.g. 127.0.0.1
+* `<port>` is the optional port upon which the web server allows connections.
+* `<path>` is the path to the sameAs Lite web application e.g. `sameas-lite`.
+* `<store>` is the name of the data store to use. This corresponds to the slug used to identify data stores e.g. "VIAF" or "test".
+* `<values>` are values specific to the REST endpoint being targeted and the REST command being invoked.
+
+---
+
+## Service-wide operations
+
+The following operations apply to the sameAs Lite service, not to individual data stores.
+
+### Lists available datasets
 
     $ curl -X GET http://127.0.0.1/sameas-lite/datasets
+    <h1>[titleHeader]</h1>
+
     TODO
+ 
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets
+    ...as above...
 
-TODO this function needs implemented
+---
 
-## Delete an entire store (text/html)
+## Data store-specific operations
+
+### Delete an entire store
 
     $ curl -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test
-    ...
-    $ curl -H "Accept: text/plain" -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test
     Store deleted
 
-## Delete the contents of a store (text/html)
+    $ curl -H "Accept: text/plain" -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test
+    ...as above...
+
+    $ curl -H "Accept: text/html" -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test
+    <h1>[titleHeader]</h1>
+
+    <h2>Success!</h2><p>Store deleted</p>
+
+### Delete the contents of a store
 
     $ curl -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/admin/empty
-    ...
+    <h1>[titleHeader]</h1>
+
+    <h2>Success!</h2><p>Store emptied</p>
+
+    $ curl -H "Accept: text/html" -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/admin/empty
+    ...as above...
+
     $ curl -H "Accept: text/plain" -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/admin/empty
     Store emptied
 
-## Restore a database backup (???):
-
-    $ curl -H "Accept: text/plain" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/admin/restore
-    Missing argument 2 for SameAsLite\WebApp::restoreStore()
-    /var/www/html/sameas-lite/src/WebApp.php +882
-    #0 /var/www/html/sameas-lite/src/WebApp.php(882): Slim\Slim::handleErrors(2, 'Missing argumen...', '/var/www/html/s...', 882, Array)
-    #1 [internal function]: SameAsLite\WebApp->restoreStore('test')
-    #2 /var/www/html/sameas-lite/vendor/slim/slim/Slim/Route.php(468): call_user_func_array(Array, Array)
-
-TODO implement this functionality...
-
-The API web page comments that "You can use this method to restore a previously downloaded database backup". src/Store.php has a function:
-
-    public function dumpStore()
-
-which implements /datasets/:store/pairs. There is also a function:
-
-    public function restoreStore($file)
-
-which is commented as:
-
-    * Takes the output of dumpStore and adds it into this store
-    * Overwrites any existing values, leaving the others intact.
-    * Assumes the source data is valid.
-    * @param string $file The file name of the source data to be asserted
-
-It seems to need a local file. This seems to be work-in-progress as src/WebApp.php has a complementary:
-
-    // $this->registerURL(
-    // 'GET',
-    // '/datasets/:store/admin/backup/',
-    // 'backupStore',
-    // 'Backup the database contents',
-    // 'You can use this method to download a database backup file',
-    // true,
-    // 'text/html,text/plain'
-    // );
-
-TODO It would be useful if the input formats and output formats (from export, for example) were complementary.
+### Restore a database backup
 
     $ curl -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/admin/restore
+    <h1>Error 500</h1>
 
-TODO
+    <h2>Missing argument 2 for SameAsLite\WebApp::restoreStore()</h2>
+
+    <p><strong>/var/www/html/sameas-lite/src/WebApp.php</strong> &nbsp; +882</p><p>Please try returning to <a href="http://127.0.0.1/sameas-lite">the homepage</a>.</p>
 
     $ curl -H "Accept: text/html" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/admin/restore
+    ...as above...
 
-TODO
+    $ curl -H "Accept: text/plain" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/admin/restore
+    ...as above...
 
-TODO It would be useful if the input formats and output formats (from export, for example) were complementary.
+### Returns a list of all canons
 
-## Returns a list of all canons (application/json)
+If store is non-empty:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/canons
+    ["http:\/\/www.wikidata.org\/entity\/Q220966","http:\/\/www.wikidata.org\/entity\/Q23436","http:\/\/www.wikidata.org\/entity\/Q6940372"]
+
+    $ curl -H "Accept: application/json" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons
+    ...as above...
 
     $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons
-    ...
-    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/canons
-    ["canon1","canon2"]
+    <h1>All Canons in this dataset</h1>
+
+    <ul>
+        <li><a href="http://www.wikidata.org/entity/Q220966">http://www.wikidata.org/entity/Q220966</a></li>
+        <li><a href="http://www.wikidata.org/entity/Q23436">http://www.wikidata.org/entity/Q23436</a></li>
+        <li><a href="http://www.wikidata.org/entity/Q6940372">http://www.wikidata.org/entity/Q6940372</a></li>
+    </ul>
+
     $ curl -H "Accept: text/plain" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons
-    canon1
-    canon2
+    http://www.wikidata.org/entity/Q220966
+    http://www.wikidata.org/entity/Q23436
+    http://www.wikidata.org/entity/Q6940372
 
-## Set the canon (text/html)
+If store is empty:
 
-    $ curl -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/canons/symbol4
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/canons
+    []
+
+    $ curl -H "Accept: application/json" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons
+    ...as above...
+
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons
+    <h1>All Canons in this dataset</h1>
+
+    <p>No items found</p>
+
+    $ curl -H "Accept: text/plain" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons
+    ...no output...
+
+### Set the canon
+
+If a matching canon:
+
+    $ curl -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/canons/canonA
+    <h1>[titleHeader]</h1>
+
+    <h2>Success!</h2><p>Canon set to 'canonA'</p>
+
+    $ curl -H "Accept: text/html" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/canons/canonA
+    ...as above...
+
+    $ curl -H "Accept: text/plain" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/canons/canonA
+    Canon set to 'canonA'
+
+If a matching symbol:
+
+    $ curl -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/canons/symbolA1
+    <h1>[titleHeader]</h1>
+
+    <h2>Success!</h2><p>Canon set to 'symbolA1'</p>
+
+    $ curl -H "Accept: text/html" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/canons/symbolA1
+    ...as above...
+
+    $ curl -H "Accept: text/plain" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/canons/symbolA1
+    Canon set to 'symbolA1'
+
+If no match:
+
+    $ curl -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/canons/canonC
+    <h1>[titleHeader]</h1>
+
+    <h2>Success!</h2><p>Canon set to 'canonC'</p>
+
+    $ curl -H "Accept: text/html" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/canons/canonC
+    ...as above...
+
+    $ curl -H "Accept: text/plain" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/canons/canonC
+    Canon set to 'canonC'
+
+### Get canon
+
+If a matching canon:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/canonA
+    <h1>Canon for &ldquo;canonA&rdquo;</h1>
+
+    <ul>
+        <li>canonA</li>
+    </ul>
+
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/canonA
+    ...as above...
+
+    $ curl -H "Accept: text/plain" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/canonA
+    canonA
+
+If a matching symbol:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/symbolA1
+    <h1>Canon for &ldquo;symbolA1&rdquo;</h1>
+
+    <ul>
+        <li>canonA</li>
+    </ul>
+
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/symbolA1
+    ...as above...
+
+    $ curl -H "Accept: text/plain" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/symbolA1
+    canonA
+
+If no match:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/nomatch
+    <h1>Canon for &ldquo;nomatch&rdquo;</h1>
+
+    <ul>
+        <li>nomatch</li>
+    </ul>
+
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/nomatch
+    ...as above...
+
+    $ curl -H "Accept: text/plain" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/nomatch
+    nomatch
+
+### Export list of pairs
+
+If store is non-empty:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/pairs
+    [{"canon":"http:\/\/www.wikidata.org\/entity\/Q220966","symbol":"http:\/\/data.nytimes.com\/southampton_england_geo"},
+     {"canon":"http:\/\/www.wikidata.org\/entity\/Q220966","symbol":"http:\/\/data.ordnancesurvey.co.uk\/id\/50kGazetteer\/218013"},
     ...
-    $ curl -H "Accept: text/plain" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/canons/symbol4
-    Canon set to 'symbol5'
+    {"canon":"http:\/\/www.wikidata.org\/entity\/Q23436","symbol":"http:\/\/data.nytimes.com\/edinburgh_scotland_geo"},...]
 
-## Get canon (text/html)
-
-    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/symbol1
-    ...
-    $ curl -H "Accept: text/plain" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/symbol1
-    canon1
-    $ curl -H "Accept: text/plain" -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/nosuchcanon
-    nosuchcanon
-
-TODO is this expected?
-
-## Export list of pairs (application/json)
+    $ curl -H "Accept: application/json" -X GET http://127.0.0.1/sameas-lite/datasets/test/pairs
+    ...as above...
 
     $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/pairs
+    <h1>Contents of the store:</h1>
+
+    <table class="table">  <thead>   
+    <tr>      <th>canon</th>      <th>symbol</th>    </tr>  </thead>  <tbody>
+    <tr>      <td><a href="http://www.wikidata.org/entity/Q220966">http://www.wikidata.org/entity/Q220966</a></td>     
+    <td><a href="http://data.nytimes.com/southampton_england_geo">http://data.nytimes.com/southampton_england_geo</a></td>    </tr>    
+    <tr>     <td><a href="http://www.wikidata.org/entity/Q220966">http://www.wikidata.org/entity/Q220966</a></td>      
+    <td><a href="http://data.ordnancesurvey.co.uk/id/50kGazetteer/218013">http://data.ordnancesurvey.co.uk/id/50kGazetteer/218013</a></td>    </tr>   
     ...
-    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/pairs
-    [{"canon":"canon1","symbol":"symbol1"},{"canon":"canon1","symbol":"symbol2"},{"canon":"canon2","symbol":"symbol3"}]
+    <tr>      <td><a href="http://www.wikidata.org/entity/Q23436">http://www.wikidata.org/entity/Q23436</a></td>      
+    <td><a href="http://data.nytimes.com/edinburgh_scotland_geo">http://data.nytimes.com/edinburgh_scotland_geo</a></td>    </tr>    
+    ...
+    </tbody></table>
+
     $ curl -H "Accept: text/csv" -X GET http://127.0.0.1/sameas-lite/datasets/test/pairs
     canon,symbol
-    canon1,symbol1
-    canon1,symbol2
-    canon2,symbol3
+    http://www.wikidata.org/entity/Q220966,http://data.nytimes.com/southampton_england_geo
+    http://www.wikidata.org/entity/Q220966,http://data.ordnancesurvey.co.uk/id/50kGazetteer/218013
+    ...
+    http://www.wikidata.org/entity/Q23436,http://data.nytimes.com/edinburgh_scotland_geo
+    ...
 
-### Assert multiple pairs (text/html)
+If store is empty:
 
-Create a file pairs.txt, where each line contains a TAB-separated pair e.g.
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/pairs
+    []
 
-    canonA symbolA
-    canonB symbolB	
+    $ curl -H "Accept: application/json" -X GET http://127.0.0.1/sameas-lite/datasets/test/pairs
+    ...as above...
 
-<p/>
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/pairs
+    <h1>Contents of the store:</h1>
+
+    <table class="table">  <thead>   
+    <tr>      <th>canon</th>      <th>symbol</th>    </tr>  
+    </thead>  <tbody>  </tbody></table>
+
+    $ curl -H "Accept: text/csv" -X GET http://127.0.0.1/sameas-lite/datasets/test/pairs
+    canon,symbol
+
+### Assert multiple pairs
+
+    $ cat pairs.txt 
+    canonA symbolA4
+    canonC symbolC1
 
     $ curl -X PUT --user username:password -T "pairs.txt" http://127.0.0.1/sameas-lite/datasets/test/pairs
-    ...
-    $ curl -H "Accept: text/plain" -X PUT --user username:password -T "pairs.txt" http://127.0.0.1/sameas-lite/datasets/test/pairs
-    Pairs asserted!
-
-TODO "Pairs asserted!" is always returned regardless of what the file contains, or even if no file is specified. It would be better to return a count of the number of pairs asserted, and an error if the file format is invalid.
-TODO It would be useful if the input formats and output formats (from export, for example) were complementary.
-
-## Assert single pair (application/json)
-
-    $ curl -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/pairs/a/b
-    {"ok":"The pair (a, b) has been asserted"}r
-    $ curl -H "Accept: text/plain" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/pairs/c/d
-    The pair (c, d) has been asserted
-    $ curl -H "Accept: text/html" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/pairs/e/f
-
-Multiple invocations of the same pair succeed.
-
-## Search (text/html)
-
-    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/search/sym
-    symbol3
-    symbol1
-    symbol1
-    symbol2
-    symbol2
-    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/search/xxx
-    No items found
-
-TODO Description on http://127.0.0.1/sameas-lite/api has a typo: "Find symols"
-
-## Retrieve symbol (text/html)
-
-    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/symbol1
-    symbol1 symbol2
-    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/symbol2
-    symbol1 symbol2
-    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/symbol3
-    symbol3
-
-TODO how to do this if symbol is a URL? These do not work:
-
-    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/http%3A%2F%2Fdata.nytimes.com%2Fedinburgh_scotland_geo
-    <h1>Error 404</h1>
-    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/http\:\/\/data.nytimes.com\/edinburgh_scotland_geo
-    <h1>Error 404</h1>
-    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/http://data.nytimes.com/edinburgh_scotland_geo
-    <h1>Error 404</h1>
-    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/http%253A%252F%252Fdata.nytimes.com%252Fedinburgh_scotland_geo
     <h1>[titleHeader]</h1>
-    ... but no matches...       
 
-TODO what to provide in relevant form inhttp://127.0.0.1/sameas-lite/datasets/test/api, likewise?
+    <h2>Success!</h2><p>Pairs asserted</p>
 
-* http://stackoverflow.com/questions/3235219/urlencoded-forward-slash-is-breaking-url suggests [AllowEncodedSlashes](http://httpd.apache.org/docs/2.2/mod/core.html#allowencodedslashes).
-* http://www.freeformatter.com/url-encoder.html#ad-output
+    $ curl -H "Accept: text/html" -X PUT --user username:password -T "pairs.txt" http://127.0.0.1/sameas-lite/datasets/test/pairs
+    ...as above...
+ 
+    $ curl -H "Accept: text/plain" -X PUT --user username:password -T "pairs.txt" http://127.0.0.1/sameas-lite/datasets/test/pairs
+    Pairs asserted
 
-## Delete symbol (???)
+### Assert single pair
 
-    $ curl -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/symbol1
-    Undefined variable: result
-    /var/www/html/sameas-lite/src/WebApp.php +1033
-    ...
-    #0 /var/www/html/sameas-lite/src/WebApp.php(1033): Slim\Slim::handleErrors(8, 'Undefined varia...', '/var/www/html/s...', 1033, Array)
-    #1 [internal function]: SameAsLite\WebApp->removeSymbol('test', 'symbol1')
-    #2 /var/www/html/sameas-lite/vendor/slim/slim/Slim/Route.php(468): call_user_func_array(Array, Array)
+    $ curl -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/pairs/canonA/symbolA4
+    {"ok":"The pair (canonA, symbolA4) has been asserted"}
 
-TODO investigate
+    $ curl -H "Accept: application/json" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/pairs/canonA/symbolA4
+    ...as above...
 
-    $ curl -H "Accept: text/html"  -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/symbol1
+    $ curl -H "Accept: text/plain" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/pairs/canonA/symbolA4
+    The pair (canonA, symbolA4) has been asserted
 
-TODO get output
+    $ curl -H "Accept: text/html" -X PUT --user username:password http://127.0.0.1/sameas-lite/datasets/test/pairs/canonA/symbolA4
+    <h1>Pair asserted</h1>
 
-    $ curl -H "Accept: text/plain"  -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/symbol1
+    <h2>Success!</h2><p>The pair (canonA, symbolA4) has been asserted</p>
 
-TODO get output
+### Search
 
-TODO Description on http://127.0.0.1/sameas-lite/api is "TBC"
+If a match:
 
-## Returns status of the store (text/html)
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/search/dinb
+    <h1>[titleHeader]</h1>
+
+    <ul>
+        <li><a href="http://data.nytimes.com/edinburgh_scotland_geo">http://data.nytimes.com/edinburgh_scotland_geo</a></li>
+        <li><a href="http://data.ordnancesurvey.co.uk/id/50kGazetteer/81482">http://data.ordnancesurvey.co.uk/id/50kGazetteer/81482</a></li>
+        <li><a href="http://dbpedia.org/resource/Embra">http://dbpedia.org/resource/Embra</a></li>
+        <li><a href="http://sws.geonames.org/2650225/">http://sws.geonames.org/2650225/</a></li>
+        <li><a href="http://www.wikidata.org/entity/Q23436">http://www.wikidata.org/entity/Q23436</a></li>
+      </ul>
+
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/search/dinb
+    ...as above...
+
+If no match:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/search/nomatch
+    <h1>[titleHeader]</h1>
+
+    <p>No items found</p>
+
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/search/nomatch
+    ...as above...
+
+### Retrieve symbol
+
+If a matching canon:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/canonA
+    <h1>[titleHeader]</h1>
+
+    <pre>canonA
+    symbolA1
+    symbolA2
+    symbolA3</pre>
+
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/canonA
+    ...as above...
+
+If a matching symbol:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/symbolA1
+    <h1>[titleHeader]</h1>
+
+    <pre>canonA
+    symbolA1
+    symbolA2
+    symbolA3</pre>
+
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/symbolA1
+    ...as above...
+
+If no match:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/nomatch
+    <h1>[titleHeader]</h1>
+
+    <pre></pre>
+
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/nomatch
+    ...as above...
+
+### Delete symbol
+
+If a matching canon:
+
+    $ curl -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/canonA
+    <h2>Undefined variable: result</h2>
+
+    <p><strong>/var/www/html/sameas-lite/src/WebApp.php</strong> &nbsp; +1033</p><p>Please try returning to <a href="http://127.0.0.1/sameas-lite">the homepage</a>.</p>
+
+    $ curl -H "Accept: text/html"  -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/canonA
+    ...as above...
+
+    $ curl -H "Accept: text/plain"  -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/canonA
+    ...as above...
+
+If a matching symbol:
+
+    $ curl -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/symbolA1
+    ...as above...
+
+    $ curl -H "Accept: text/html"  -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/symbolA1
+    ...as above...
+
+    $ curl -H "Accept: text/plain"  -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/symbolA1
+    ...as above...
+
+If no match:
+
+    $ curl -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/nomatch
+    ...as above...
+
+    $ curl -H "Accept: text/html"  -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/nomatch
+    ...as above...
+
+    $ curl -H "Accept: text/plain"  -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/nomatch
+    ...as above...
+
+### Returns status of the store
 
     $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/status
-    Statistics for sameAs store table1:
-    3    symbols
-    2    bundles
+    <h1>[titleHeader]</h1>
 
-## Analyse contents of the store (text/html)
+    <pre>Statistics for sameAs store table1:
+    15    symbols
+    3    bundles</pre>
+
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/status
+    ...as above...
+
+### Analyse contents of the store
 
 If store is non-empty:
 
     $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/analyse
-    Undefined index: canon1
+    <h2>Undefined index: http://www.wikidata.org/entity/Q220966</h2>
     /var/www/html/sameas-lite/src/Store.php +823
-    ...
-    #0 /var/www/html/sameas-lite/src/Store.php(823): Slim\Slim::handleErrors(8, 'Undefined index...', '/var/www/html/s...', 823, Array)
-    #1 /var/www/html/sameas-lite/src/WebApp.php(1072): SameAsLite\Store->analyse()
-    ...
 
-TODO investigate
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/analyse
+    ...as above...
 
 If store is empty:
 
     $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/analyse
+    <h1>[titleHeader]</h1>
+
+    <pre><pre>
+
     Analysis of sameAs store 'table1' in Database 'testdb':
-    Store is empty!
+    Store is empty!</pre>
+
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/analyse
+    ...as above...
