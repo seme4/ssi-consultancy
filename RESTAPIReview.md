@@ -42,6 +42,30 @@ On http://127.0.0.1/sameas-lite/datasets/api:
 * Search (GET http://127.0.0.1/sameas-lite/datasets/{store}/search/{symbol}), description has a typo: "Find symols".
 * Delete symbol (DELETE http://127.0.0.1/sameas-lite/datasets/{store}/symbols/{symbol}) description is "TBC".
 
+The typos are in src/WebApp.php line 310:
+
+    $this->registerURL(
+        'GET',
+        '/datasets/:store/search/:string',
+        'search',
+        'Search',
+        'Find symols which contain/match the search string/pattern'
+    );
+
+and src/WebApp.php line 326:
+
+    $this->registerURL(
+         'DELETE',
+        '/datasets/:store/symbols/:symbol',
+        'removeSymbol',
+        'Delete symbol',
+        'TBC',
+        true,
+        'text/html,text/plain'
+    );
+
+A fix is in the [typos](https://github.com/softwaresaved/sameas-lite/tree/typos) branch of https://github.com/softwaresaved/sameas-lite, commit [c4fa238d52a1320bbfeaea6e1a75169da7a644bb](https://github.com/softwaresaved/sameas-lite/commit/c4fa238d52a1320bbfeaea6e1a75169da7a644bb).
+
 ### Fix Delete symbol bug
 
 Delete symbol raises an error:
@@ -52,6 +76,26 @@ Delete symbol raises an error:
     <p><strong>/var/www/html/sameas-lite/src/WebApp.php</strong> &nbsp; +1033</p><p>Please try returning to <a href="http://127.0.0.1/sameas-lite">the homepage</a>.</p>
 
 Inspecting the database shows that the deletion does occur.
+
+The bug is at src/WebApp.php line 1033:
+
+    public function removeSymbol($store, $symbol)
+    {
+        $this->stores[$store]->removeSymbol($symbol);
+        $this->outputSuccess($result);
+    }
+
+The first line of the function should be:
+
+        $result = $this->stores[$store]->removeSymbol($symbol);
+
+A fix is in the [fixdelete](https://github.com/softwaresaved/sameas-lite/tree/fixdelete) branch of https://github.com/softwaresaved/sameas-lite, commit [5e4b14e4b8d02996ce1884bfc047179b4e0a2409](https://github.com/softwaresaved/sameas-lite/commit/5e4b14e4b8d02996ce1884bfc047179b4e0a2409).
+
+    $ curl -H "Accept: text/html"  -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/canonA
+    <h2>Success!</h2><p></p>
+
+    $ curl -H "Accept: text/plain"  -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/canonB
+    ...nothing....
 
 ### Fix Analyse contents of the store bug
 
@@ -68,6 +112,101 @@ If store is empty, then the bug does not arise:
 
     Analysis of sameAs store 'table1' in Database 'testdb':
     Store is empty!</pre>
+
+The bug is at src/Store.php line 823:
+
+    $bundleSizes = array(); // An array of canon => bundle size
+
+    foreach ($store as $row) {
+        $s = $row['symbol'];
+        $b = $row['canon'];
+        $nSymbols++;
+        $bundleSizes[$b]++;
+
+$bundleSizes should be checked to see if it has a value for key $b before being incremented:
+
+    foreach ($store as $row) {
+        $s = $row['symbol'];
+        $b = $row['canon'];
+        $nSymbols++;
+        if (array_key_exists($b, $bundleSizes)) {
+            $bundleSizes[$b]++;
+        } else {
+           $bundleSizes[$b] = 0;
+        }
+
+A fix is in the [fixanalyse](https://github.com/softwaresaved/sameas-lite/tree/fixanalyse] branch of https://github.com/softwaresaved/sameas-lite, commit [8b8664417cbb24ba2f09dc5e71ebd28564d7d350](https://github.com/softwaresaved/sameas-lite/commit/8b8664417cbb24ba2f09dc5e71ebd28564d7d350).
+
+    $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/analyse
+    <h1>[titleHeader]</h1>
+    <pre><pre>
+
+    Analysis of sameAs store 'table1' in Database 'testdb':
+    =====================================================
+    Basic numeric statistics:
+    15 	symbols
+    3 	bundles
+    5.00	symbols per bundle
+    4	bundle size median
+    4	bundle size mode
+    =====================================================
+    Table of count of bundles for each bundle size
+    Size	Bundle Count
+    4	3
+    =====================================================
+    Symbols by type:
+    15	HTTP symbols
+    0	HTTPS symbols
+    0	non-HTTP(S) symbols
+    =====================================================
+    URI(s) etc per domain - for http symbols, if any
+    Count	Domain
+    3	data.nytimes.com
+    3	data.ordnancesurvey.co.uk
+    3	dbpedia.org
+    3	sws.geonames.org
+    3	www.wikidata.org
+    ------------------------
+    Count	Base+TLD Domain
+    3	nytimes.com
+    3	co.uk
+    3	dbpedia.org
+    3	geonames.org
+    3	wikidata.org
+    ------------------------
+    Count	TLD Domain
+    3	com
+    3	uk
+    9	org
+    =====================================================
+    URI(s) etc per domain - for https symbols, if any
+    =====================================================
+    Things that might be considered errors:
+    Singleton bundle symbols:
+    =====================================================
+    Errors:
+    List of canons that are not also listed as symbols:
+    http://www.wikidata.org/entity/Q220966
+    http://www.wikidata.org/entity/Q23436
+    http://www.wikidata.org/entity/Q6940372
+    =====================================================
+    </pre>
+    </pre>
+
+This seems to reveal a new bug. The above `List of canons that are not also listed as symbols` *are* listed as symbols:
+
+    > select * from table1;
+    +-----------------------------------------+---------------------------------------------------------+
+    | canon                                   | symbol                                                  |
+    +-----------------------------------------+---------------------------------------------------------+
+    | http://www.wikidata.org/entity/Q23436   | http://www.wikidata.org/entity/Q23436                   |
+    ...
+    | http://www.wikidata.org/entity/Q220966  | http://www.wikidata.org/entity/Q220966                  |
+    ...
+    | http://www.wikidata.org/entity/Q6940372 | http://www.wikidata.org/entity/Q6940372                 |
+    ...
+    +-----------------------------------------+---------------------------------------------------------+
+    15 rows in set (0.00 sec)
 
 ### Fix Get Canon so it does not return an ambiguous result
 
