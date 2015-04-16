@@ -409,7 +409,7 @@ Check Apache profiling:
     $ ls /tmp/
     cachegrind.out.01bb5c  
 
-* Scientific Linux 7
+* Scientific Linux 7:
   - The sub-directory of /tmp may differ.
 
 <p/>
@@ -486,7 +486,7 @@ Check trigger-only Apache profiling:
     $ curl -X GET http://127.0.0.1/sameas-lite/datasets?XDEBUG_PROFILE
     $ ls /tmp/
 
-* Scientific Linux 7
+* Scientific Linux 7:
 
 <p/>
 
