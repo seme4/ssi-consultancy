@@ -174,6 +174,70 @@ and you should see xdebug-related configuration.
 
 ---
 
+## Install KCachegrind (optional)
+
+[KCachegrind](http://kcachegrind.sourceforge.net/html/Home.html) is an open source profile data visualization tool. It can visualise Xdebug profiling data.
+
+### Ubuntu 14.04
+
+    $ apt-get install kcachegrind
+    $ kcachegrind -v
+    Qt: 4.8.6
+    KDE Development Platform: 4.13.3
+    KCachegrind: 0.7.4kde
+
+### Scientific Linux 7
+
+    $ yum install kcachegrind
+    $ kcachegrind -v
+    Qt: 4.8.5
+    KDE Development Platform: 4.10.5
+    KCachegrind: 0.7.2kde
+
+### Fedora 21
+
+    $ yum install kcachegrind
+    $ kcachegrind -v
+    Qt: 4.8.6
+    KDE Development Platform: 4.14.6
+    KCachegrind: 0.7.4kde
+
+---
+
+## Install callgrind_annotate (optional)
+
+[callgrind_annotate](http://valgrind.org/docs/manual/cl-manual.html#cl-manual.callgrind_annotate-options) can filter Xdebug profiling data. It is part of the [Valgrind](http://valgrind.org/) instrumentation framework.
+
+### Ubuntu 14.04
+
+If you have installed KCachegrind then valgrind will already be available. 
+
+Alternatively:
+
+    $ apt-get install valgrind
+    $ valgrind --version
+    valgrind-3.10.0.SVN
+    $ callgrind_annotate --version
+    callgrind_annotate-3.10.0.SVN
+
+### Scientific Linux 7
+
+    $ yum install valgrind
+    $ valgrind --version
+    valgrind-3.10.0
+    $ callgrind_annotate --version
+    callgrind_annotate-3.10.0
+
+### Fedora 21
+
+    $ yum install valgrind
+    $ valgrind --version
+    valgrind-3.10.1
+    $ callgrind_annotate --version
+    callgrind_annotate-3.10.1
+
+---
+
 ## Install PHP development tools
 
 Run:
