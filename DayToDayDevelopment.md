@@ -346,3 +346,250 @@ PHP_CodeSniffer configuration files are in dev-tools/CodeStandard. For more info
 * [Coding Standard Tutorial](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Coding-Standard-Tutorial)
 * [Annotated ruleset.xml](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml)
 * [Built-in coding standards](https://github.com/squizlabs/PHP_CodeSniffer/tree/master/CodeSniffer/Standards)
+
+---
+
+## Profiling
+
+Xdebug has a built-in [profiler](http://www.xdebug.org/docs/profiler). This outputs files in [Callgrind format](http://kcachegrind.sourceforge.net/html/CallgrindFormat.html), part of the [Valgrind](http://valgrind.org/) tool suite. These files can be analysed by many tools including [KCachegrind](http://kcachegrind.sourceforge.net) and [callgrind_annotate](http://valgrind.org/docs/manual/cl-manual.html#cl-manual.callgrind_annotate-options). 
+
+### Enable Xdebug profiler
+
+Edit php.ini:
+
+* Ubuntu 14.04:
+  - For profiling PHP run under Apache2, edit /etc/php5/apache2/php.ini
+  - For profiling PHP run at the command-line, edit /etc/php5/cli/php.ini
+* Scientific Linux 7:
+  - Edit /etc/php.ini
+* Fedora 21:
+  - Edit /etc/php.ini
+
+After:
+
+    [xdebug]
+    zend_extension="/usr/lib/php5/20121212/xdebug.so"
+
+Add:
+
+    xdebug.profiler_enable=1
+    xdebug.profiler_output_dir=/tmp/
+    xdebug.profiler_output_name=cachegrind.out.%r
+
+xdebug.profiler_output_name specifies that file names of form `cachegrind.out.RANDOM_NUMBER` are created. For other options see [xdebug.trace_output_name](http://www.xdebug.org/docs/all_settings#trace_output_name).
+
+Restart Apache:
+
+* Ubuntu 14.04:
+
+<p/>
+
+    $ service apache2 restart
+
+* Scientific Linux 7:
+
+<p/>
+
+    $ systemctl restart httpd.service 
+
+* Fedora 21:
+
+<p/>
+
+    $ apachectl restart
+
+Check Apache profiling:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets
+
+* Ubuntu 14.04:
+
+<p/>
+
+    $ ls /tmp/
+    cachegrind.out.01bb5c  
+
+* Scientific Linux 7
+  - The sub-directory of /tmp may differ.
+
+<p/>
+
+    $ ls -l /tmp/systemd-private-BhZSgg/tmp/
+    cachegrind.out.01bb5c  
+
+* Fedora 21:
+  - The sub-directory of /tmp may differ.
+
+<p/>
+
+    $ ls /tmp/systemd-private-f092465403634da79a6ab044ec4846e6-httpd.service-0UqNQv/tmp
+    cachegrind.out.01bb5c  
+
+Check command-line profiling:
+
+    $ php src/Store.php
+    $ ls /tmp
+    cachegrind.out.01bb5c  
+   
+### Configure Xdebug profiler to run in Apache only when triggered
+
+The Xdebug profiler can be configured to run in Apache only when explicitly triggered by using a GET/POST or COOKIE variable called XDEBUG_PROFILE e.g.
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets?XDEBUG_PROFILE
+
+Edit php.ini:
+
+* Ubuntu 14.04:
+  - Edit /etc/php5/apache2/php.ini
+* Scientific Linux 7:
+  - Edit /etc/php.ini
+* Fedora 21:
+  - Edit /etc/php.ini
+
+Edit:
+
+    xdebug.profiler_enable=0
+
+Add:
+
+    xdebug.profiler_enable_trigger=1
+
+Restart Apache:
+
+* Ubuntu 14.04:
+
+<p/>
+
+    $ service apache2 restart
+
+* Scientific Linux 7:
+
+<p/>
+
+    $ systemctl restart httpd.service 
+
+* Fedora 21:
+
+<p/>
+
+    $ apachectl restart
+
+Check trigger-only Apache profiling:
+
+* Ubuntu 14.04:
+
+<p/>
+
+    $ rm /tmp/cachegrind.*
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets
+    $ ls /tmp/
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets?XDEBUG_PROFILE
+    $ ls /tmp/
+
+* Scientific Linux 7
+
+<p/>
+
+    $ rm /tmp/systemd-private-BhZSgg/cachegrind.*
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets
+    $ ls /tmp/systemd-private-BhZSgg/
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets?XDEBUG_PROFILE
+    $ ls /tmp/systemd-private-BhZSgg/
+
+* Fedora 21:
+
+<p/>
+
+    $ rm /tmp/systemd-private-f092465403634da79a6ab044ec4846e6-httpd.service-0UqNQv/tmp/cachegrind.*
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets
+    $ ls /tmp/systemd-private-f092465403634da79a6ab044ec4846e6-httpd.service-0UqNQv/tmp/
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets?XDEBUG_PROFILE
+    $ ls /tmp/systemd-private-f092465403634da79a6ab044ec4846e6-httpd.service-0UqNQv/tmp/
+
+### View profile data using KCachegrind
+
+    $ kcachegrind cachegrind.out.01bb5c  
+
+See [KCachegrind](http://kcachegrind.sourceforge.net/html/Home.html) for information on use.
+
+**Troubleshooting - Session management error**
+
+If you get:
+
+    Qt: Session management error: None of the authentication protocols specified are supported
+    kcachegrind(33818)/kdeui (KIconLoader): Error: standard icon theme "oxygen" not found! 
+
+Then this can happen if you are running as `su` but not as the root user. Either run `kcachegrind` as a user or, if you have permission, run:
+
+    $ su -
+
+## View profile data using callgrind_annotate
+
+View functions ranked in order of time spent in those functions, inclusive of time spent in child functions:
+
+    $ callgrind_annotate --inclusive=yes cachegrind.out.01bb5c  
+    --------------------------------------------------------------------------------
+    Profile data file 'cachegrind.out.01bb5c' (creator: xdebug 2.3.2)
+    --------------------------------------------------------------------------------
+    Profiled target:  /var/www/html/sameas-lite/index.php
+    Events recorded:  Time
+    Events shown:     Time
+    Event sort order: Time
+    Thresholds:       99
+    Include dirs:     
+    User annotated:   
+    Auto-annotation:  off
+    
+    --------------------------------------------------------------------------------
+       Time 
+    --------------------------------------------------------------------------------
+    143,891  PROGRAM TOTALS
+    
+    --------------------------------------------------------------------------------
+     Time  file:function
+    --------------------------------------------------------------------------------
+    9,916  vendor/composer/ClassLoader.php:Composer\Autoload\ClassLoader->findFileWithExtension
+    9,877  vendor/twig/twig/lib/Twig/NodeTraverser.php:Twig_NodeTraverser->traverseForVisitor
+    8,318  vendor/composer/ClassLoader.php:Composer\Autoload\ClassLoader->findFile
+    8,085  vendor/slim/slim/Slim/Http/Request.php:Slim\Http\Request->__construct
+    5,064  vendor/slim/slim/Slim/Helper/Set.php:Slim\Helper\Set->get
+    4,521  vendor/slim/slim/Slim/Http/Headers.php:Slim\Http\Headers::extract
+    3,715  vendor/composer/ClassLoader.php:Composer\Autoload\includeFile
+    3,335  vendor/twig/twig/lib/Twig/Parser.php:Twig_Parser->subparse
+
+View SameAsLite-only functions ranked in order of time spent in those functions, and including time spent in their child functions:
+
+    $ callgrind_annotate --inclusive=yes cachegrind.out.01bb5c | grep SameAsLite
+    107,802  /var/www/html/sameas-lite/src/WebApp.php:SameAsLite\WebApp->run
+    107,790  src/WebApp.php:SameAsLite\WebApp->run
+     86,729  /var/www/html/sameas-lite/src/WebApp.php:SameAsLite\WebApp->querySymbol
+     86,727  src/WebApp.php:SameAsLite\WebApp->querySymbol
+     85,978  /var/www/html/sameas-lite/src/WebApp.php:SameAsLite\WebApp->outputHTML
+     85,968  src/WebApp.php:SameAsLite\WebApp->outputHTML
+     33,637  /var/www/html/sameas-lite/src/WebApp.php:SameAsLite\WebApp->__construct
+     33,630  src/WebApp.php:SameAsLite\WebApp->__construct
+     10,997  /var/www/html/sameas-lite/src/WebApp.php:SameAsLite\WebApp->registerURL
+     10,900  src/WebApp.php:SameAsLite\WebApp->registerURL
+      6,686  /var/www/html/sameas-lite/src/WebApp.php:SameAsLite\WebApp->callbackCheckFormats
+      6,676  src/WebApp.php:SameAsLite\WebApp->callbackCheckFormats
+
+View SameAsLite-only functions ranked in order of time spent exclusively in those functions, not including time spent in child functions:
+
+        $ callgrind_annotate cachegrind.out.01bb5c | grep WebApp
+    3,034  src/WebApp.php:SameAsLite\WebApp->registerURL
+      648  src/WebApp.php:SameAsLite\WebApp->run
+      245  src/WebApp.php:SameAsLite\WebApp->__construct
+      175  src/WebApp.php:SameAsLite\WebApp->callbackCheckFormats
+      164  src/WebApp.php:SameAsLite\WebApp->outputHTML
+      142  src/Store.php:SameAsLite\Store->__destruct
+       78  src/Store.php:SameAsLite\Store->__construct
+       66  src/Store.php:SameAsLite\Store->connect
+       60  src/Store.php:SameAsLite\Store->querySymbol
+       51  src/WebApp.php:SameAsLite\WebApp->querySymbol
+       51  src/WebApp.php:SameAsLite\WebApp->callbackCheckDataset
+       34  src/WebApp.php:SameAsLite\WebApp->addDataset
+        4  src/WebApp.php:SameAsLite\WebApp->initialiseServerParameters
+
+See [callgrind_annotate](http://valgrind.org/docs/manual/cl-manual.html#cl-manual.callgrind_annotate-options) for command-line options, or run:
+
+    $ callgrind_annotate -h
