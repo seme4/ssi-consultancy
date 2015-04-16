@@ -134,7 +134,14 @@ Find library:
     $ find / -name 'xdebug.so' 2> /dev/null
     /usr/lib64/php/modules/xdebug.so
 
+Edit /etc/php.ini and add in the following lines, replacing the path to the library if necessary:
+
+    [xdebug]
+    zend_extension="/usr/lib64/php/modules/xdebug.so"
+
 Restart Apache:
+
+    $ systemctl restart httpd.service 
 
 ### Fedora 21
 
