@@ -8,7 +8,9 @@
 # Usage:
 #
 # $ bash sameas_profile.sh get [N]
+# $ bash sameas_profile.sh get [N] 2> get_times.log
 # $ bash sameas_profile.sh curly [N]
+# $ bash sameas_profile.sh curly [N] 2> get_curly.log
 #
 # where:
 # - N - number of iterations. Default 1.
