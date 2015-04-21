@@ -5,14 +5,11 @@
 # Invoke \SameAsLite\Store->querySymbol via get_symbol.php, 
 # get_symbol_subclass.php or via cURL and REST end-point.
 #
-# Usage:
+# Sample usage:
 #
-# $ bash profile.sh get_symbol [N]
-# $ bash profile.sh get_symbol [N] 2> get.log
-# $ bash profile.sh get_symbol_subclass [N]
-# $ bash profile.sh get_symbol_subclass [N] 2> get.log
-# $ bash profile.sh curly [N]
-# $ bash profile.sh curly [N] 2> curly.log
+# $ bash profile.sh get_symbol get.log [N] 2> get_time.txt
+# $ bash profile.sh get_symbol_subclass get_subclass.log [N] 2> get_subclass_time.txt
+# $ bash profile.sh curly curly.log [N] 2> curly_time.txt
 #
 # where:
 # - N - number of iterations. Default 1.
@@ -30,8 +27,9 @@
 # Each canon and each symbol is accessed per iteration, and the real
 # time, obtained via the bash time command, printed on standard error.
 # A log file of standard output from each invocation is captured and
-# placed in get.log or curly.log.
-# curly.log also includes times as provided by cURL.
+# placed in the named log file. 
+# cURL log files also include times as provided by cURL, marked up as
+# "CURL TIME: NNNN".
 #
 # Copyright 2015 The University of Edinburgh
 #
@@ -50,24 +48,18 @@
 #/
 
 # Invoke \SameAsLite\Store->querySymbol via get_symbol.php.
-# Parameters:
-#  URI - canon or symbol URI
 function get_symbol {
-    time php get_symbol.php $1 >> get.log
+    time php get_symbol.php $SYMBOL >> $LOG
 }
 
 # Invoke \SameAsLite\Store->querySymbol via get_symbol_subclass.php.
-# Parameters:
-#  URI - canon or symbol URI
 function get_symbol_subclass {
-    time php get_symbol_subclass.php $1 >> get.log
+    time php get_symbol_subclass.php $SYMBOL >> $LOG
 }
 
 # Invoke \SameAsLite\Store->querySymbol via REST endpoint.
-# Parameters:
-#  URI - canon or symbol URI
 function curly {
-     time curl -s -w "CURL TIME: %{time_total}\n" -X GET $ENDPOINT/$1 >> curly.log
+     time curl -s -w "CURL TIME: %{time_total}\n" -X GET $ENDPOINT/$SYMBOL >> $LOG
 }
 
 TIMEFORMAT="%R"
@@ -83,8 +75,9 @@ URLS=(
   http.e5e8c7e32278573b20b15d7349a895d1
 )
 COMMAND=$1
+LOG=$2
 if [ $# -gt 1 ]; then
-  COUNT=$2
+  COUNT=$3
 else
   COUNT=1
 fi
@@ -92,7 +85,7 @@ fi
 rm -f $COMMAND.log
 
 for i in `seq 1 $COUNT`; do
-  for URL in ${URLS[@]}; do
-    $1 $URL
+  for SYMBOL in ${URLS[@]}; do
+    $1
   done
 done
