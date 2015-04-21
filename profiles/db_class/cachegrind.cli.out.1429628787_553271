@@ -1,0 +1,1323 @@
+version: 1
+creator: xdebug 2.3.2
+cmd: /var/www/html/sameas-lite/get_symbol_subclass.php
+part: 1
+positions: line
+
+events: Time
+
+fl=(1) /var/www/html/sameas-lite/vendor/composer/autoload_real.php
+fn=(1) require_once::/var/www/html/sameas-lite/vendor/composer/autoload_real.php
+1 3
+
+fl=(2) php:internal
+fn=(2) php::spl_autoload_register
+22 9
+
+fl=(3) /var/www/html/sameas-lite/vendor/composer/ClassLoader.php
+fn=(3) require::/var/www/html/sameas-lite/vendor/composer/ClassLoader.php
+1 0
+
+fl=(1)
+fn=(4) ComposerAutoloaderInit7474cb810949ab2081d1390f4ffd0521::loadClassLoader
+9 409
+cfl=(3)
+cfn=(3)
+calls=1 0 0
+12 0
+
+fl=(2)
+fn=(5) php::spl_autoload_call
+23 21
+cfl=(1)
+cfn=(4)
+calls=1 0 0
+23 410
+
+fl=(2)
+fn=(6) php::spl_autoload_unregister
+24 0
+
+fl=(2)
+fn=(7) php::dirname
+5 4
+
+fl=(2)
+fn=(7)
+5 0
+
+fl=(2)
+fn=(7)
+6 0
+
+fl=(4) /var/www/html/sameas-lite/vendor/composer/include_paths.php
+fn=(8) require::/var/www/html/sameas-lite/vendor/composer/include_paths.php
+1 51
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+5 4
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+5 0
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+6 0
+
+fl=(2)
+fn=(9) php::get_include_path
+27 1
+
+fl=(2)
+fn=(10) php::array_push
+27 1
+
+fl=(2)
+fn=(11) php::join
+28 2
+
+fl=(2)
+fn=(12) php::set_include_path
+28 0
+
+fl=(2)
+fn=(7)
+5 0
+
+fl=(2)
+fn=(7)
+5 0
+
+fl=(2)
+fn=(7)
+6 0
+
+fl=(5) /var/www/html/sameas-lite/vendor/composer/autoload_namespaces.php
+fn=(13) require::/var/www/html/sameas-lite/vendor/composer/autoload_namespaces.php
+1 60
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+5 0
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+5 0
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+6 0
+
+fl=(3)
+fn=(14) Composer\Autoload\ClassLoader->set
+200 20
+
+fl=(3)
+fn=(14)
+200 1
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 1
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 2
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 1
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 1
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 1
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 1
+
+fl=(3)
+fn=(14)
+200 2
+
+fl=(3)
+fn=(14)
+200 1
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 1
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 1
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 3
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 1
+
+fl=(3)
+fn=(14)
+200 1
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(3)
+fn=(14)
+200 0
+
+fl=(2)
+fn=(7)
+5 0
+
+fl=(2)
+fn=(7)
+5 0
+
+fl=(2)
+fn=(7)
+6 0
+
+fl=(6) /var/www/html/sameas-lite/vendor/composer/autoload_psr4.php
+fn=(15) require::/var/www/html/sameas-lite/vendor/composer/autoload_psr4.php
+1 51
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+5 0
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+5 0
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+6 0
+
+fl=(2)
+fn=(16) php::strlen
+223 0
+
+fl=(3)
+fn=(17) Composer\Autoload\ClassLoader->setPsr4
+218 19
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 15
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 12
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 11
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 13
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 12
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 11
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 11
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 11
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 11
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 12
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 11
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 11
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 73
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 14
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 11
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(16)
+223 0
+
+fl=(3)
+fn=(17)
+218 11
+cfl=(2)
+cfn=(16)
+calls=1 0 0
+223 0
+
+fl=(2)
+fn=(7)
+5 0
+
+fl=(2)
+fn=(7)
+5 0
+
+fl=(2)
+fn=(7)
+6 0
+
+fl=(7) /var/www/html/sameas-lite/vendor/composer/autoload_classmap.php
+fn=(18) require::/var/www/html/sameas-lite/vendor/composer/autoload_classmap.php
+1 403
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+5 0
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+5 0
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+6 0
+
+fl=(3)
+fn=(19) Composer\Autoload\ClassLoader->addClassMap
+91 9
+
+fl=(2)
+fn=(2)
+281 4
+
+fl=(3)
+fn=(20) Composer\Autoload\ClassLoader->register
+279 15
+cfl=(2)
+cfn=(2)
+calls=1 0 0
+281 4
+
+fl=(2)
+fn=(7)
+5 0
+
+fl=(2)
+fn=(7)
+5 0
+
+fl=(2)
+fn=(7)
+6 0
+
+fl=(8) /var/www/html/sameas-lite/vendor/composer/autoload_files.php
+fn=(21) require::/var/www/html/sameas-lite/vendor/composer/autoload_files.php
+1 57
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+5 0
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+5 0
+cfl=(2)
+cfn=(7)
+calls=1 0 0
+6 0
+
+fl=(2)
+fn=(22) php::defined
+3 3
+
+fl=(2)
+fn=(23) php::phpversion
+10 0
+
+fl=(2)
+fn=(24) php::version_compare
+10 3
+
+fl=(2)
+fn=(25) php::define
+10 0
+
+fl=(9) /var/www/html/sameas-lite/vendor/herrera-io/json/src/lib/json_version.php
+fn=(26) require::/var/www/html/sameas-lite/vendor/herrera-io/json/src/lib/json_version.php
+1 57
+cfl=(2)
+cfn=(22)
+calls=1 0 0
+3 3
+cfl=(2)
+cfn=(23)
+calls=1 0 0
+10 0
+cfl=(2)
+cfn=(24)
+calls=1 0 0
+10 3
+cfl=(2)
+cfn=(25)
+calls=1 0 0
+10 0
+
+fl=(1)
+fn=(27) composerRequire7474cb810949ab2081d1390f4ffd0521
+56 96
+cfl=(9)
+cfn=(26)
+calls=1 0 0
+58 66
+
+fl=(2)
+fn=(22)
+3 2
+
+fl=(2)
+fn=(25)
+10 0
+
+fl=(10) /var/www/html/sameas-lite/vendor/herrera-io/phar-update/src/lib/constants.php
+fn=(28) require::/var/www/html/sameas-lite/vendor/herrera-io/phar-update/src/lib/constants.php
+1 29
+cfl=(2)
+cfn=(22)
+calls=1 0 0
+3 2
+cfl=(2)
+cfn=(25)
+calls=1 0 0
+10 0
+
+fl=(1)
+fn=(27)
+56 71
+cfl=(10)
+cfn=(28)
+calls=1 0 0
+58 32
+
+fl=(1)
+fn=(29) ComposerAutoloaderInit7474cb810949ab2081d1390f4ffd0521::getLoader
+16 3699
+cfl=(2)
+cfn=(2)
+calls=1 0 0
+22 9
+cfl=(2)
+cfn=(5)
+calls=1 0 0
+23 432
+cfl=(2)
+cfn=(6)
+calls=1 0 0
+24 0
+cfl=(4)
+cfn=(8)
+calls=1 0 0
+26 56
+cfl=(2)
+cfn=(9)
+calls=1 0 0
+27 1
+cfl=(2)
+cfn=(10)
+calls=1 0 0
+27 1
+cfl=(2)
+cfn=(11)
+calls=1 0 0
+28 2
+cfl=(2)
+cfn=(12)
+calls=1 0 0
+28 0
+cfl=(5)
+cfn=(13)
+calls=1 0 0
+30 61
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 20
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 1
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 1
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 2
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 1
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 1
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 1
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 1
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 2
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 1
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 1
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 1
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 3
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 1
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 1
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(3)
+cfn=(14)
+calls=1 0 0
+32 0
+cfl=(6)
+cfn=(15)
+calls=1 0 0
+35 51
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 19
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 15
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 12
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 11
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 13
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 12
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 11
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 11
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 12
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 11
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 12
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 11
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 11
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 73
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 15
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 11
+cfl=(3)
+cfn=(17)
+calls=1 0 0
+37 12
+cfl=(7)
+cfn=(18)
+calls=1 0 0
+40 404
+cfl=(3)
+cfn=(19)
+calls=1 0 0
+42 9
+cfl=(3)
+cfn=(20)
+calls=1 0 0
+45 20
+cfl=(8)
+cfn=(21)
+calls=1 0 0
+47 58
+cfl=(1)
+cfn=(27)
+calls=1 0 0
+49 163
+cfl=(1)
+cfn=(27)
+calls=1 0 0
+49 103
+
+fl=(11) /var/www/html/sameas-lite/vendor/autoload.php
+fn=(30) require_once::/var/www/html/sameas-lite/vendor/autoload.php
+1 524
+cfl=(1)
+cfn=(1)
+calls=1 0 0
+5 3
+cfl=(1)
+cfn=(29)
+calls=1 0 0
+7 5424
+
+fl=(2)
+fn=(31) php::strtr
+347 2
+
+fl=(2)
+fn=(32) php::strpos
+352 1
+
+fl=(2)
+fn=(32)
+352 0
+
+fl=(2)
+fn=(32)
+352 0
+
+fl=(2)
+fn=(32)
+352 0
+
+fl=(2)
+fn=(33) php::substr
+354 2
+
+fl=(2)
+fn=(34) php::file_exists
+354 9
+
+fl=(3)
+fn=(35) Composer\Autoload\ClassLoader->findFileWithExtension
+344 88
+cfl=(2)
+cfn=(31)
+calls=1 0 0
+347 2
+cfl=(2)
+cfn=(32)
+calls=1 0 0
+352 1
+cfl=(2)
+cfn=(32)
+calls=1 0 0
+352 0
+cfl=(2)
+cfn=(32)
+calls=1 0 0
+352 0
+cfl=(2)
+cfn=(32)
+calls=1 0 0
+352 0
+cfl=(2)
+cfn=(33)
+calls=1 0 0
+354 2
+cfl=(2)
+cfn=(34)
+calls=1 0 0
+354 9
+
+fl=(3)
+fn=(36) Composer\Autoload\ClassLoader->findFile
+314 66
+cfl=(3)
+cfn=(35)
+calls=1 0 0
+329 103
+
+fl=(2)
+fn=(31)
+347 0
+
+fl=(2)
+fn=(32)
+352 0
+
+fl=(2)
+fn=(32)
+352 0
+
+fl=(2)
+fn=(32)
+352 0
+
+fl=(2)
+fn=(32)
+352 0
+
+fl=(2)
+fn=(33)
+354 0
+
+fl=(2)
+fn=(34)
+354 3
+
+fl=(3)
+fn=(35)
+344 90
+cfl=(2)
+cfn=(31)
+calls=1 0 0
+347 0
+cfl=(2)
+cfn=(32)
+calls=1 0 0
+352 0
+cfl=(2)
+cfn=(32)
+calls=1 0 0
+352 0
+cfl=(2)
+cfn=(32)
+calls=1 0 0
+352 0
+cfl=(2)
+cfn=(32)
+calls=1 0 0
+352 0
+cfl=(2)
+cfn=(33)
+calls=1 0 0
+354 0
+cfl=(2)
+cfn=(34)
+calls=1 0 0
+354 3
+
+fl=(3)
+fn=(36)
+314 56
+cfl=(3)
+cfn=(35)
+calls=1 0 0
+329 96
+
+fl=(12) /var/www/html/sameas-lite/src/Store.php
+fn=(37) include::/var/www/html/sameas-lite/src/Store.php
+1 0
+
+fl=(3)
+fn=(38) Composer\Autoload\includeFile
+410 1002
+cfl=(12)
+cfn=(37)
+calls=1 0 0
+412 0
+
+fl=(3)
+fn=(39) Composer\Autoload\ClassLoader->loadClass
+298 36
+cfl=(3)
+cfn=(36)
+calls=1 0 0
+300 153
+cfl=(3)
+cfn=(38)
+calls=1 0 0
+301 1003
+
+fl=(2)
+fn=(5)
+45 23
+cfl=(3)
+cfn=(39)
+calls=1 0 0
+45 1192
+
+fl=(13) /var/www/html/sameas-lite/src/MySqlStore.php
+fn=(40) include::/var/www/html/sameas-lite/src/MySqlStore.php
+1 33
+cfl=(2)
+cfn=(5)
+calls=1 0 0
+45 1215
+
+fl=(3)
+fn=(38)
+410 221
+cfl=(13)
+cfn=(40)
+calls=1 0 0
+412 1249
+
+fl=(3)
+fn=(39)
+298 43
+cfl=(3)
+cfn=(36)
+calls=1 0 0
+300 170
+cfl=(3)
+cfn=(38)
+calls=1 0 0
+301 1470
+
+fl=(2)
+fn=(5)
+40 25
+cfl=(3)
+cfn=(39)
+calls=1 0 0
+40 1684
+
+fl=(2)
+fn=(32)
+83 4
+
+fl=(2)
+fn=(33)
+84 0
+
+fl=(13)
+fn=(41) SameAsLite\MySqlStore->getDsnPrefix
+77 0
+
+fl=(2)
+fn=(42) php::preg_match
+98 202
+
+fl=(12)
+fn=(43) SameAsLite\Store->__construct
+80 154
+cfl=(2)
+cfn=(32)
+calls=1 0 0
+83 4
+cfl=(2)
+cfn=(33)
+calls=1 0 0
+84 0
+cfl=(13)
+cfn=(41)
+calls=1 0 0
+90 0
+cfl=(2)
+cfn=(42)
+calls=1 0 0
+98 202
+
+fl=(13)
+fn=(44) SameAsLite\MySqlStore->__construct
+59 64
+cfl=(12)
+cfn=(43)
+calls=1 0 0
+70 362
+
+fl=(2)
+fn=(45) php::PDO->__construct
+125 1587
+
+fl=(2)
+fn=(46) php::PDO->setAttribute
+134 0
+
+fl=(2)
+fn=(47) php::PDO->exec
+89 91
+
+fl=(13)
+fn=(48) SameAsLite\MySqlStore->useDatabase
+86 26
+cfl=(2)
+cfn=(47)
+calls=1 0 0
+89 91
+
+fl=(13)
+fn=(49) SameAsLite\MySqlStore->getCreateTablesSql
+102 0
+
+fl=(2)
+fn=(47)
+142 125
+
+fl=(12)
+fn=(50) SameAsLite\Store->connect
+115 269
+cfl=(2)
+cfn=(45)
+calls=1 0 0
+125 1587
+cfl=(2)
+cfn=(46)
+calls=1 0 0
+134 0
+cfl=(13)
+cfn=(48)
+calls=1 0 0
+137 118
+cfl=(13)
+cfn=(49)
+calls=1 0 0
+141 0
+cfl=(2)
+cfn=(47)
+calls=1 0 0
+142 125
+
+fl=(2)
+fn=(51) php::PDO->prepare
+186 7
+
+fl=(2)
+fn=(52) php::PDOStatement->execute
+187 68
+
+fl=(2)
+fn=(53) php::PDOStatement->fetchAll
+188 60
+
+fl=(12)
+fn=(54) SameAsLite\Store->querySymbol
+174 162
+cfl=(12)
+cfn=(50)
+calls=1 0 0
+178 2103
+cfl=(2)
+cfn=(51)
+calls=1 0 0
+186 7
+cfl=(2)
+cfn=(52)
+calls=1 0 0
+187 68
+cfl=(2)
+cfn=(53)
+calls=1 0 0
+188 60
+
+fl=(2)
+fn=(55) php::print_r
+49 1450
+
+fl=(14) /var/www/html/sameas-lite/get_symbol_subclass.php
+fn=(56) {main}
+
+summary: 12169
+
+1 226
+cfl=(11)
+cfn=(30)
+calls=1 0 0
+38 5953
+cfl=(2)
+cfn=(5)
+calls=1 0 0
+40 1709
+cfl=(13)
+cfn=(44)
+calls=1 0 0
+46 427
+cfl=(12)
+cfn=(54)
+calls=1 0 0
+48 2402
+cfl=(2)
+cfn=(55)
+calls=1 0 0
+49 1450
+
+fl=(12)
+fn=(57) SameAsLite\Store->__destruct
+158 67
+
