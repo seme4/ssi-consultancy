@@ -14,7 +14,7 @@
 # - N - number of iterations. Default 1.
 #
 # The sameAs Lite data store is assumed to have two canons and symbols:
-# 
+#
 # canon                                 symbol
 # http.51011a3008ce7eceba27c629f6d0020c http.f9070a2d98db3c376dcd2d4d8c0cd220
 # http.e5e8c7e32278573b20b15d7349a895d1 http.f26aff24a6fd831094b2520a8a5197a3
@@ -24,8 +24,9 @@
 # $ php create_data.php 100 table1 testdb > mysql.sql
 #
 # Each canon and each symbol is accessed per iteration, and the real
-# time, obtained via the bash time command, printed. A log file of
-# standard output is captured and placed in get.log or curly.log.
+# time, obtained via the bash time command, printed on standard error.
+# A log file of standard output from each invocation is captured and
+# placed in get.log or curly.log.
 # curly.log also includes times as provided by cURL.
 #
 # Copyright 2015 The University of Edinburgh
@@ -77,11 +78,10 @@ else
   COUNT=1
 fi
 
-rm -f $COMMAND.log 
+rm -f $COMMAND.log
 
 for i in `seq 1 $COUNT`; do
   for URL in ${URLS[@]}; do
     $1 $URL
   done
 done
-
