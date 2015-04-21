@@ -2,15 +2,17 @@
 
 # sameAs Lite simple profiler
 #
-# Invoke \SameAsLite\Store->querySymbol via get_symbol.php or
-# via cURL and REST end-point.
+# Invoke \SameAsLite\Store->querySymbol via get_symbol.php, 
+# get_symbol_subclass.php or via cURL and REST end-point.
 #
 # Usage:
 #
-# $ bash sameas_profile.sh get [N]
-# $ bash sameas_profile.sh get [N] 2> get_times.log
-# $ bash sameas_profile.sh curly [N]
-# $ bash sameas_profile.sh curly [N] 2> get_curly.log
+# $ bash profile.sh get_symbol [N]
+# $ bash profile.sh get_symbol [N] 2> get.log
+# $ bash profile.sh get_symbol_subclass [N]
+# $ bash profile.sh get_symbol_subclass [N] 2> get.log
+# $ bash profile.sh curly [N]
+# $ bash profile.sh curly [N] 2> curly.log
 #
 # where:
 # - N - number of iterations. Default 1.
@@ -50,8 +52,15 @@
 # Invoke \SameAsLite\Store->querySymbol via get_symbol.php.
 # Parameters:
 #  URI - canon or symbol URI
-function get {
+function get_symbol {
     time php get_symbol.php $1 >> get.log
+}
+
+# Invoke \SameAsLite\Store->querySymbol via get_symbol_subclass.php.
+# Parameters:
+#  URI - canon or symbol URI
+function get_symbol_subclass {
+    time php get_symbol_subclass.php $1 >> get.log
 }
 
 # Invoke \SameAsLite\Store->querySymbol via REST endpoint.
