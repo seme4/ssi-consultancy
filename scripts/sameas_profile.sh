@@ -62,7 +62,7 @@ function curly {
 }
 
 TIMEFORMAT="%R"
-ENDPOINT=http://127.0.0.1/sameas-lite/datasets/test/symbols/
+ENDPOINT=http://127.0.0.1/sameas-lite/datasets/test/symbols
 URLS=(
   # canon 1
   http.51011a3008ce7eceba27c629f6d0020c
