@@ -57,6 +57,6 @@ printf "Average,StdDev,Total,Min,Max,Count,Run\n" >> $STATS_FILE
 
 git checkout master
 run_profile master get_symbol $N
-git checkout db_class
-run_profile db_class get_symbol_subclass $N
+git checkout dbsubclass
+run_profile dbsubclass get_symbol_subclass $N
 git checkout master
