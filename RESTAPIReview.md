@@ -64,7 +64,9 @@ and src/WebApp.php line 326:
         'text/html,text/plain'
     );
 
-A fix is in the [typos](https://github.com/softwaresaved/sameas-lite/tree/typos) branch of https://github.com/softwaresaved/sameas-lite, commit [c4fa238d52a1320bbfeaea6e1a75169da7a644bb](https://github.com/softwaresaved/sameas-lite/commit/c4fa238d52a1320bbfeaea6e1a75169da7a644bb).
+A fix is in the [typos](https://github.com/softwaresaved/sameas-lite/tree/typos) branch of https://github.com/softwaresaved/sameas-lite:
+
+* [WebApp.php](https://github.com/softwaresaved/sameas-lite/blob/typos/src/WebApp.php)
 
 ### Fix Delete symbol bug
 
@@ -89,7 +91,11 @@ The first line of the function should be:
 
         $result = $this->stores[$store]->removeSymbol($symbol);
 
-A fix is in the [fixdelete](https://github.com/softwaresaved/sameas-lite/tree/fixdelete) branch of https://github.com/softwaresaved/sameas-lite, commit [5e4b14e4b8d02996ce1884bfc047179b4e0a2409](https://github.com/softwaresaved/sameas-lite/commit/5e4b14e4b8d02996ce1884bfc047179b4e0a2409).
+A fix is in the [fixdelete](https://github.com/softwaresaved/sameas-lite/tree/fixdelete) branch of https://github.com/softwaresaved/sameas-lite:
+
+* [WebApp.php](https://github.com/softwaresaved/sameas-lite/blob/fixdelete/src/WebApp.php)
+
+After applying this fix:
 
     $ curl -H "Accept: text/html"  -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/canonA
     <h2>Success!</h2><p></p>
@@ -135,7 +141,11 @@ $bundleSizes should be checked to see if it has a value for key $b before being 
            $bundleSizes[$b] = 0;
         }
 
-A fix is in the [fixanalyse](https://github.com/softwaresaved/sameas-lite/tree/fixanalyse] branch of https://github.com/softwaresaved/sameas-lite, commit [8b8664417cbb24ba2f09dc5e71ebd28564d7d350](https://github.com/softwaresaved/sameas-lite/commit/8b8664417cbb24ba2f09dc5e71ebd28564d7d350).
+A fix is in the [fixanalyse](https://github.com/softwaresaved/sameas-lite/tree/fixanalyse) branch of https://github.com/softwaresaved/sameas-lite:
+
+* [Store.php](https://github.com/softwaresaved/sameas-lite/blob/fixanalyse/src/Store.php)
+
+After applying this fix:
 
     $ curl -H "Accept: text/html" -X GET http://127.0.0.1/sameas-lite/datasets/test/analyse
     <h1>[titleHeader]</h1>
