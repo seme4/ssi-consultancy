@@ -374,9 +374,9 @@ Add:
 
     xdebug.profiler_enable=1
     xdebug.profiler_output_dir=/tmp/
-    xdebug.profiler_output_name=cachegrind.out.%r
+    xdebug.profiler_output_name=cachegrind.out.%u
 
-xdebug.profiler_output_name specifies that file names of form `cachegrind.out.RANDOM_NUMBER` are created. For other options see [xdebug.trace_output_name](http://www.xdebug.org/docs/all_settings#trace_output_name).
+xdebug.profiler_output_name specifies that file names of form `cachegrind.out.MICROSECOND_TIMESTAMP` are created. For other options see [xdebug.trace_output_name](http://www.xdebug.org/docs/all_settings#trace_output_name).
 
 Restart Apache:
 
@@ -407,7 +407,7 @@ Check Apache profiling:
 <p/>
 
     $ ls /tmp/
-    cachegrind.out.01bb5c  
+    cachegrind.out.1429632922_754168
 
 * Scientific Linux 7:
   - The sub-directory of /tmp may differ.
@@ -415,7 +415,6 @@ Check Apache profiling:
 <p/>
 
     $ ls -l /tmp/systemd-private-BhZSgg/tmp/
-    cachegrind.out.01bb5c  
 
 * Fedora 21:
   - The sub-directory of /tmp may differ.
@@ -423,14 +422,14 @@ Check Apache profiling:
 <p/>
 
     $ ls /tmp/systemd-private-f092465403634da79a6ab044ec4846e6-httpd.service-0UqNQv/tmp
-    cachegrind.out.01bb5c  
+    cachegrind.out.1429632914_279604
 
 Check command-line profiling:
 
     $ php src/Store.php
     $ ls /tmp
-    cachegrind.out.01bb5c  
-   
+    cachegrind.out.1429632922_498670
+
 ### Configure Xdebug profiler to run in Apache only when triggered
 
 The Xdebug profiler can be configured to run in Apache only when explicitly triggered by using a GET/POST or COOKIE variable called XDEBUG_PROFILE e.g.
@@ -508,7 +507,7 @@ Check trigger-only Apache profiling:
 
 ### View profile data using KCachegrind
 
-    $ kcachegrind cachegrind.out.01bb5c  
+    $ kcachegrind cachegrind.out.1429632922_754168
 
 See [KCachegrind](http://kcachegrind.sourceforge.net/html/Home.html) for information on use.
 
@@ -527,9 +526,9 @@ Then this can happen if you are running as `su` but not as the root user. Either
 
 View functions ranked in order of time spent in those functions, inclusive of time spent in child functions:
 
-    $ callgrind_annotate --inclusive=yes cachegrind.out.01bb5c  
+    $ callgrind_annotate --inclusive=yes cachegrind.out.1429632922_754168
     --------------------------------------------------------------------------------
-    Profile data file 'cachegrind.out.01bb5c' (creator: xdebug 2.3.2)
+    Profile data file 'cachegrind.out.1429632922_754168' (creator: xdebug 2.3.2)
     --------------------------------------------------------------------------------
     Profiled target:  /var/www/html/sameas-lite/index.php
     Events recorded:  Time
@@ -559,7 +558,7 @@ View functions ranked in order of time spent in those functions, inclusive of ti
 
 View SameAsLite-only functions ranked in order of time spent in those functions, and including time spent in their child functions:
 
-    $ callgrind_annotate --inclusive=yes cachegrind.out.01bb5c | grep SameAsLite
+    $ callgrind_annotate --inclusive=yes cachegrind.out.1429632922_754168 | grep SameAsLite
     107,802  /var/www/html/sameas-lite/src/WebApp.php:SameAsLite\WebApp->run
     107,790  src/WebApp.php:SameAsLite\WebApp->run
      86,729  /var/www/html/sameas-lite/src/WebApp.php:SameAsLite\WebApp->querySymbol
@@ -575,7 +574,7 @@ View SameAsLite-only functions ranked in order of time spent in those functions,
 
 View SameAsLite-only functions ranked in order of time spent exclusively in those functions, not including time spent in child functions:
 
-        $ callgrind_annotate cachegrind.out.01bb5c | grep WebApp
+        $ callgrind_annotate cachegrind.out.1429632922_754168 | grep WebApp
     3,034  src/WebApp.php:SameAsLite\WebApp->registerURL
       648  src/WebApp.php:SameAsLite\WebApp->run
       245  src/WebApp.php:SameAsLite\WebApp->__construct
