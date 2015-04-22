@@ -176,7 +176,7 @@ Then:
 
 Install:
 
-    $ apt-get install php5-xsl
+    $ apt-get install php5-xsl php5-curl
 
 ### Scientific Linux 7 / Fedora 21
 
