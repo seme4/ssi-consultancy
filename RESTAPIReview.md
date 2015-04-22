@@ -31,6 +31,12 @@ This invocation:
 
 did not raise an error, but it returned no matches.
 
+The sameAs.org service can handle symbols:
+
+    $ curl http://sameas.org/json?uri=http%3A%2F%2Fdbpedia.org%2Fresource%2FEdinburgh
+
+but these are passed via a query string, not as part of the URL path.
+
 ---
 
 ## Bugs
