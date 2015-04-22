@@ -1,0 +1,3 @@
+Average(s),StdDev(s),Total(s),Min(s),Max(s),Count,Run
+0.00274,0.00064,1.09430,0.00240,0.01040,400,query_symbol
+0.01766,0.00110,7.06470,0.01600,0.02570,400,get_curl
