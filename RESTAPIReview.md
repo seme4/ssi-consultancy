@@ -431,4 +431,4 @@ Raise an error if the file format is invalid.
 
 ## Update RESTAPIExamples.md
 
-Once these issues are addressed, update the sample outputs in RESTAPIexamples.md.
+Once these issues are addressed, update the sample outputs in [RESTAPIexamples.md](./RESTAPIexamples.md).
