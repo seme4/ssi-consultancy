@@ -264,7 +264,9 @@ Create a `.gitignore` file so that these auto-generated files are ignored. The c
     composer.lock
     test.sqlite
 
-This has been submitted as a [pull request](https://github.com/seme4/sameas-lite/pull/1).
+An example is in the [gitignore](https://github.com/softwaresaved/sameas-lite/tree/gitignore) branch of https://github.com/softwaresaved/sameas-lite:
+
+* [.gitignore](https://github.com/softwaresaved/sameas-lite/blob/gitignore/.gitignore)
 
 ### Use a continuous integration server
 
