@@ -341,4 +341,4 @@ A number of example documents have been written as a side-effect of this report:
 * [Set up development environment](SetupDevelopment.md)
 * [Day-to-day development](./DayToDayDevelopment.md)
 * [Deployer and Developer Reference](./Reference.md) - useful operating system-specific information for both deployers and developers.
-* [REST API examples](./RESTAPIexamples.md) - examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can be useful for deployers and developers.
+* [REST API examples](./RESTAPIExamples.md) - examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can be useful for deployers and developers.
