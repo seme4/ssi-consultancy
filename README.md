@@ -29,7 +29,8 @@ Reports:
 
 * [Open source project review](./open-source/OpenSourceProjectReview.md)
 * [Deployer and Developer Review](./DeployerDeveloperReview.md)
-* [REST API Review](./RESTAPIReview.md)
+* [REST API review](./RESTAPIReview.md)
+* [Source code review](./SourceCodeReview.md)
 
 Sample documentation:
 
@@ -38,4 +39,4 @@ Sample documentation:
 * [Set up development environment](SetupDevelopment.md)
 * [Day-to-day development](./DayToDayDevelopment.md)
 * [Deployer and Developer Reference](./Reference.md) - useful operating system-specific information for both deployers and developers.
-* [REST API examples](./RESTAPIexamples.md) - examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can be useful for deployers and developers.
+* [REST API examples](./RESTAPIExamples.md) - examples of invocations of sameAs Lite REST endpoints, and examples of what they return, which can be useful for deployers and developers.
