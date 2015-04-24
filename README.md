@@ -31,6 +31,8 @@ Reports:
 * [Deployer and Developer Review](./DeployerDeveloperReview.md)
 * [REST API review](./RESTAPIReview.md)
 * [Source code review](./SourceCodeReview.md)
+* [Database-agnostic design](./DatabaseAgnosticDesign.md)
+* Sample code relating to the above are in branches of https://github.com/softwaresaved/sameas-lite.
 
 Sample documentation:
 
