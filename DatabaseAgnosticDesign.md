@@ -333,7 +333,7 @@ In dbsubclass, SqLiteStore.php, StoreFactory.php and WebApp.php, which are unuse
 
 ### Profiling the web application
 
-Xdebug was enabled for PHP usage via Apache 2. The following command was run, both within profile_master and dbsubclass branches, to provide profiling data on a sameAs Lite service that uses \SameAsLite\Store:
+Xdebug was enabled for PHP usage via Apache 2. The following command was run, both within profile_master and dbsubclass branches, to provide profiling data on the sameAs Lite service end-point that uses \SameAsLite\Store->querySymbol:
 
     $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/http.51011a3008ce7eceba27c629f6d0020c
 
