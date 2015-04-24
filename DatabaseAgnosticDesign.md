@@ -230,7 +230,7 @@ The database contents are as follows:
     ... 
     0.0453
 
-[CurlTimer.php](https://github.com/softwaresaved/sameas-lite/blob/profile_master/profile/CurlGetTimer.php) issues an HTTP GET request against a given URL and calculates the execution time. It uses PHP [curl](http://php.net/manual/en/book.curl.php) and microtime. For example, using [Curl.php]](https://github.com/softwaresaved/sameas-lite/blob/profile_master/profile/Curl.php), which is a command-line tool that uses CurlTimer:
+[CurlTimer.php](https://github.com/softwaresaved/sameas-lite/blob/profile_master/profile/CurlTimer.php) issues an HTTP GET request against a given URL and calculates the execution time. It uses PHP [curl](http://php.net/manual/en/book.curl.php) and microtime. For example, using [Curl.php](https://github.com/softwaresaved/sameas-lite/blob/profile_master/profile/Curl.php), which is a command-line tool that uses CurlTimer:
 
     $ php profile/Curl.php http://127.0.0.1/sameas-lite/datasets/test/symbols/http.51011a3008ce7eceba27c629f6d0020c 
     <!DOCTYPE html>
