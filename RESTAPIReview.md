@@ -12,6 +12,121 @@ This document summarises issues with the REST API were identified when documenti
 
 ---
 
+## Design
+
+### Return a 404 Not Found header if a resource does not exist
+
+Issuing a GET request against a non-existent web application returns a 404 Not Found header:
+
+    $ curl -i -X GET http://127.0.0.1/sameas
+    HTTP/1.1 404 Not Found
+    Date: Fri, 24 Apr 2015 15:16:08 GMT
+    Server: Apache/2.4.7 (Ubuntu)
+    Content-Length: 278
+    Content-Type: text/html; charset=iso-8859-1
+    
+    <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+    <html><head>
+    <title>404 Not Found</title>
+    </head><body>
+    <h1>Not Found</h1>
+    <p>The requested URL /sameas was not found on this server.</p>
+    <hr>
+    <address>Apache/2.4.7 (Ubuntu) Server at 127.0.0.1 Port 80</address>
+    </body></html>
+
+However, issuing a GET request against a non-existent resource returns a 200 OK header:
+
+    $ curl -i -X GET http://127.0.0.1/sameas-lite/datasets/test/symb
+    HTTP/1.1 200 OK
+    Date: Fri, 24 Apr 2015 15:17:48 GMT
+    Server: Apache/2.4.7 (Ubuntu)
+    X-Powered-By: PHP/5.5.9-1ubuntu4.9
+    Vary: Accept-Encoding
+    Content-Length: 2546
+    Content-Type: text/html
+    
+    <!DOCTYPE html>
+    <html lang="en">
+    
+        <title>SameAs Lite - Page not found</title>
+    
+          <div class="container">
+            <h1>Error 404</h1>
+          </div>
+    
+            <h2>Not Found</h2>
+
+For the following non-existent resources, 200 OK headers are also returned:
+
+    $ curl -i -X GET http://127.0.0.1/sameas-lite/datasets/test/canons/nomatch
+    $ curl -i -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/nomatch
+    $ curl -i -X GET http://127.0.0.1/sameas-lite/datasets/test/search/nomatch
+
+As these resources do not exist, return 400 Not Found headers.
+
+### Use nouns not verbs in URLs
+
+Certain URLs contain verbs. A number of commentators recommend that REST URLs only consist of nouns (e.g. [1](http://www.restapitutorial.com/lessons/restfulresourcenaming.html), [2](http://blog.mwaysolutions.com/2014/06/05/10-best-practices-for-better-restful-api/), [3](https://blog.codecentric.de/en/2012/11/a-restful-learning-curve-nouns-verbs-hateoas-and-roca/)) as the HTTP operations (GET, PUT, DELETE, POST) serve as the verbs, the operations on these resources.
+
+For /search:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/search/dinb
+
+the verb could be avoided by treating this as an operation on /pairs. For example, returning all the /pairs resources which contain "dinb":
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/pairs/dinb
+
+For /analyse:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/analyse
+
+rename this to /analysis:
+
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/analysis
+
+### Use POST not PUT for update
+
+A set of pairs can be inserted via a PUT request. For example, using pairs.txt is a file of pairs, one per line, each pair being TAB-separated:
+
+    $ curl -X PUT --user username:password -T "pairs.txt" http://127.0.0.1/sameas-lite/datasets/test/pairs
+
+This appends the pairs to those already there. Since, in the context of collections, PUT is conventionally taken to mean replacing the collection, use a POST instead:
+
+    $ curl -X POST --user username:password -T "pairs.txt" http://127.0.0.1/sameas-lite/datasets/test/pairs
+
+PUT could be reimplemented so that it replaces the existing pairs with the new pairs. On which note...
+
+### Use PUT not DELETE for 'empty'
+
+To delete a store a DELETE request is used:
+
+    $ curl -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test
+
+To empty the store a DELETE request is used against an /admin/empty resource:
+
+    $ curl -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/admin/empty
+
+As emptying the data store is equivalent to updating it with an empty set of pairs, consider using /pairs in conjunction with PUT:
+
+    $ cat pairs.txt
+    $ curl -X PUT --user username:password -T "pairs.txt" http://127.0.0.1/sameas-lite/datasets/test/pairs
+
+### Support DELETE on /canons
+
+To delete symbols or canons a DELETE request is issued against /symbols:
+
+    $ curl -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/canonA
+    $ curl -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/symbols/symbolA1
+
+Consider supporting DELETE requests against /canons:
+
+    $ curl -X DELETE --user username:password http://127.0.0.1/sameas-lite/datasets/test/canons/canonA
+
+to delete the canon and all its symbols.
+
+---
+
 ## Clarify how to pass URIs as canons and symbols in URLs
 
 It is unclear how to pass URIs as canons or symbols. None of these operations worked:
