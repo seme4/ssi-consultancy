@@ -306,9 +306,9 @@ Raw data is in the [data](./data) directory, in data/master/cachegrind.cli.out a
 
 [KCachegrind](http://kcachegrind.sourceforge.net/html/Home.html) is an open source profile data visualization tool. It can visualise Xdebug profiling data. 
 
-This [screen shot](./kcachegrind/QuerySymbol/querySymbol.jpg) shows the Callee Maps of the percentage of time spent within \SameAsLite\Store->querySymbol when running QuerySymbol.php. profile_master is on the left, dbclass on the right. For both, the dominant time is spent within PDO->construct and other PDO classes rather than Store-related code and the percentage of time is comparable across both branches.
+This [screen shot](./data/kcachegrind/QuerySymbol/querySymbol.jpg) shows the Callee Maps of the percentage of time spent within \SameAsLite\Store->querySymbol when running QuerySymbol.php. profile_master is on the left, dbclass on the right. For both, the dominant time is spent within PDO->construct and other PDO classes rather than Store-related code and the percentage of time is comparable across both branches.
 
-However, looking at the total time to execute QuerySymbol.php, which is shown in this [screen shot](./kcachegrind/QuerySymbol/total.jpg), it can be seen that a far greater percentage of overall execution time is spent within:
+However, looking at the total time to execute QuerySymbol.php, which is shown in this [screen shot](./data/kcachegrind/QuerySymbol/total.jpg), it can be seen that a far greater percentage of overall execution time is spent within:
 
     require_once::/var/www/html/sameaslite/vendor/autoload.php
 
@@ -329,7 +329,7 @@ whereas dbsubclass contains 5 source files, collectively larger:
      36K Store.php
      44K WebApp.php
 
-In dbsubclass, SqLiteStore.php, StoreFactory.php and WebApp.php, which are unused by QuerySymbol.php were deleted and QuerySymbol.php re-run. Raw data is data/dbsubclass/cachegrind.cli.nounusedfiles.out. Looking again at the total time to execute QuerySymbol.php, which is shown in this [screen shot](./kcachegrind/QuerySymbol/total_minus_unecessary_source.jpg), it can be seen that, by removing unused files, the percentage of time occupied by autoload.php is far reduced.
+In dbsubclass, SqLiteStore.php, StoreFactory.php and WebApp.php, which are unused by QuerySymbol.php were deleted and QuerySymbol.php re-run. Raw data is data/dbsubclass/cachegrind.cli.nounusedfiles.out. Looking again at the total time to execute QuerySymbol.php, which is shown in this [screen shot](./data/kcachegrind/QuerySymbol/total_minus_unecessary_source.jpg), it can be seen that, by removing unused files, the percentage of time occupied by autoload.php is far reduced.
 
 ### Profiling the web application
 
@@ -339,13 +339,13 @@ Xdebug was enabled for PHP usage via Apache 2. The following command was run, bo
 
 Raw data is in the [data](./data) directory, in data/master/cachegrind.apache.out and data/dbsubclass/cachegrind.apache.out
 
-Looking at the total time to service the request within Apache 2, which is shown in this [screen shot](./kcachegrind/Curl/total.jpg), it can be seen that, again, a far greater percentage of overall execution time is spent within:
+Looking at the total time to service the request within Apache 2, which is shown in this [screen shot](./data/kcachegrind/Curl/total.jpg), it can be seen that, again, a far greater percentage of overall execution time is spent within:
 
     require_once::/var/www/html/sameaslite/vendor/autoload.php
 
-Again, unused classes were removed and curl rerun. The raw data is in data/dbsubclass/cachegrind.apache.nounusedfiles.out. Looking again at the total time to service the request, which is shown in this [screen shot](./kcachegrind/Curl/total_minus_unecessary_source.jpg), it can be seen that the percentage of time occupied by autoload.php is again far reduced. In both cases, the percentage of time spent within autoload.php is exceeded that that spent within the web application as a whole.
+Again, unused classes were removed and curl rerun. The raw data is in data/dbsubclass/cachegrind.apache.nounusedfiles.out. Looking again at the total time to service the request, which is shown in this [screen shot](./data/kcachegrind/Curl/total_minus_unecessary_source.jpg), it can be seen that the percentage of time occupied by autoload.php is again far reduced. In both cases, the percentage of time spent within autoload.php is exceeded that that spent within the web application as a whole.
 
-Looking at the time spent within sameAs Lite-specific code, this [screen shot](./kcachegrind/Curl/sameas_classes.jpg) shows that the percentage of time spent within this code is comparable across profile_master (top left) and dbsubclass (bottom left). In addition, the time spent within Store is insignificant when set against the time spent within WebApp, notably the time taken to convert the output data to HTML (see for example, top right and bottom right).
+Looking at the time spent within sameAs Lite-specific code, this [screen shot](./data/kcachegrind/Curl/sameas_classes.jpg) shows that the percentage of time spent within this code is comparable across profile_master (top left) and dbsubclass (bottom left). In addition, the time spent within Store is insignificant when set against the time spent within WebApp, notably the time taken to convert the output data to HTML (see for example, top right and bottom right).
 
 ### Conclusion
 
