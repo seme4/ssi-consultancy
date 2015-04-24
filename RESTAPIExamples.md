@@ -265,6 +265,8 @@ If store is empty:
 
 ### Assert multiple pairs
 
+Assume pairs.txt is a set of pairs, each pair being TAB-separated:
+
     $ cat pairs.txt 
     canonA symbolA4
     canonC symbolC1
