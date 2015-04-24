@@ -520,3 +520,95 @@ StoreTest.php also has a new function, testAssertPair, that adds a canon-symbol 
 The tests branch has been merged into the dbsubclass branch. As part of this merge, the tests were updated to use StoreFactory:
 
 * [StoreTest.php](https://github.com/softwaresaved/sameas-lite/blob/tests/tests/phpUnit/StoreTest.php)
+
+---
+
+## Appendix - how the benchmarks and profiles were obtained
+
+This assumes that:
+
+* https://github.com/softwaresaved/sameas-lite.git has been cloned.
+* profile_master and dbsubclass branches are both available.
+* MySQL has been set up with a database, username and password, consistent with that named in index.php.
+* Apache 2 has been set up correctly to expose sameAs Lite.
+* Xdebug and KCachegrind have been installed.
+
+Prepare:
+
+    $ cd sameas-lite
+    $ mkdir profiles
+
+Benchmark profile_master:
+
+    $ git checkout profile_master
+    $ mkdir profiles/master
+    $ service apache2 stop
+    $ rm /var/log/apache2/*
+    $ service apache2 start
+    $ php profile/Benchmark.php 'mysql:host=127.0.0.1;port=3306;charset=utf8' table1 testuser testpass testdb profile/QuerySymbol.php http://127.0.0.1/sameas-lite/datasets/test/symbols 100 100 >> benchmark.dat
+
+Check:
+
+    $ wc -l *.dat
+          3 benchmark.dat
+      74800 curlData.dat
+        400 curlTimes.dat
+      40400 shellData.dat
+        400 shellTimes.dat
+     116003 total
+    $ grep \<pre curlData.dat | wc -l
+    400
+
+Move data files:
+
+    $ mv *.dat profiles/master/
+
+Benchmark dbsubclass, repeating the above, checking out dbsubclass and replacing master with dbsubclass throughout.
+
+Enable Xdebug for PHP command-line:
+    
+    $ emacs /etc/php5/cli/php.ini
+
+Set:
+
+    xdebug.profiler_enable=1
+    xdebug.profiler_output_dir=/tmp/
+    xdebug.profiler_output_name=cachegrind.cli.out
+
+Enable Xdebug for Apache:
+
+    $ emacs /etc/php5/apache2/php.ini
+
+Set:
+
+    xdebug.profiler_enable=1
+    xdebug.profiler_output_dir=/tmp/
+    xdebug.profiler_output_name=cachegrind.apache.out
+
+Create profiles for profile_master:
+    
+    $ git checkout profile_master
+    $ service apache2 stop
+    $ rm /var/log/apache2/*
+    $ service apache2 start
+    $ rm /tmp/cachegrind*
+    $ git checkout profile_master
+    $ php profile/QuerySymbol.php 'mysql:host=127.0.0.1;port=3306;charset=utf8' table1 testuser testpass testdb http.51011a3008ce7eceba27c629f6d0020c
+    $ curl -X GET http://127.0.0.1/sameas-lite/datasets/test/symbols/http.51011a3008ce7eceba27c629f6d0020c
+    $ mv /tmp/cachegrind.* profiles/master/
+
+Benchmark dbsubclass, repeating the above, checking out dbsubclass and replacing master with dbsubclass throughout.
+
+Remove unused files:
+
+    $ rm src/StoreFactory.php src/WebApp.php src/SqLiteStore.php
+
+Rerun:
+
+    $ php profile/QuerySymbol.php 'mysql:host=127.0.0.1;port=3306;charset=utf8' table1 testuser testpass testdb http.51011a3008ce7eceba27c629f6d0020c
+    $ mv /tmp/cachegrind.cli.out profiles/dbsubclass/cachegrind.cli.nounusedfiles.out 
+
+Restore:
+
+    $ git checkout src
+
