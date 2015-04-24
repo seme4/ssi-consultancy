@@ -349,7 +349,7 @@ Looking at the time spent within sameAs Lite-specific code, this [screen shot](.
 
 ### Conclusion
 
-It can be concluded that there is very little performance impact upon using sub-classes of Store for database products instead of a single Store class with conditionals for each product. For standalone applications there may be an impact upon the time taken to load classes, but this may be outweighted by the impact of third-party application-specific classes. For web applications, any overheads even here are a fraction of those incurred by the web application-specific code itself. The fraction of time spent within Store is a small fraction of that required to prepare responses for a client, for example.
+It can be concluded that there is very little performance impact if using sub-classes of Store for database products instead of a single Store class with conditionals for each product. For standalone applications there may be an impact upon the time taken to load classes, but this may be outweighted by the impact of third-party application-specific classes. For web applications, any overheads even here are a fraction of those incurred by the web application-specific code itself. The fraction of time spent within Store is a small fraction of that required to prepare responses for a client, for example.
 
 ---
 
