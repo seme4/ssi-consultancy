@@ -221,7 +221,7 @@ The database contents are as follows:
     http.05884c546f6e21a59d42dcdef06b156b
     ...
 
-[ShellTimer.php](https://github.com/softwaresaved/sameas-lite/blob/profile_master/profile/ShellTimer.php) calculates the execution time of a shell command, executed using PHP [exec](http://php.net/manual/en/function.exec.php) and [microtime](http://php.net/manual/en/function.microtime.php). For example, using [Shell.php]](https://github.com/softwaresaved/sameas-lite/blob/profile_master/profile/Shell.php), which is a command-line tool that uses ShellTimer, the execution time of QuerySymbol can be calculated:
+[ShellTimer.php](https://github.com/softwaresaved/sameas-lite/blob/profile_master/profile/ShellTimer.php) calculates the execution time of a shell command, executed using PHP [exec](http://php.net/manual/en/function.exec.php) and [microtime](http://php.net/manual/en/function.microtime.php). For example, using [Shell.php](https://github.com/softwaresaved/sameas-lite/blob/profile_master/profile/Shell.php), which is a command-line tool that uses ShellTimer, the execution time of QuerySymbol.php can be calculated:
 
     $ php profile/Shell.php "php profile/QuerySymbol.php 'mysql:host=127.0.0.1;port=3306;charset=utf8' table1 testuser testpass testdb http.51011a3008ce7eceba27c629f6d0020c 2>&1"
     http.005509ae59283ec9b3319b38b7b723f3
