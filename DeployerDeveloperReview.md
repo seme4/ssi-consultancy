@@ -268,6 +268,8 @@ An example is in the [gitignore](https://github.com/softwaresaved/sameas-lite/tr
 
 * [.gitignore](https://github.com/softwaresaved/sameas-lite/blob/gitignore/.gitignore)
 
+This has been submitted to seme4/sameas-lite as [pull request 1](https://github.com/seme4/sameas-lite/pull/1).
+
 ### Use a continuous integration server
 
 A [continuous integration](http://en.wikipedia.org/wiki/Continuous_integration) server provides an automated build-and-test environment that can be linked to a source code repository. A build-and-test run can be scheduled at regular intervals (e.g. nightly) and/or every time code is commited to the repository. Different build-and-test jobs can be set up for different branches in a repository, allowing each developer to have their own set of build-and-test jobs, for example. Continuous integration servers can help to ensure that software can build and that tests are run regularly. They also help to provide an indication as to when developer-specific modifications, extensions or fixes are ready to be merged. For more information, see the Institute guide on [How continuous integration can help you regularly test and release your software](http://software.ac.uk/how-continuous-integration-can-help-you-regularly-test-and-release-your-software).

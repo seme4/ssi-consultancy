@@ -189,6 +189,8 @@ A fix is in the [typos](https://github.com/softwaresaved/sameas-lite/tree/typos)
 
 * [WebApp.php](https://github.com/softwaresaved/sameas-lite/blob/typos/src/WebApp.php)
 
+This has been submitted to seme4/sameas-lite as [pull request 2](https://github.com/seme4/sameas-lite/pull/2).
+
 ### Fix Delete symbol bug
 
 Delete symbol raises an error:
@@ -215,6 +217,8 @@ The first line of the function should be:
 A fix is in the [fixdelete](https://github.com/softwaresaved/sameas-lite/tree/fixdelete) branch of https://github.com/softwaresaved/sameas-lite:
 
 * [WebApp.php](https://github.com/softwaresaved/sameas-lite/blob/fixdelete/src/WebApp.php)
+
+This has been submitted to seme4/sameas-lite as [pull request 3](https://github.com/seme4/sameas-lite/pull/3).
 
 After applying this fix:
 
@@ -265,6 +269,8 @@ $bundleSizes should be checked to see if it has a value for key $b before being 
 A fix is in the [fixanalyse](https://github.com/softwaresaved/sameas-lite/tree/fixanalyse) branch of https://github.com/softwaresaved/sameas-lite:
 
 * [Store.php](https://github.com/softwaresaved/sameas-lite/blob/fixanalyse/src/Store.php)
+
+This has been submitted to seme4/sameas-lite as [pull request 4](https://github.com/seme4/sameas-lite/pull/4).
 
 After applying this fix:
 
